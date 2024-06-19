@@ -1,0 +1,37 @@
+.userInfo {
+    padding: 0.8em 0.8em 0 0.8em;
+    display: flex;
+    gap: 0.5em;
+}
+
+.profilePicture {
+    height: 32px;
+    width: 32px;
+    border-radius: 9999px;
+}
+
+.userInfo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.userName{
+    font-size: 0.7rem;
+    font-weight: 400;
+}
+
+.userAt {
+    font-size: 0.7rem;
+    width: fit-content;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 300;
+}
+
+.date {
+    font-size: 0.7rem;
+    width: fit-content;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 300;
+    margin-left: auto;
+}
