@@ -5,6 +5,13 @@
     width: fit-content;
     width: 400px;
     box-shadow: inset 0 0 4px 4px rgb(0 0 0 / 0.1);
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 250ms;
+
+    &:hover {
+        transform: scale(1.02);
+    }
 }
 
 .viewport {

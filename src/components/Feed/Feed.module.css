@@ -3,4 +3,7 @@
     max-width: 500px;
     margin: auto;
     padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }

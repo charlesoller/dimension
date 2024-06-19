@@ -1,8 +1,8 @@
 import styles from "./Viewport.module.css"
-import { useRef, Suspense } from "react";
+import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber"
-import { Stage, OrbitControls, Environment } from "@react-three/drei"
-// import { useGLTF } from "@react-three/drei";
+import { Stage, OrbitControls, Float } from "@react-three/drei"
+import { useGLTF } from "@react-three/drei";
 import Model from "../Model/Model";
 
 // function MyRotatingBox() {
@@ -30,7 +30,11 @@ import Model from "../Model/Model";
 //     );
 // };
 
-export default function Viewport(){
+
+
+export default function Viewport({src}){
+    const gltf = useGLTF(src);
+
     return (
         <Canvas
             className={styles.canvas}
@@ -40,7 +44,7 @@ export default function Viewport(){
             <color args={[ "#2C2E32" ]} attach={"background"}/>
                 <Suspense fallback={null}>
                     <Stage intensity={0.3} shadows="contact" preset={"rembrandt"}>
-                        <Model />
+                        <Model src={src} />
                     </Stage>
                     <OrbitControls enableZoom={false} />
                 </Suspense>

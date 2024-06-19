@@ -3,12 +3,12 @@ import Viewport from "../Viewport/Viewport"
 import UserInfo from "../UserInfo/UserInfo"
 import { GoComment, GoHeart } from "react-icons/go";
 
-export default function Post(){
+export default function Post({ src }){
     return (
         <article className={styles.post}>
             <UserInfo />
             <div className={styles.viewport}>
-                <Viewport />
+                <Viewport src={src} />
             </div>
             <div className={styles.lower}>
                 <div className={styles.buttons}>
