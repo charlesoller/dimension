@@ -2,13 +2,21 @@ import styles from "./Post.module.css"
 import Viewport from "../Viewport/Viewport"
 import UserInfo from "../UserInfo/UserInfo"
 import { GoComment, GoHeart } from "react-icons/go";
+import { IPost } from "../../utils/types";
 
-export default function Post({ src }){
+interface PostComponent {
+    post: IPost;
+}
+
+export default function Post({ post }: PostComponent){
     return (
         <article className={styles.post}>
-            <UserInfo />
+            <div className={styles.upper}>
+                <UserInfo user={post.author} />
+                <p className={styles.date}>1d Ago</p>
+            </div>
             <div className={styles.viewport}>
-                <Viewport src={src} />
+                <Viewport src={post.url} />
             </div>
             <div className={styles.lower}>
                 <div className={styles.buttons}>
@@ -16,7 +24,7 @@ export default function Post({ src }){
                     <GoComment />
                 </div>
                 <p className={styles.text}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    { post.description }
                 </p>
             </div>
         </article>
