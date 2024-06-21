@@ -1,7 +1,7 @@
 import styles from "./Feed.module.css"
 // Util
 import { useEffect, useState } from "react"
-const URL = "http://localhost:3000/api"
+const URL = "http://localhost:8000/api"
 // Components
 import Post from "../Post/Post"
 // Types
@@ -20,7 +20,7 @@ export default function Feed(){
 
         loadPosts();
     }, [])
-    const postElements = posts.map(post => <Post post={post} />)
+    const postElements = posts.map(post => <Post key={post.id} post={post} />)
     
     return (
         <section className={styles.feed}>

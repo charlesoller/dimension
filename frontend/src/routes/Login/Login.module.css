@@ -1,0 +1,66 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2em;
+  border-radius: 4em;
+  overflow: hidden;
+  gap: 1.5em;
+  width: 30vw;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+}
+
+.button {
+  color: white;
+  width: 100%;
+  border-radius: 0.5em;
+  background: #fd5c63;
+  padding: 1em 2em;
+  transition: all 0.1s ease-in-out;
+}
+
+.button:hover,
+.button:focus {
+  transform: scale(1.02)
+}
+
+.button:disabled {
+  background: lightgray;
+  transform: scale(1);
+  cursor: not-allowed;
+}
+
+.input_group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input {
+  height: 1.5rem;
+}
+
+.error {
+  color: red;
+}
+
+.demo {
+  border-bottom: 1px solid black;
+  transition: all 0.2s ease-in-out;
+}
+
+.demo:hover,
+.demo:focus {
+  color: #fd5c63;
+  font-weight: 600;
+  border-bottom: 1px solid #fd5c63;
+}
