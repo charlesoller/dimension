@@ -1,0 +1,10 @@
+.header {
+  background-color: #2c2e32;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.5em;
+}
+
+.brandName {
+  font-weight: 400;
+  font-size: 1.5rem;
+}

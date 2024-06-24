@@ -8,11 +8,20 @@ import {
 } from "react-router-dom";
 import './index.css'
 import Login from './routes/Login/Login.tsx';
+import MainLayout from './components/MainLayout/MainLayout.tsx';
+import { Feed } from './components/index.ts';
+import { Modal, ModalProvider } from './context/Modal.tsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Landing />,
+    element: <MainLayout />,
+    children: [
+      {
+        index: true,
+        element: <Feed />
+      }
+    ]
   },
   {
     path: "/login",
@@ -22,6 +31,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ModalProvider>
+      <RouterProvider router={router} />
+      <Modal />
+    </ModalProvider>
   </React.StrictMode>,
 )

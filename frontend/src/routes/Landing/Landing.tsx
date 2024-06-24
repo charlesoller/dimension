@@ -1,4 +1,4 @@
-import styles from "Landing.module.css"
+import styles from "./Landing.module.css"
 // Util
 
 // Components
@@ -7,6 +7,8 @@ import { Feed } from "../../components"
 
 export default function Landing(){
   return (
-    <Feed />
+    <main className={styles.body}>
+      <Feed />
+    </main>
   )
 }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Cookies from 'js-cookie';
 
 export async function csrfFetch(url, options = {}) {
