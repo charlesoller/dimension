@@ -3,10 +3,15 @@ import styles from "./Dropzone.module.css"
 import { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 
-export default function Dropzone() {
+interface DropzoneComponent {
+  handleFileUpload: (file: File) => void;
+}
+
+export default function Dropzone({ handleFileUpload }: DropzoneComponent) {
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
-    console.log(acceptedFiles)
+    console.log("ACCEPTED FILE: ", acceptedFiles)
+    handleFileUpload(acceptedFiles)
   }, [])
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 

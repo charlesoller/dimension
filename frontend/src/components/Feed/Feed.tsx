@@ -15,7 +15,7 @@ export default function Feed(){
         const loadPosts = async () => {
             const res = await fetch(`${URL}/posts`)
                 .then(res => res.json());
-            if (res.ok) setPosts(res.data);
+            if (res.ok) setPosts(res.data.reverse());
         }
 
         loadPosts();

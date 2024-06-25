@@ -16,6 +16,7 @@ const isProduction = environment === 'production';
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json())
+
 app.use('/api', apiRouter)
 
 // Security Middleware
@@ -42,8 +43,68 @@ app.use(
   })
 );
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello, World!');
+// Static routes
+// Serve React build files in production
+if (process.env.NODE_ENV === 'production') {
+  const path = require('path');
+  // Serve the frontend's index.html file at the root route
+  app.get('/', (req, res) => {
+    res.cookie('XSRF-TOKEN', req.csrfToken());
+    res.sendFile(
+      path.resolve(__dirname, '../../frontend', 'dist', 'index.html')
+    );
+  });
+
+  // Serve the static assets in the frontend's build folder
+  app.use(express.static(path.resolve("../frontend/dist")));
+
+  // Serve the frontend's index.html file at all other routes NOT starting with /api
+  app.get(/^(?!\/?api).*/, (req, res) => {
+    res.cookie('XSRF-TOKEN', req.csrfToken());
+    res.sendFile(
+      path.resolve(__dirname, '../../frontend', 'dist', 'index.html')
+    );
+  });
+}
+
+// Add a XSRF-TOKEN cookie in development
+if (process.env.NODE_ENV !== 'production') {
+  app.get("/api/csrf/restore", (req, res) => {
+    const csrfToken = req.csrfToken();
+    res.cookie("XSRF-TOKEN", csrfToken);
+    res.status(200).json({
+      'XSRF-Token': csrfToken
+    });
+  });
+}
+app.use((_req, _res, next) => {
+    const err = new Error("The requested resource couldn't be found.");
+    err.title = "Resource Not Found";
+    err.errors = { message: "The requested resource couldn't be found." };
+    err.status = 404;
+    next(err);
+});
+
+app.use((err, _req, _res, next) => {
+    // check if error is a Sequelize error:
+    if (err instanceof ValidationError) {
+      let errors = {};
+      for (let error of err.errors) {
+        errors[error.path] = error.message;
+      }
+      err.title = 'Validation error';
+      err.errors = errors;
+    }
+    next(err);
+});
+
+app.use((err, _req, res, _next) => {
+    res.status(err.status || 500);
+    console.error(err);
+    res.json({
+      message: err.message,
+      errors: err.errors,
+    });
 });
 
 app.listen(port, () => {

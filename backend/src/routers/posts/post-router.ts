@@ -13,4 +13,17 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   return res.json({ ok: true, data: posts })
 });
 
+router.post('/', async (req: Request, res: Response, next: NextFunction) => {
+  const { description, url } = req.body;
+  const newPost = await prisma.post.create({
+    data: {
+      url,
+      description,
+      authorId: 1
+    }
+  })
+
+  return res.json({ success: true, data: newPost })
+})
+
 export default router;

@@ -8,7 +8,6 @@ export interface IUser {
   createdAt: Date | string;
   posts?: IPost[];
 }
-
 export interface IPost {
   id: number;
   private: boolean;
@@ -18,4 +17,9 @@ export interface IPost {
   description: string;
   updatedAt: Date | string;
   createdAt: Date | string;
+}
+
+export interface PostData {
+  file: File;
+  description: string;
 }

@@ -9,6 +9,7 @@ router.use(restoreUser);
 router.use('/auth', authRouter);
 router.use('/posts', postRouter);
 
+
 router.get('/', (req: Request, res: Response) => {
   res.send('Hello, API!');
 });
