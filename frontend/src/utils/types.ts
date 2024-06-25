@@ -23,3 +23,25 @@ export interface PostData {
   file: File;
   description: string;
 }
+
+export interface PostUrlData {
+  url: string;
+  description: string;
+}
+
+export interface ThunkAction {
+  type: string;
+  payload?: any;
+}
+
+export interface UserLogin {
+  credential: string;
+  password: string;
+}
+
+export interface UserSignup {
+  username: string;
+  name: string;
+  email: string;
+  password: string;
+}

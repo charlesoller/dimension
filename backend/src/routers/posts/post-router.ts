@@ -10,20 +10,25 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
       author: true
     }
   });
-  return res.json({ ok: true, data: posts })
+  return res.json({ success: true, data: posts })
 });
 
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
-  const { description, url } = req.body;
-  const newPost = await prisma.post.create({
-    data: {
-      url,
-      description,
-      authorId: 1
-    }
-  })
+  try {
+    const { description, url } = req.body;
+    const { id: authorId } = req.user;
+    const newPost = await prisma.post.create({
+      data: {
+        url,
+        description,
+        authorId
+      }
+    })
 
-  return res.json({ success: true, data: newPost })
+    return res.json({ success: true, data: newPost })
+  } catch (e) {
+    next(e);
+  }
 })
 
 export default router;

@@ -11,7 +11,6 @@ export const createPost = async (postData: PostData) => {
     return { success, data };
   }
 
-  console.log("After uploading: ", data)
   const res = await csrfFetch(`${URL}/posts`, {
     method: "POST",
     headers: {
@@ -22,6 +21,6 @@ export const createPost = async (postData: PostData) => {
       url: data
     })
   })
-  console.log("RES: ", res)
+  
   return res;
 }

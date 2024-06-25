@@ -2,8 +2,12 @@ import styles from "./CreatePostForm.module.css";
 import Dropzone from "../Dropzone/Dropzone";
 import { useState } from "react";
 import { createPost } from "../../utils/api";
+import { useDispatch } from "react-redux";
+import { createPostThunk } from "../../store/posts";
+import { uploadFile } from "../../utils/clients/supabase";
 
 export default function CreatePostForm(){
+  const dispatch = useDispatch();
   const [file, setFile] = useState<File>(null);
   const [description, setDescription] = useState<string>("");
 
@@ -14,7 +18,26 @@ export default function CreatePostForm(){
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await createPost({ file, description });
+    const { success, data } = await uploadFile(file);
+    if (!success) {
+      return { success, data };
+    }
+    
+    dispatch(createPostThunk({ description, url: data }));
+    // console.log("After uploading: ", data)
+    // const res = await csrfFetch(`${URL}/posts`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({
+    //     description,
+    //     url: data
+    //   })
+    // })
+    // console.log("RES: ", res)
+    // return res;
+    // await createPost({ file, description });
   }
 
   return (

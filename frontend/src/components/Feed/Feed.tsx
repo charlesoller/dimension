@@ -1,26 +1,36 @@
 import styles from "./Feed.module.css"
 // Util
-import { useEffect, useState } from "react"
+import { startTransition, useEffect, useState } from "react"
 const URL = "http://localhost:8000/api"
+import { shallowEqual, useDispatch, useSelector } from "react-redux"
 // Components
 import Post from "../Post/Post"
 // Types
+import { loadAllPostsThunk } from "../../store/posts"
 import { IPost } from "../../utils/types"
 
-
 export default function Feed(){
-    const [ posts, setPosts ] = useState<IPost[]>([]);
+    const dispatch = useDispatch();
+    // shallowEqual is needed below to avoid infinite rerenders, since visiblePosts is derived from posts, we don't want
+    // posts to change if visiblePosts does
+    const posts = useSelector<IPost[]>(state => Object.values(state.posts), shallowEqual);
+    const [visiblePosts, setVisiblePosts] = useState([]);
 
     useEffect(() => {
-        const loadPosts = async () => {
-            const res = await fetch(`${URL}/posts`)
-                .then(res => res.json());
-            if (res.ok) setPosts(res.data.reverse());
-        }
-
-        loadPosts();
+        dispatch(loadAllPostsThunk())
     }, [])
-    const postElements = posts.map(post => <Post key={post.id} post={post} />)
+
+    useEffect(() => {
+        startTransition(() => {
+            setVisiblePosts(prevPosts => {
+                if (prevPosts.length === posts.length) return prevPosts;
+                return posts;
+            })
+        });
+    }, [posts]);
+
+
+    const postElements = visiblePosts.map((post: IPost) => <Post key={post.id} post={post} />);
     
     return (
         <section className={styles.feed}>

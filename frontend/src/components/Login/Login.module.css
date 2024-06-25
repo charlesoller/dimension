@@ -1,0 +1,39 @@
+.modal {
+  background: #2C2E32;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 1em;
+  border-radius: 0.2em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.header {
+  font-weight: 400;
+}
+
+.button {
+  border: 1.5px solid rgba(255, 255,255, 0.9);
+  padding: 0.3em 0.5em;
+  width: 100%;
+  text-align: center;
+	transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms;
+
+  &:hover {
+    color: purple;
+    border-color: purple;
+  }
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}

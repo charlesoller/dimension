@@ -10,7 +10,6 @@ interface DropzoneComponent {
 export default function Dropzone({ handleFileUpload }: DropzoneComponent) {
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
-    console.log("ACCEPTED FILE: ", acceptedFiles)
     handleFileUpload(acceptedFiles)
   }, [])
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})

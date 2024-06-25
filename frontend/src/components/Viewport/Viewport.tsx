@@ -2,9 +2,8 @@ import styles from "./Viewport.module.css"
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber"
 import { Stage, OrbitControls, Float } from "@react-three/drei"
-import { useGLTF } from "@react-three/drei";
 import Model from "../Model/Model";
-
+import { RingLoader } from "react-spinners";
 // function MyRotatingBox() {
 //     const myMesh = useRef();
   
@@ -33,21 +32,20 @@ import Model from "../Model/Model";
 
 
 export default function Viewport({src}){
-    const gltf = useGLTF(src);
 
     return (
-        <Canvas
-            className={styles.canvas}
-            camera={{ fov: 50, near: 0.1, far: 1000, position: [0, 5, 5], zoom: 0.8 }}
-            
-        >   
-            <color args={[ "#2C2E32" ]} attach={"background"}/>
-                <Suspense fallback={null}>
-                    <Stage intensity={0.3} shadows="contact" preset={"rembrandt"}>
-                        <Model src={src} />
-                    </Stage>
-                    <OrbitControls enableZoom={false} />
-                </Suspense>
-        </Canvas>
+        <Suspense fallback={<RingLoader color="#EAEBEB"/>}>
+            <Canvas
+                className={styles.canvas}
+                camera={{ fov: 50, position: [0, 5, 5], zoom: 0.7 }}
+                // camera={{ position: [0, 5, 5], fov: 50 }}
+            >   
+                <color args={[ "#2C2E32" ]} attach={"background"}/>
+                        <Stage intensity={0.3} shadows="contact" preset={"rembrandt"}>
+                            <Model src={src} />
+                        </Stage>
+                        <OrbitControls enableZoom={false} makeDefault />
+            </Canvas>
+        </Suspense>
     )
 }
