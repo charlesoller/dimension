@@ -59,7 +59,7 @@ export const signupThunk = (user: UserSignup) => async (dispatch: Dispatch) => {
   }
 };
 
-export const logout = () => async (dispatch: Dispatch) => {
+export const logoutThunk = () => async (dispatch: Dispatch) => {
   const response = await csrfFetch('/api/session', {
     method: 'DELETE'
   });

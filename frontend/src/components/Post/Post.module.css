@@ -70,3 +70,9 @@
     font-weight: 300;
     margin-left: auto;
 }
+
+.dateAndSettings {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}

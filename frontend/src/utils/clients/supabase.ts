@@ -4,10 +4,14 @@ const BUCKET_NAME = "dimension";
 export const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_PUBLIC_KEY);
 
 export const uploadFile = async (file: File) => {
-  const { data: uploadData, error: uploadError } = await supabase.storage
+  const { data: uploadData, error: uploadError } = await supabase
+    .storage
     .from(BUCKET_NAME)
-    .upload(file.name, file);
+    .upload(file.name, file, {
+      upsert: true
+    });
   if (uploadError) {
+    console.error("Error in uploading: ", uploadError)
     return { success: false, data: uploadError.message };
   } else {
     const { data: getData } = supabase.storage

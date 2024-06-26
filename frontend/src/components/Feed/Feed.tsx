@@ -23,12 +23,10 @@ export default function Feed(){
     useEffect(() => {
         startTransition(() => {
             setVisiblePosts(prevPosts => {
-                if (prevPosts.length === posts.length) return prevPosts;
-                return posts;
+                return [...posts].reverse();
             })
         });
     }, [posts]);
-
 
     const postElements = visiblePosts.map((post: IPost) => <Post key={post.id} post={post} />);
     

@@ -5,8 +5,10 @@ import { createPost } from "../../utils/api";
 import { useDispatch } from "react-redux";
 import { createPostThunk } from "../../store/posts";
 import { uploadFile } from "../../utils/clients/supabase";
+import { useModal } from "../../context/Modal";
 
 export default function CreatePostForm(){
+  const { closeModal } = useModal()
   const dispatch = useDispatch();
   const [file, setFile] = useState<File>(null);
   const [description, setDescription] = useState<string>("");
@@ -24,20 +26,7 @@ export default function CreatePostForm(){
     }
     
     dispatch(createPostThunk({ description, url: data }));
-    // console.log("After uploading: ", data)
-    // const res = await csrfFetch(`${URL}/posts`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     description,
-    //     url: data
-    //   })
-    // })
-    // console.log("RES: ", res)
-    // return res;
-    // await createPost({ file, description });
+    closeModal()
   }
 
   return (
