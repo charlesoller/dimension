@@ -8,7 +8,6 @@
     "build:frontend": "cd frontend && vite build",
     "start": "npm run start:backend",
     "start:backend": "cd backend && node dist/index.js",
-    "postinstall": "npm run build"
   },
   "workspaces": [
     "backend",
