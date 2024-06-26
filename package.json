@@ -1,0 +1,21 @@
+{
+  "name": "dimension",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && tsc && prisma generate && prisma migrate deploy",
+    "build:frontend": "cd frontend && vite build",
+    "start": "npm run start:backend",
+    "start:backend": "cd backend && node dist/index.js",
+    "postinstall": "npm run build"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
