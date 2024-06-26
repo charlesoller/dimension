@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run build:backend && npm run build:frontend",
     "build:backend": "cd backend && prisma generate && prisma migrate deploy",
-    "build:frontend": "cd frontend && vite build",
+    "build:frontend": "cd frontend && npm run build",
     "start": "npm run start:backend",
     "start:backend": "cd backend && node dist/index.js",
     "serve:frontend": "cd frontend && vite preview",
