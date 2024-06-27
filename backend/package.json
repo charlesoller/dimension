@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "scripts": {
-    "start": "nodemon --exec npx tsx src/index.ts",
-    "build": "npx tsx src/index.ts"
+    "start": "npx tsx src/index.ts",
+    "start:dev": "nodemon --exec npx tsx src/index.ts",
+    "build": "npm install && npx prisma generate && npx prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
