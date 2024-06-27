@@ -18,7 +18,7 @@ export async function csrfFetch(url, options = {}) {
   }
 
   if (env === "production") {
-    console.log("this is prod")
+    console.log("this is production")
     try {
       const res = await fetch("https://dimension-1.onrender.com" + url, options);
       return res;
