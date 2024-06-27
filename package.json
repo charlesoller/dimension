@@ -11,10 +11,6 @@
     "serve:frontend": "cd frontend && vite preview",
     "postinstall": "npm run build"
   },
-  "workspaces": [
-    "backend",
-    "frontend"
-  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
