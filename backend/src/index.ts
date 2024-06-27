@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser'
 import apiRouter from "./routers"
 import { config } from './config';
 import { PrismaClientValidationError } from '@prisma/client/runtime/library';
+import path from 'path';
 dotenv.config();
 const port = process.env.PORT || 3000;
 const app = express();
@@ -49,7 +50,6 @@ app.use(
 // Static routes
 // Serve React build files in production
 if (process.env.NODE_ENV === 'production') {
-  const path = require('path');
   // Serve the frontend's index.html file at the root route
   app.get('/', (req, res) => {
     res.cookie('XSRF-TOKEN', req.csrfToken());
