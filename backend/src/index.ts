@@ -49,7 +49,7 @@ app.use(
 
 // Static routes
 // Serve React build files in production
-if (process.env.NODE_ENV === 'production') {
+// if (process.env.NODE_ENV === 'production') {
   // Serve the frontend's index.html file at the root route
   // app.get('/', (req, res) => {
   //   res.cookie('XSRF-TOKEN', req.csrfToken());
@@ -59,7 +59,7 @@ if (process.env.NODE_ENV === 'production') {
   // });
 
   // Serve the static assets in the frontend's build folder
-  app.use(express.static(path.resolve("../frontend/dist")));
+  // app.use(express.static(path.resolve("../frontend/dist")));
 
   // Serve the frontend's index.html file at all other routes NOT starting with /api
   // app.get(/^(?!\/?api).*/, (req, res) => {
@@ -68,7 +68,7 @@ if (process.env.NODE_ENV === 'production') {
   //     path.resolve(__dirname, '../../frontend', 'dist', 'index.html')
   //   );
   // });
-}
+// }
 
 // Add a XSRF-TOKEN cookie in development
 if (process.env.NODE_ENV !== 'production') {
