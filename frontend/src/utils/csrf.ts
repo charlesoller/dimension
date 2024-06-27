@@ -10,6 +10,7 @@ export async function csrfFetch(url, options = {}) {
   // if the options.method is not 'GET', then set the "Content-Type" header to
   // "application/json", and set the "XSRF-TOKEN" header to the value of the
   // "XSRF-TOKEN" cookie
+  console.log("fetching")
   if (options.method.toUpperCase() !== 'GET') {
     options.headers['Content-Type'] =
     options.headers['Content-Type'] || 'application/json';
@@ -17,6 +18,7 @@ export async function csrfFetch(url, options = {}) {
   }
 
   if (env === "production") {
+    console.log("this is prod")
     try {
       const res = await fetch("https://dimension-1.onrender.com" + url, options);
       return res;
