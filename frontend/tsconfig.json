@@ -27,6 +27,6 @@
     "noImplicitThis": false,
     "strictNullChecks": false
   },
-  "include": ["src"],
+  "include": ["src", "vite-env.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
