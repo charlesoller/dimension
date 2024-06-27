@@ -26,6 +26,6 @@
     "noImplicitThis": false,
     "strictNullChecks": false
   },
-  "include": ["src"],
+  "include": ["src", "vite/client"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
