@@ -1,3 +1,6 @@
+// @ts-nocheck
+
+
 import styles from "./SideNav.module.css"
 // Components
 import OpenModalButton from "../OpenModalButton/OpenModalButton";

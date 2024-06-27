@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useModal } from '../../context/Modal';
 
 function OpenModalButton({

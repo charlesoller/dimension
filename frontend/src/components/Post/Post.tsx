@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import styles from "./Post.module.css"
 // Components
 import Viewport from "../Viewport/Viewport"

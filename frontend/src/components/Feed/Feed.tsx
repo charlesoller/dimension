@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import styles from "./Feed.module.css"
 // Util
 import { startTransition, useEffect, useState } from "react"

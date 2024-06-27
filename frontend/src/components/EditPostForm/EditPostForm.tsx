@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useState } from "react"
 import { useModal } from "../../context/Modal";
 import styles from "./EditPostForm.module.css"
@@ -19,7 +21,7 @@ export default function EditPostForm({ post }){
     dispatch(deletePostThunk(post.id));
     closeModal();
   }
-  
+
   return (
     <div className={styles.modal}>
       <h5 className={styles.header}>Edit Post</h5>

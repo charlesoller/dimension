@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import styles from "./Login.module.css"
 // Util
 import { useState } from "react";

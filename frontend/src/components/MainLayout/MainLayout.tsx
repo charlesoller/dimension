@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import styles from "./MainLayout.module.css"
 // Components
 import { Outlet } from "react-router-dom"

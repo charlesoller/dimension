@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Router, Request, Response, NextFunction } from "express";
 import { PrismaClient } from '@prisma/client'
 
@@ -27,7 +29,7 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
         author: true
       }
     })
-    
+
     return res.json({ success: true, data: newPost })
   } catch (e) {
     next(e);

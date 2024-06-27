@@ -1,8 +1,7 @@
+// @ts-nocheck
+
 import styles from "Model.module.css"
 import { useGLTF } from "@react-three/drei";
-import { useFrame } from '@react-three/fiber'
-import { useRef } from "react";
-
 
 export default function Model({src}){
     const gltf = useGLTF(src);

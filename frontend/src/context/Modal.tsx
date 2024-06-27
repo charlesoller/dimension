@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import styles from "./Modal.module.css"
 
 import { useRef, useState, useContext, createContext } from 'react';

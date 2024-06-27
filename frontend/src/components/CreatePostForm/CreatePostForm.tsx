@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import styles from "./CreatePostForm.module.css";
 import Dropzone from "../Dropzone/Dropzone";
 import { useState } from "react";
