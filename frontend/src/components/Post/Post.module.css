@@ -2,6 +2,8 @@
     background: #2C2E32;
     color: rgba(255, 255, 255, 0.9);
     border: 1px solid #1D2021;
+    display: flex;
+    width: fit-content;
 }
 
 .upper {

@@ -1,0 +1,10 @@
+.comment {
+  min-width: 300px;
+}
+
+.body {
+  font-size: 0.8rem;
+  text-align: left;
+  position: relative;
+  color: rgba(255, 255, 255, 0.9);
+}

@@ -41,10 +41,10 @@ export default function Viewport({src}){
                 // camera={{ position: [0, 5, 5], fov: 50 }}
             >   
                 <color args={[ "#2C2E32" ]} attach={"background"}/>
-                        <Stage intensity={0.3} shadows="contact" preset={"rembrandt"}>
-                            <Model src={src} />
-                        </Stage>
-                        <OrbitControls enableZoom={false} makeDefault />
+                <Stage intensity={0.3} shadows="contact" preset={"rembrandt"}>
+                    <Model src={src} />
+                </Stage>
+                <OrbitControls enableZoom={false} makeDefault />
             </Canvas>
         </Suspense>
     )
