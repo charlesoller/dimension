@@ -51,7 +51,7 @@ export const createPostThunk = (post: PostUrlData) => async (dispatch: Dispatch)
     console.error(data);
     return;
   }
-
+  console.log("Created: ", data)
   dispatch(loadPost(data));
   return data;
 }

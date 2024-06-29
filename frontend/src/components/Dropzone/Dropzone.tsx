@@ -8,11 +8,14 @@ interface DropzoneComponent {
 }
 
 export default function Dropzone({ handleFileUpload }: DropzoneComponent) {
-  const onDrop = useCallback(acceptedFiles => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
     // Do something with the files
-    handleFileUpload(acceptedFiles)
+    handleFileUpload(acceptedFiles[0])
   }, [])
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  const {getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    maxFiles: 1
+  })
 
   return (
     <div {...getRootProps()} className={styles.dropzone}>

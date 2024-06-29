@@ -24,13 +24,13 @@ export default function Post({ post }: PostComponent){
     const currentUser = useSelector((state: any) => state.session.user);
     const visibleRef = useRef(null);
     const isVisible = useIntersection(visibleRef, "1000px");
-    
+
     const handleLike = () => {
         dispatch(likePostThunk(post.id) as any);
     }
 
-    const hasUserLiked = useMemo(() => post.likes
-        .map(like => like.authorId)
+    const hasUserLiked = useMemo(() => post
+        .likes?.map(like => like.authorId)
         .includes(currentUser.id)
     , [post.likes]);
 
@@ -60,7 +60,6 @@ export default function Post({ post }: PostComponent){
                             <GoHeartFill onClick={handleLike} />
                             :
                             <GoHeart onClick={handleLike}/>
-
                         }
                     </button>
                     <button>
