@@ -1,28 +1,38 @@
-// @ts-nocheck
 
 import styles from "./Post.module.css"
 // Components
 import Viewport from "../Viewport/Viewport"
 import UserInfo from "../UserInfo/UserInfo"
-import { GoComment, GoHeart, GoGear } from "react-icons/go";
+import { GoComment, GoHeart, GoHeartFill, GoGear } from "react-icons/go";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 // Util
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useIntersection } from "../../utils/hooks/useIntersection";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { timeAgo } from "../../utils/utils";
 // Types
 import { IPost } from "../../utils/types";
 import EditPostForm from "../EditPostForm/EditPostForm";
+import { likePostThunk } from "../../store/posts";
 
 interface PostComponent {
     post: IPost;
 }
 
 export default function Post({ post }: PostComponent){
-    const currentUser = useSelector(state => state.session.user);
+    const dispatch = useDispatch();
+    const currentUser = useSelector((state: any) => state.session.user);
     const visibleRef = useRef(null);
     const isVisible = useIntersection(visibleRef, "1000px");
+    
+    const handleLike = () => {
+        dispatch(likePostThunk(post.id) as any);
+    }
+
+    const hasUserLiked = useMemo(() => post.likes
+        .map(like => like.authorId)
+        .includes(currentUser.id)
+    , [post.likes]);
 
     return (
         <article className={styles.post} ref={visibleRef}>
@@ -44,8 +54,18 @@ export default function Post({ post }: PostComponent){
             </div>
             <div className={styles.lower}>
                 <div className={styles.buttons}>
-                    <GoHeart />
-                    <GoComment />
+                    <button>
+                        <p>{post.likes?.length || "0"}</p>
+                        { hasUserLiked ?
+                            <GoHeartFill onClick={handleLike} />
+                            :
+                            <GoHeart onClick={handleLike}/>
+
+                        }
+                    </button>
+                    <button>
+                        <GoComment />
+                    </button>
                 </div>
                 <p className={styles.text}>
                     { post.description }

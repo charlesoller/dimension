@@ -7,6 +7,7 @@ export interface IUser {
   updatedAt: Date | string;
   createdAt: Date | string;
   posts?: IPost[];
+  postLikes?: PostLike[];
 }
 export interface IPost {
   id: number;
@@ -17,6 +18,7 @@ export interface IPost {
   description: string;
   updatedAt: Date | string;
   createdAt: Date | string;
+  likes?: PostLike[];
 }
 
 export interface PostData {
@@ -44,4 +46,18 @@ export interface UserSignup {
   name: string;
   email: string;
   password: string;
+}
+
+export interface PostLike {
+  id: number;
+  authorId: number;
+  author: IUser;
+  postId: number;
+  post: IPost;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+}
+
+export type CSSModule = {
+  [className: string]: string;
 }

@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -76,23 +76,25 @@ model Comment {
 }
 
 model PostLike {
-  id          Int           @id @default(autoincrement())
-  authorId    Int
+  authorId    Int          
   author      User          @relation(fields: [authorId], references: [id])
   postId      Int
   post        Post          @relation(fields: [postId], references: [id])
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @default(now())
+
+  @@id([authorId, postId])
 }
 
 model CommentLike {
-  id             Int              @id @default(autoincrement())
   authorId       Int
   author         User             @relation(fields: [authorId], references: [id])
   commentId      Int    
   comment        Comment          @relation(fields: [commentId], references: [id])
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @default(now())
+
+  @@id([authorId, commentId])
 }
 
 model PostReaction {

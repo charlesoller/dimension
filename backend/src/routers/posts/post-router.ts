@@ -1,4 +1,3 @@
-// @ts-nocheck
 
 import { Router, Request, Response, NextFunction } from "express";
 import { PrismaClient } from '@prisma/client'
@@ -6,15 +5,18 @@ import { PrismaClient } from '@prisma/client'
 const router = Router();
 const prisma = new PrismaClient();
 
+// ===================== GET ===================== 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   const posts = await prisma.post.findMany({
     include: {
-      author: true
+      author: true,
+      likes: true
     }
   });
   return res.json({ success: true, data: posts })
 });
 
+// ===================== POST ===================== 
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { description, url } = req.body;
@@ -26,7 +28,8 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
         authorId
       },
       include: {
-        author: true
+        author: true,
+        likes: true
       }
     })
 
@@ -36,6 +39,7 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   }
 })
 
+// ===================== PUT ===================== 
 router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
@@ -57,6 +61,54 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
   }
 })
 
+// Handle Post Likes
+router.put('/:id/likes', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+
+    const { id: postId } = req.params;
+    const { id: authorId } = req.user;
+
+    const post = await prisma.post.findFirst({
+      where: { id: Number(postId) },
+      include: {
+        likes: {
+          where: {
+            authorId: Number(authorId)
+          }
+        }
+      }
+    });
+    if (!post) {
+      return res.json({ success: false, data: "No post found with that ID." })
+    }
+
+    const { likes: existingLike } = post
+    if (existingLike.length) {
+      const deletedLike = await prisma.postLike.delete({
+        where: {
+          authorId_postId: {
+            authorId: Number(authorId),
+            postId: Number(postId)
+          }
+        }
+      });
+    } else {
+      const newLike = await prisma.postLike.create({
+        data: { authorId: Number(authorId), postId: Number(postId) }
+      });
+    }
+    const { likes: newLikes } = await prisma.post.findFirstOrThrow({
+      where: { id: Number(postId) },
+      include: { likes: true }
+    }) 
+
+    return res.json({ success: true, data: newLikes });
+  } catch (e) {
+    next(e);
+  }
+})
+
+// ===================== DELETE ===================== 
 router.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;

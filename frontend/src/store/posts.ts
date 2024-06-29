@@ -1,11 +1,12 @@
 import { Dispatch } from 'redux';
-import { IPost, PostData, PostUrlData, ThunkAction } from '../utils/types';
+import { IPost, PostData, PostUrlData, ThunkAction, PostLike } from '../utils/types';
 import { csrfFetch } from '../utils/csrf';
 
 // ============================== ACTION CONSTANTS ==============================
 const LOAD_POST = "posts/loadPost";
 const LOAD_ALL_POSTS = "posts/loadAllPosts"
 const DELETE_POST = "posts/deletePost"
+const LIKE_POST = "posts/likePost"
 
 // ============================== ACTION CREATORS ==============================
 
@@ -30,6 +31,13 @@ const deletePost = (postId: number) => {
   }
 }
 
+const likePost = (postId: number, likes: PostLike[] ) => {
+  return {
+    type: LIKE_POST,
+    payload: { postId, likes }
+  }
+}
+
 // ============================== THUNKS ==============================
 
 export const createPostThunk = (post: PostUrlData) => async (dispatch: Dispatch) => {
@@ -45,7 +53,6 @@ export const createPostThunk = (post: PostUrlData) => async (dispatch: Dispatch)
   }
 
   dispatch(loadPost(data));
-  console.log("DATA: ", data)
   return data;
 }
 
@@ -77,6 +84,19 @@ export const updatePostThunk = (id: number, description: string) => async (dispa
   dispatch(loadPost(data));
   return data;
 }
+export const likePostThunk = (id: number) => async (dispatch: Dispatch) => {
+  const { data, success } = await csrfFetch(`/api/posts/${id}/likes`, {
+    method: "PUT"
+  })
+    .then(res => res.json())
+
+  if (!success) {
+    console.error(data);
+    return;
+  }
+
+  dispatch(likePost(id, data));
+}
 
 export const deletePostThunk = (id: number) => async (dispatch: Dispatch) => {
   const { data, success } = await csrfFetch(`/api/posts/${id}`, {
@@ -93,6 +113,7 @@ export const deletePostThunk = (id: number) => async (dispatch: Dispatch) => {
   return data;
 }
 
+// ============================== Reducer ==============================
 interface NumberKeyedPostObject {
   [key: number]: IPost;
 }
@@ -111,6 +132,9 @@ export const postsReducer = (state = {}, action: ThunkAction) => {
       const newPosts = { ...state };
       delete newPosts[action.payload];
       return newPosts;
+    case LIKE_POST:
+      const existingPost = state[action.payload.postId]
+      return {...state, [action.payload.postId]: { ...existingPost, likes: action.payload.likes }}
     default:
       return state;
   }
