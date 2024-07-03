@@ -8,14 +8,15 @@ import { IUser } from "../../utils/types"
 interface UserInfoComponent {
     user: IUser;
     noImage?: boolean;
+    noName?: boolean;
 }
 
-export default function UserInfo({ user, noImage = false }: UserInfoComponent){
+export default function UserInfo({ user, noImage = false, noName = false }: UserInfoComponent){
     return (
         <div className={styles.userInfo}>
             {!noImage && <img src={PLACEHOLDER} className={styles.profilePicture} />}
             <div className={styles.user}>
-                <h6 className={styles.userName}>{user.name}</h6>
+                {!noName && <h6 className={styles.userName}>{user.name}</h6>}
                 <p className={styles.userAt}>@{user.username}</p>
             </div>
         </div>

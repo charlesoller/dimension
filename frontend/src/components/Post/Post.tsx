@@ -15,6 +15,7 @@ import { IPost } from "../../utils/types";
 import EditPostForm from "../EditPostForm/EditPostForm";
 import { likePostThunk } from "../../store/posts";
 import CommentSection from "../CommentSection/CommentSection";
+import PostInfo from "../PostInfo/PostInfo";
 
 interface PostComponent {
     post: IPost;
@@ -38,7 +39,7 @@ export default function Post({ post }: PostComponent){
     return (
         <article className={styles.post} ref={visibleRef}>
             <div>
-                <div className={styles.upper}>
+                {/* <div className={styles.upper}>
                     <UserInfo user={post.author} />
                     <div className={styles.dateAndSettings}>
                         { post.authorId === currentUser?.id && 
@@ -50,7 +51,7 @@ export default function Post({ post }: PostComponent){
                         }
                         <p className={styles.date}>{timeAgo(post.updatedAt)}{post.createdAt !== post.updatedAt && " (edited)"}</p>
                     </div>
-                </div>
+                </div> */}
                 <div className={styles.viewport}>
                     {isVisible && <Viewport src={post.url} />}
                 </div>
@@ -64,18 +65,14 @@ export default function Post({ post }: PostComponent){
                                 <GoHeart onClick={handleLike}/>
                             }
                         </button>
-                        <button>
-                            <GoComment />
-                        </button>
                     </div>
-                    <p className={styles.text}>
+                    {/* <p className={styles.text}>
                         { post.description }
-                    </p>
+                    </p> */}
                 </div>
             </div>
-            <CommentSection 
-                postId={post.id}
-                comments={post.comments}
+            <PostInfo 
+                post={post}
             />
         </article>
     )

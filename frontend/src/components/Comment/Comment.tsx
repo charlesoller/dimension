@@ -42,7 +42,7 @@ export default function Comment({ comment }: CommentComponent){
   return (
     <article className={styles.comment}>
       <div className={styles.upperInfo}>
-        <UserInfo user={comment.author} noImage />
+        <UserInfo user={comment.author} noImage noName />
         <p className={styles.date}>{timeAgo(comment.updatedAt)}{comment.createdAt !== comment.updatedAt && " (edited)"}</p>
       </div>
       <div className={styles.middle}>

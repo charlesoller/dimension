@@ -1,15 +1,20 @@
 .commentSection {
-  /* display: relative; */
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-between; */
+  background-color: #2c2c31;
+  height: 80%;
+  border-radius: 0.2em;
+  padding: 1em;
+  position: relative;
+
 }
 
 .comments {
   display: flex;
   flex-direction: column;
   gap: 1em;
-}
-
-.form {
-  /* margin-top: auto;
-  position: fixed;
-  bottom: 0; */
+  overflow: auto;
+  /* background-color: red; */
+  max-height: 100%;
 }

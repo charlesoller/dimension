@@ -1,0 +1,13 @@
+.form {
+  position: absolute;
+  bottom: 1em;
+}
+
+.input {
+  background-color: #1d1f22;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0.2em;
+  width: 100%;
+  padding: 0.1em 0.2em;
+}
