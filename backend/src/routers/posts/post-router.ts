@@ -10,7 +10,12 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   const posts = await prisma.post.findMany({
     include: {
       author: true,
-      likes: true
+      likes: true,
+      comments: {
+        include: {
+          author: true
+        }
+      }
     }
   });
   return res.json({ success: true, data: posts })
@@ -34,6 +39,42 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     })
 
     return res.json({ success: true, data: newPost })
+  } catch (e) {
+    next(e);
+  }
+})
+
+// Handle Post Comments
+router.post('/:id/comments', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id: postId } = req.params;
+    const { id: authorId } = req.user;
+    const { content } = req.body;
+
+    if (!content || !content.length || typeof content !== "string") {
+      return res.json({ success: false, data: "Unable to post non-string, or empty comment." })
+    }
+
+    await prisma.comment.create({
+      data: {
+        authorId: Number(authorId),
+        postId: Number(postId),
+        content
+      }
+    })
+
+    const { comments: newComments } = await prisma.post.findFirstOrThrow({
+      where: { id: Number(postId) },
+      include: {
+        comments: {
+          include: {
+            author: true
+          }
+        }
+      }
+    }) 
+
+    return res.json({ success: true, data: newComments });
   } catch (e) {
     next(e);
   }

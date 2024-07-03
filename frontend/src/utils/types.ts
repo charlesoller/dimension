@@ -19,6 +19,7 @@ export interface IPost {
   updatedAt: Date | string;
   createdAt: Date | string;
   likes?: PostLike[];
+  comments?: IComment[];
 }
 
 export interface PostData {
@@ -58,6 +59,30 @@ export interface PostLike {
   updatedAt?: Date | string;
 }
 
+export interface CommentLike {
+  id: number;
+  authorId: number;
+  author: IUser;
+  CommentId: number;
+  comment: IComment;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+}
+
 export type CSSModule = {
   [className: string]: string;
+}
+
+export interface IComment {
+  id: number;
+  content: string;
+  authorId: number;
+  author: IUser;
+  postId: number;
+  post: IPost;
+  likes: CommentLike[];
+  createdAt?: Date | string;
+  updatedAt: Date | string;
+  parent?: IComment;
+  children?: IComment[];
 }

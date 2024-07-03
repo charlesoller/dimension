@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { IPost, PostData, PostUrlData, ThunkAction, PostLike } from '../utils/types';
+import { IPost, PostData, PostUrlData, ThunkAction, PostLike, IComment } from '../utils/types';
 import { csrfFetch } from '../utils/csrf';
 
 // ============================== ACTION CONSTANTS ==============================
@@ -7,6 +7,9 @@ const LOAD_POST = "posts/loadPost";
 const LOAD_ALL_POSTS = "posts/loadAllPosts"
 const DELETE_POST = "posts/deletePost"
 const LIKE_POST = "posts/likePost"
+const COMMENT_POST = "posts/commentPost"    // handles creating/deleting/updating comments on a post
+const DELETE_COMMENT = "posts/deleteComment"
+const EDIT_COMMENT = "posts/editComment"
 
 // ============================== ACTION CREATORS ==============================
 
@@ -38,6 +41,27 @@ const likePost = (postId: number, likes: PostLike[] ) => {
   }
 }
 
+const commentPost = (postId: number, comments: IComment[]) => {
+  return {
+    type: COMMENT_POST,
+    payload: { postId, comments }
+  }
+}
+
+const deleteComment = (postId: number, deletedComment: IComment) => {
+  return {
+    type: DELETE_COMMENT,
+    payload: { postId, deletedComment }
+  }
+}
+
+const editComment = (postId: number, editedComment: IComment) => {
+  return {
+    type: EDIT_COMMENT,
+    payload: { postId, editedComment }
+  }
+}
+
 // ============================== THUNKS ==============================
 
 export const createPostThunk = (post: PostUrlData) => async (dispatch: Dispatch) => {
@@ -51,7 +75,6 @@ export const createPostThunk = (post: PostUrlData) => async (dispatch: Dispatch)
     console.error(data);
     return;
   }
-  console.log("Created: ", data)
   dispatch(loadPost(data));
   return data;
 }
@@ -84,6 +107,7 @@ export const updatePostThunk = (id: number, description: string) => async (dispa
   dispatch(loadPost(data));
   return data;
 }
+
 export const likePostThunk = (id: number) => async (dispatch: Dispatch) => {
   const { data, success } = await csrfFetch(`/api/posts/${id}/likes`, {
     method: "PUT"
@@ -96,6 +120,20 @@ export const likePostThunk = (id: number) => async (dispatch: Dispatch) => {
   }
 
   dispatch(likePost(id, data));
+}
+
+export const commentPostThunk = (id: number, comment: string) => async (dispatch: Dispatch) => {
+  const { data, success } = await csrfFetch(`/api/posts/${id}/comments`, {
+    method: "POST",
+    body: JSON.stringify({ content: comment })
+  })
+    .then(res => res.json())
+  if (!success) {
+    console.error(data);
+    return;
+  }
+
+  dispatch(commentPost(id, data));
 }
 
 export const deletePostThunk = (id: number) => async (dispatch: Dispatch) => {
@@ -111,6 +149,34 @@ export const deletePostThunk = (id: number) => async (dispatch: Dispatch) => {
 
   dispatch(deletePost(id));
   return data;
+}
+
+export const deleteCommentThunk = (commentId: number, postId: number) => async (dispatch: Dispatch) => {
+  const { data, success } = await csrfFetch(`/api/comments/${commentId}`, {
+    method: "DELETE"
+  })
+    .then(res => res.json())
+  
+  if (!success) {
+    console.error(data);
+    return;
+  }
+
+  dispatch(deleteComment(postId, data));
+}
+
+export const editCommentThunk = (commentId: number, postId: number, comment: string) => async (dispatch: Dispatch) => {
+  const { data, success } = await csrfFetch(`/api/comments/${commentId}`, {
+    method: "PUT",
+    body: JSON.stringify({ content: comment })
+  })
+    .then(res => res.json())
+  if (!success) {
+    console.error(data);
+    return;
+  }
+
+  dispatch(editComment(postId, data));
 }
 
 // ============================== Reducer ==============================
@@ -132,9 +198,29 @@ export const postsReducer = (state = {}, action: ThunkAction) => {
       const newPosts = { ...state };
       delete newPosts[action.payload];
       return newPosts;
-    case LIKE_POST:
+    case LIKE_POST: {
       const existingPost = state[action.payload.postId]
       return {...state, [action.payload.postId]: { ...existingPost, likes: action.payload.likes }}
+    }
+    case COMMENT_POST: {
+      const existingPost = state[action.payload.postId]
+      return {...state, [action.payload.postId]: { ...existingPost, comments: action.payload.comments }}
+    }
+    case DELETE_COMMENT: {
+      const existingPost = state[action.payload.postId]
+      const newComments = existingPost.comments.filter((comment: IComment) => comment.id !== action.payload.deletedComment.id);
+      return {...state, [action.payload.postId]: { ...existingPost, comments: newComments }};
+    }
+    case EDIT_COMMENT: {
+      const existingPost = state[action.payload.postId];
+      const newComments = existingPost.comments.map((comment: IComment) => 
+          comment.id === action.payload.editedComment.id 
+          ? action.payload.editedComment 
+          : comment
+      )
+        
+      return {...state, [action.payload.postId]: { ...existingPost, comments: newComments }};
+    }
     default:
       return state;
   }

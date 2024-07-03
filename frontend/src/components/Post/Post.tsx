@@ -73,7 +73,10 @@ export default function Post({ post }: PostComponent){
                     </p>
                 </div>
             </div>
-            <CommentSection />
+            <CommentSection 
+                postId={post.id}
+                comments={post.comments}
+            />
         </article>
     )
 }

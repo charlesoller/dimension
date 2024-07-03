@@ -8,3 +8,33 @@
   position: relative;
   color: rgba(255, 255, 255, 0.9);
 }
+
+.button {
+  border: 1.5px solid rgba(255, 255,255, 0.9);
+  padding: 0.3em 0.5em;
+  text-align: center;
+	transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms;
+
+  &:hover {
+    color: purple;
+    border-color: purple;
+  }
+}
+
+.upperInfo {
+  display: flex;
+}
+
+.date {
+  font-size: 0.7rem;
+  width: fit-content;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300;
+  margin-left: auto;
+}
+
+.middle {
+  display: flex;
+}

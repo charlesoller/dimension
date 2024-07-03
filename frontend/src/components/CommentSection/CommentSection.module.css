@@ -1,0 +1,15 @@
+.commentSection {
+  /* display: relative; */
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.form {
+  /* margin-top: auto;
+  position: fixed;
+  bottom: 0; */
+}
