@@ -1,6 +1,6 @@
 .form {
   position: sticky;
-  bottom: 0;
+  bottom: -1px;
   width: 100%;
   padding: 4px 0 4px 4px;
   /* margin-top: auto */

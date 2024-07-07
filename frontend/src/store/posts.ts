@@ -10,6 +10,7 @@ const LIKE_POST = "posts/likePost"
 const COMMENT_POST = "posts/commentPost"    // handles creating/deleting/updating comments on a post
 const DELETE_COMMENT = "posts/deleteComment"
 const EDIT_COMMENT = "posts/editComment"
+const LIKE_COMMENT = "posts/likeComment"
 
 // ============================== ACTION CREATORS ==============================
 
@@ -59,6 +60,13 @@ const editComment = (postId: number, editedComment: IComment) => {
   return {
     type: EDIT_COMMENT,
     payload: { postId, editedComment }
+  }
+}
+
+const likeComment = (commentId: number, likes: PostLike[] ) => {
+  return {
+    type: LIKE_POST,
+    payload: { commentId, likes }
   }
 }
 
@@ -179,6 +187,21 @@ export const editCommentThunk = (commentId: number, postId: number, comment: str
   dispatch(editComment(postId, data));
 }
 
+export const likeCommentThunk = (id: number) => async (dispatch: Dispatch) => {
+  console.log("TEST")
+  const { data, success } = await csrfFetch(`/api/comments/${id}/likes`, {
+    method: "PUT"
+  })
+    .then(res => res.json())
+
+  if (!success) {
+    console.error(data);
+    return;
+  }
+
+  dispatch(commentPost(id, data));
+}
+
 // ============================== Reducer ==============================
 interface NumberKeyedPostObject {
   [key: number]: IPost;
@@ -199,6 +222,10 @@ export const postsReducer = (state = {}, action: ThunkAction) => {
       delete newPosts[action.payload];
       return newPosts;
     case LIKE_POST: {
+      const existingPost = state[action.payload.postId]
+      return {...state, [action.payload.postId]: { ...existingPost, likes: action.payload.likes }}
+    }
+    case LIKE_COMMENT: {
       const existingPost = state[action.payload.postId]
       return {...state, [action.payload.postId]: { ...existingPost, likes: action.payload.likes }}
     }

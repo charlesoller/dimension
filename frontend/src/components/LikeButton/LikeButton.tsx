@@ -1,13 +1,17 @@
 import styles from "./LikeButton.module.css"
 
 import { useDispatch, useSelector } from "react-redux";
-import { likePostThunk } from "../../store/posts";
+import { likeCommentThunk, likePostThunk } from "../../store/posts";
 import { GoHeartFill, GoHeart } from "react-icons/go"
 import { useMemo } from "react";
 import { IComment, IPost } from "../../utils/types";
 
 interface LikeButtonComponent {
   resource: IPost | IComment
+}
+
+const isPost = (resource: any): resource is IPost => {
+  return (resource as IPost).id !== undefined;
 }
 
 export default function LikeButton({ resource }: LikeButtonComponent){
@@ -20,7 +24,11 @@ export default function LikeButton({ resource }: LikeButtonComponent){
   , [resource.likes]);
 
   const handleLike = () => {
-    dispatch(likePostThunk(resource.id) as any);
+    // if (isPost(resource)) {
+      dispatch(likePostThunk(resource.id) as any);
+    // } else {
+      // dispatch(likeCommentThunk(resource.id) as any)
+    // }
   }
 
   return (

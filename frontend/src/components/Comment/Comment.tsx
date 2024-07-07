@@ -70,7 +70,7 @@ export default function Comment({ comment }: CommentComponent){
         }
       </div>
       <div className={styles.buttons}>
-        <LikeButton resource={{}}/>
+        <LikeButton resource={comment}/>
       </div>
     </article>
   )
