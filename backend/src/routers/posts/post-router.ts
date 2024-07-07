@@ -92,7 +92,12 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
         updatedAt: new Date()
       },
       include: {
-        author: true
+        author: true,
+        comments: {
+          include: {
+            author: true
+          }
+        }
       }
     });
 

@@ -5,7 +5,8 @@ import styles from "./Comment.module.css"
 import { deleteCommentThunk, editCommentThunk } from "../../store/posts"
 import { timeAgo } from "../../utils/utils"
 import { useState } from "react"
-import { GoGear } from "react-icons/go"
+import { GoGear, GoTrash } from "react-icons/go"
+import LikeButton from "../LikeButton/LikeButton"
 
 // const FAKE_USER: IUser = {
 //   id: 999,
@@ -42,8 +43,18 @@ export default function Comment({ comment }: CommentComponent){
   return (
     <article className={styles.comment}>
       <div className={styles.upperInfo}>
-        <UserInfo user={comment.author} noImage noName />
-        <p className={styles.date}>{timeAgo(comment.updatedAt)}{comment.createdAt !== comment.updatedAt && " (edited)"}</p>
+        <UserInfo user={comment.author} />
+        <div className={styles.dateAndButtons}>
+          <p className={styles.date}>{timeAgo(comment.updatedAt)}{comment.createdAt !== comment.updatedAt && " (edited)"}</p>
+          <div className={styles.buttons}>
+            <button>
+              <GoGear onClick={handleEdit} />
+            </button>
+            <button>
+              <GoTrash onClick={handleDelete} />
+            </button>
+          </div>
+        </div>
       </div>
       <div className={styles.middle}>
         {
@@ -57,11 +68,10 @@ export default function Comment({ comment }: CommentComponent){
             {comment.content}
           </p>
         }
-        <button>
-          <GoGear onClick={handleEdit} />
-        </button>
       </div>
-      <button className={styles.button} onClick={handleDelete}>Delete</button>
+      <div className={styles.buttons}>
+        <LikeButton resource={{}}/>
+      </div>
     </article>
   )
 }

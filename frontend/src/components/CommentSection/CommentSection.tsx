@@ -9,7 +9,7 @@ interface CommentSectionComponent {
 }
 
 export default function CommentSection({ postId, comments }: CommentSectionComponent) {
-  const commentElements = comments.map((comment: IComment) => (
+  const commentElements = comments?.map((comment: IComment) => (
     <Comment key={comment.id} comment={comment} />
   ))
 
@@ -18,9 +18,6 @@ export default function CommentSection({ postId, comments }: CommentSectionCompo
       <div className={styles.comments}>
         { commentElements }
       </div>
-      <CommentInput 
-        postId={postId}
-      />
     </div>
   )
 }

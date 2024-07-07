@@ -1,0 +1,12 @@
+.likeButton {
+  display: flex;
+  gap: 0.5em;
+  background: var(--primary-8);
+  padding: 0.2em 0.4em;
+  border-radius: 0.1em;
+  font-size: 0.8rem;
+
+  &:hover {
+      background-color: var(--primary-7);
+  }
+}

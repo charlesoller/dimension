@@ -1,10 +1,27 @@
 .main {
-  background-color: #26262a;
-  padding: 0.8em;
+  background-color: var(--primary-10);
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    border: 4px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    border-radius: 9999px;
+    background-color: var(--primary-9);
+  }
+}
+
+.userDetails {
+  max-height: 90%;
 }
 
 .buttons {
@@ -31,26 +48,34 @@
 .upper {
   display: flex;
   justify-content: space-between;
+  padding: 0.8em;
+  position: sticky;
+  top: 0;
+  background-color: var(--primary-10);
+  width: auto;
 }
 
 .text {
+  color: var(--primary-3);
   font-size: 0.8rem;
   text-align: left;
-  max-height: 5rem;
-  overflow-y: auto;
-  position: relative;
-  margin-bottom: 1em;
+  height: fit-content;
+  padding: 0.8em;
+}
 
-  &::-webkit-scrollbar {
-      width: 12px;
-  }
-    
-  &::-webkit-scrollbar-thumb {
-      border: 4px solid rgba(0, 0, 0, 0);
-      background-clip: padding-box;
-      border-radius: 9999px;
-      background-color: #1a1c1e;
-  }
+.subheader {
+  text-transform: uppercase;
+  font-size: 0.6rem;
+  margin-left: 0.8em;
+  font-weight: 500;
+  color: var(--primary-7);
+  letter-spacing: 0.05rem;
+}
 
+.comments {
+  /* max-height: 25%; */
+  width: 100%;
+  /* padding: 0.8em; */
+  margin-top: auto;
 }
 

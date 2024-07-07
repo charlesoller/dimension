@@ -1,5 +1,5 @@
 .main {
-  background: #1d1f21;
+  background: var(--primary-11);
 }
 
 .content {

@@ -40,7 +40,7 @@ export default function Viewport({src}){
                 camera={{ fov: 50, position: [0, 5, 5], zoom: 0.7 }}
                 // camera={{ position: [0, 5, 5], fov: 50 }}
             >   
-                <color args={[ "#2C2E32" ]} attach={"background"}/>
+                <color args={[ "#18181B" ]} attach={"background"}/>
                 <Stage intensity={0.3} shadows="contact" preset={"rembrandt"}>
                     <Model src={src} />
                 </Stage>

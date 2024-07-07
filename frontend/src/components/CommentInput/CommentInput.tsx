@@ -24,6 +24,7 @@ export default function CommentInput({ postId }: CommentInputComponent){
         className={styles.input}
         value={newComment}
         onChange={(e) => setNewComment(e.target.value)}
+        placeholder="Comment"
       />
     </form>
   )

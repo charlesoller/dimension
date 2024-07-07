@@ -16,6 +16,7 @@ import EditPostForm from "../EditPostForm/EditPostForm";
 import { likePostThunk } from "../../store/posts";
 import CommentSection from "../CommentSection/CommentSection";
 import PostInfo from "../PostInfo/PostInfo";
+import LikeButton from "../LikeButton/LikeButton";
 
 interface PostComponent {
     post: IPost;
@@ -33,42 +34,23 @@ export default function Post({ post }: PostComponent){
 
     const hasUserLiked = useMemo(() => post
         .likes?.map(like => like.authorId)
-        .includes(currentUser.id)
+        .includes(currentUser?.id)
     , [post.likes]);
 
     return (
         <article className={styles.post} ref={visibleRef}>
-            <div>
-                {/* <div className={styles.upper}>
-                    <UserInfo user={post.author} />
-                    <div className={styles.dateAndSettings}>
-                        { post.authorId === currentUser?.id && 
-                            <OpenModalButton
-                                buttonText={<GoGear size={"1rem"}/>}
-                                modalComponent={<EditPostForm post={post}/>}
-                                className={styles.button}
-                            />
-                        }
-                        <p className={styles.date}>{timeAgo(post.updatedAt)}{post.createdAt !== post.updatedAt && " (edited)"}</p>
-                    </div>
-                </div> */}
+            <div className={styles.viewportContainer}>
                 <div className={styles.viewport}>
                     {isVisible && <Viewport src={post.url} />}
                 </div>
-                <div className={styles.lower}>
-                    <div className={styles.buttons}>
-                        <button>
-                            <p>{post.likes?.length || "0"}</p>
-                            { hasUserLiked ?
-                                <GoHeartFill onClick={handleLike} />
-                                :
-                                <GoHeart onClick={handleLike}/>
-                            }
-                        </button>
-                    </div>
-                    {/* <p className={styles.text}>
-                        { post.description }
-                    </p> */}
+                <div className={styles.interactions}>
+                    <LikeButton 
+                        resource={post}
+                    />
+                    {/* <button className={styles.likeButton}>
+                        🤣
+                        <p>0</p>
+                    </button> */}
                 </div>
             </div>
             <PostInfo 

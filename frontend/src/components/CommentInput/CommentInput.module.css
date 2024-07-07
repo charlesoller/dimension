@@ -1,13 +1,20 @@
 .form {
-  position: absolute;
-  bottom: 1em;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  padding: 4px 0 4px 4px;
+  /* margin-top: auto */
+  /* background: #26262A; */
+  background: var(--primary-10);
 }
 
 .input {
-  background-color: #1d1f22;
+  background-color: var(--primary-9);
   -webkit-appearance: none;
   appearance: none;
-  border-radius: 0.2em;
-  width: 100%;
-  padding: 0.1em 0.2em;
+  border-radius: 999em;
+  padding: 0.2em 0.6em;
+  font-size: 0.8rem;
+  /* 16px for scrollbar */
+  width: calc(100% - 16px);
 }
