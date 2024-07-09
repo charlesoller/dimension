@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { likeCommentThunk, likePostThunk } from "../../store/posts";
 import { GoHeartFill, GoHeart } from "react-icons/go"
 import { useMemo } from "react";
-import { IComment, IPost } from "../../utils/types";
+import { CommentLike, IComment, IPost, PostLike } from "../../utils/types";
 
 interface LikeButtonComponent {
   resource: IPost | IComment
 }
 
 const isPost = (resource: any): resource is IPost => {
-  return (resource as IPost).id !== undefined;
+  return (resource as IPost).url !== undefined;
 }
 
 export default function LikeButton({ resource }: LikeButtonComponent){
@@ -19,16 +19,16 @@ export default function LikeButton({ resource }: LikeButtonComponent){
   const currentUser = useSelector((state: any) => state.session.user);
 
   const hasUserLiked = useMemo(() => resource
-    .likes?.map(like => like.authorId)
+    .likes?.map((like: PostLike | CommentLike) => like.authorId)
     .includes(currentUser?.id)
   , [resource.likes]);
 
   const handleLike = () => {
-    // if (isPost(resource)) {
+    if (isPost(resource)) {
       dispatch(likePostThunk(resource.id) as any);
-    // } else {
-      // dispatch(likeCommentThunk(resource.id) as any)
-    // }
+    } else {
+      dispatch(likeCommentThunk(resource.id, resource.post.id) as any)
+    }
   }
 
   return (

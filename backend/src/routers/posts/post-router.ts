@@ -13,7 +13,9 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
       likes: true,
       comments: {
         include: {
-          author: true
+          author: true,
+          likes: true,
+          post: true
         }
       }
     }

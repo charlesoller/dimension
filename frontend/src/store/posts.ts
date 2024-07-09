@@ -63,10 +63,10 @@ const editComment = (postId: number, editedComment: IComment) => {
   }
 }
 
-const likeComment = (commentId: number, likes: PostLike[] ) => {
+const likeComment = (commentId: number, postId: number, likes: PostLike[] ) => {
   return {
-    type: LIKE_POST,
-    payload: { commentId, likes }
+    type: LIKE_COMMENT,
+    payload: { commentId, postId, likes }
   }
 }
 
@@ -187,9 +187,9 @@ export const editCommentThunk = (commentId: number, postId: number, comment: str
   dispatch(editComment(postId, data));
 }
 
-export const likeCommentThunk = (id: number) => async (dispatch: Dispatch) => {
-  console.log("TEST")
-  const { data, success } = await csrfFetch(`/api/comments/${id}/likes`, {
+export const likeCommentThunk = (commentId: number, postId: number) => async (dispatch: Dispatch) => {
+  // console.log("TEST")
+  const { data, success } = await csrfFetch(`/api/comments/${commentId}/likes`, {
     method: "PUT"
   })
     .then(res => res.json())
@@ -198,8 +198,8 @@ export const likeCommentThunk = (id: number) => async (dispatch: Dispatch) => {
     console.error(data);
     return;
   }
-
-  dispatch(commentPost(id, data));
+  // console.log("DATA: ", data)
+  dispatch(likeComment(commentId, postId, data));
 }
 
 // ============================== Reducer ==============================
@@ -226,8 +226,15 @@ export const postsReducer = (state = {}, action: ThunkAction) => {
       return {...state, [action.payload.postId]: { ...existingPost, likes: action.payload.likes }}
     }
     case LIKE_COMMENT: {
-      const existingPost = state[action.payload.postId]
-      return {...state, [action.payload.postId]: { ...existingPost, likes: action.payload.likes }}
+      const existingPost = state[action.payload.postId];
+      const newComments = existingPost.comments.map((comment: IComment) => {
+        if (comment.id === action.payload.commentId) {
+          return { ...comment, likes: action.payload.likes }
+        }
+        return comment;
+      })
+
+      return {...state, [action.payload.postId]: { ...existingPost, comments: newComments }}
     }
     case COMMENT_POST: {
       const existingPost = state[action.payload.postId]
