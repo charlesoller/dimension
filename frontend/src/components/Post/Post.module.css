@@ -3,7 +3,10 @@
     color: rgba(255, 255, 255, 0.9);
     border: 1px solid #1D2021;
     display: flex;
-    max-height: 501px;
+    height: 100%;
+    /* max-height: 501px; */
+    height: 550px;
+    overflow: hidden;
 }
 
 .viewportContainer {
@@ -11,13 +14,13 @@
 }
 
 .viewport {
-    height: 500px;
-    width: 500px;
+    height: 550px;
+    width: 550px;
     margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #2D2E32;
+    background: var(--primary-10);
 }
 
 .interactions {

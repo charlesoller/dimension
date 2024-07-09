@@ -27,7 +27,8 @@ export default function LikeButton({ resource }: LikeButtonComponent){
     if (isPost(resource)) {
       dispatch(likePostThunk(resource.id) as any);
     } else {
-      dispatch(likeCommentThunk(resource.id, resource.post.id) as any)
+      console.log("RESOURCE: ", resource.postId)
+      dispatch(likeCommentThunk(resource.id, resource.postId) as any)
     }
   }
 

@@ -18,6 +18,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from './store/store.ts';
 import { restoreCSRF } from './utils/csrf.ts';
 import { csrfFetch } from './utils/csrf.ts';
+import ChannelView from './components/ChannelView/ChannelView.tsx';
 
 const store = configureStore({});
 
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Feed />
+      },
+      {
+        path: "/channels/:channelName",
+        element: <ChannelView />
       }
     ]
   },

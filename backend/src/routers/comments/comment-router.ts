@@ -45,9 +45,7 @@ router.put('/:id/likes', async (req: Request, res: Response, next: NextFunction)
     if (!comment) {
       return res.json({ success: false, data: "No post found with that ID." })
     }
-    // console.log("Comment: ", comment)
     const { likes: existingLike } = comment
-    // console.log("Existing: ", existingLike)
     if (existingLike.length) {
       const deletedLike = await prisma.commentLike.delete({
         where: {
@@ -58,11 +56,9 @@ router.put('/:id/likes', async (req: Request, res: Response, next: NextFunction)
         }
       });
     } else {
-      // console.log("Here")
       const newLike = await prisma.commentLike.create({
         data: { authorId: Number(authorId), commentId: Number(commentId) }
       });
-      // console.log("New: ", newLike)
     }
     const { likes: newLikes } = await prisma.comment.findFirstOrThrow({
       where: { id: Number(commentId) },

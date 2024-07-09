@@ -10,6 +10,7 @@ import Login from "../Login/Login";
 // Util
 import { useSelector, useDispatch } from "react-redux";
 import { logoutThunk } from "../../store/session";
+import { Link } from "react-router-dom";
 
 export default function SideNav(){
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ export default function SideNav(){
 
   return (
     <aside className={styles.nav}>
-      <h1 className={styles.dimension}><GiMoebiusTriangle style={{ fontSize: "1.3rem" }}/>Dimension</h1>
+      <Link className={styles.dimension} to={"/"}><GiMoebiusTriangle style={{ fontSize: "1.3rem" }}/>Dimension</Link>
       <div className={styles.button}>
         {user ? `@${user.username} Logged In` : "Not Logged In"}
       </div>

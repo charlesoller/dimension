@@ -1,11 +1,12 @@
 .nav {
-  position: fixed;
-  height: 100%;
-  background: var(--primary-11);
+  /* position: sticky;
+  top: 0; */
+  width: 100%;
+  background: var(--primary-10);
   color: rgba(255, 255,255, 0.9);
   padding: 1em;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   gap: 1em;
 }
 

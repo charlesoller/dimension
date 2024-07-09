@@ -15,7 +15,7 @@ import { restoreUserThunk } from "../../store/session"
 
 
 export default function MainLayout() {
-  fetch('https://dimension-1.onrender.com/api')
+  // fetch('https://dimension-1.onrender.com/api')
 
   const dispatch = useDispatch();
   useEffect(() => {

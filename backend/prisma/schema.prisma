@@ -129,10 +129,8 @@ model ProfilePicture {
 }
 
 model Channel {
-  id             Int              @id @default(autoincrement())
-  name           String           @unique
-  userId         Int
-  user           User             @relation(fields: [userId], references: [id])
-  postId         Int
-  post           Post             @relation(fields: [postId], references: [id])
+  id              Int                @id @default(autoincrement())
+  name            String             @unique
+  users           User[]             
+  posts           Post[]             
 }

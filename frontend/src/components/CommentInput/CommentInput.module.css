@@ -2,7 +2,7 @@
   position: sticky;
   bottom: -1px;
   width: 100%;
-  padding: 4px 0 4px 4px;
+  padding: 6px 0 6px 6px;
   /* margin-top: auto */
   /* background: #26262A; */
   background: var(--primary-10);
@@ -17,4 +17,11 @@
   font-size: 0.8rem;
   /* 16px for scrollbar */
   width: calc(100% - 16px);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  &:hover {
+    background-color: var(--primary-8);
+  }
 }

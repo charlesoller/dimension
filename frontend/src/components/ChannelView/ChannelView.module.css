@@ -1,0 +1,10 @@
+.feed {
+  width: 70%;
+  /* max-width: 500px; */
+  /* margin: auto; */
+  /* margin-left: 2em; */
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+}

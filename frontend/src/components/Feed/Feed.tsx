@@ -3,7 +3,7 @@
 import styles from "./Feed.module.css"
 // Util
 import { startTransition, useEffect, useState } from "react"
-const URL = "http://localhost:8000/api"
+// const URL = "http://localhost:8000/api"
 import { shallowEqual, useDispatch, useSelector } from "react-redux"
 // Components
 import Post from "../Post/Post"
@@ -24,7 +24,7 @@ export default function Feed(){
 
     useEffect(() => {
         startTransition(() => {
-            setVisiblePosts(prevPosts => {
+            setVisiblePosts(_ => {
                 return [...posts].reverse();
             })
         });

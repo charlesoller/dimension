@@ -86,3 +86,10 @@ export interface IComment {
   parent?: IComment;
   children?: IComment[];
 }
+
+export interface Channel {
+  id: number;
+  name: string;
+  users?: IUser[];
+  posts?: IPost[];
+}

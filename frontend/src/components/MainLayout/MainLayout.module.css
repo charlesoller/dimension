@@ -4,4 +4,8 @@
 
 .content {
   display: flex;
+  flex-direction: column;
+  max-width: 75%;
+  /* margin-left: auto; */
+  margin: 0 auto;
 }

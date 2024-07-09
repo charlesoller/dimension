@@ -47,10 +47,10 @@ export default function Comment({ comment }: CommentComponent){
         <div className={styles.dateAndButtons}>
           <p className={styles.date}>{timeAgo(comment.updatedAt)}{comment.createdAt !== comment.updatedAt && " (edited)"}</p>
           <div className={styles.buttons}>
-            <button>
+            <button className={styles.iconButton}>
               <GoGear onClick={handleEdit} />
             </button>
-            <button>
+            <button className={styles.iconButton}>
               <GoTrash onClick={handleDelete} />
             </button>
           </div>

@@ -2,6 +2,9 @@
   min-width: 300px;
   border-bottom: 1px solid var(--primary-8);
   padding: 0.5em; 
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 
   &:last-of-type {
     border-bottom: none;
@@ -20,22 +23,19 @@
   color: var(--primary-3);
 }
 
-.button {
-  border: 1.5px solid rgba(255, 255,255, 0.9);
-  padding: 0.3em 0.5em;
-  text-align: center;
-	transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 250ms;
-
-  &:hover {
-    color: purple;
-    border-color: purple;
-  }
-}
-
 .buttons {
   margin-top: 0.5em;
+}
+
+.iconButton {
+  color: var(--primary-7);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  
+  &:hover {
+    color: var(--primary-3);
+  }
 }
 
 .upperInfo {

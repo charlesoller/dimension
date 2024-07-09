@@ -1,6 +1,8 @@
 
 import { Router, Request, Response, NextFunction } from "express";
 import { PrismaClient } from '@prisma/client'
+import { parseChannels } from "../../utils/parsing";
+import { handleChannels } from "../../utils/channels";
 
 const router = Router();
 const prisma = new PrismaClient();
@@ -11,6 +13,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     include: {
       author: true,
       likes: true,
+      channels: true,
       comments: {
         include: {
           author: true,
@@ -27,18 +30,26 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { description, url } = req.body;
-    const { id: authorId } = req.user;
+    const user = req.user;
     const newPost = await prisma.post.create({
       data: {
         url,
         description,
-        authorId
+        authorId: user.id
       },
       include: {
         author: true,
         likes: true
       }
-    })
+    });
+
+    if (newPost.description) {
+      const channels = parseChannels(newPost.description);
+
+      if (channels && user) {
+        handleChannels(channels, newPost, user)
+      }
+    }
 
     return res.json({ success: true, data: newPost })
   } catch (e) {
@@ -70,7 +81,8 @@ router.post('/:id/comments', async (req: Request, res: Response, next: NextFunct
       include: {
         comments: {
           include: {
-            author: true
+            author: true,
+            likes: true
           }
         }
       }
@@ -87,6 +99,14 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
     const { description } = req.body;
+    const user = req.user;
+    const post = await prisma.post.findUnique({ where: { id: Number(id) }});
+    const channels = parseChannels(description);
+
+    if (channels && post && user) {
+      handleChannels(channels, post, user)
+    }
+
     const updatedPost = await prisma.post.update({
       where: { id: Number(id) },
       data: {
@@ -147,7 +167,14 @@ router.put('/:id/likes', async (req: Request, res: Response, next: NextFunction)
     }
     const { likes: newLikes } = await prisma.post.findFirstOrThrow({
       where: { id: Number(postId) },
-      include: { likes: true }
+      include: { 
+        likes: true,
+        comments: {
+          include: {
+            post: true
+          }
+        }
+      }
     }) 
 
     return res.json({ success: true, data: newLikes });
