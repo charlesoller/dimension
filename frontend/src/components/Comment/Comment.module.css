@@ -59,3 +59,21 @@
 .middle {
   display: flex;
 }
+
+.input {
+  background-color: var(--primary-8);
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0.1em;
+  padding: 0.2em 0.6em;
+  font-size: 0.8rem;
+  /* 16px for scrollbar */
+  width: calc(100% - 16px);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  &:hover {
+    background-color: var(--primary-7);
+  }
+}

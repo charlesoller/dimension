@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import { IPost, PostData, PostUrlData, ThunkAction, PostLike, IComment } from '../utils/types';
 import { csrfFetch } from '../utils/csrf';
+import { loadChannel, loadChannelThunk } from './channels';
 
 // ============================== ACTION CONSTANTS ==============================
 const LOAD_POST = "posts/loadPost";
@@ -14,7 +15,7 @@ const LIKE_COMMENT = "posts/likeComment"
 
 // ============================== ACTION CREATORS ==============================
 
-const loadPost = (post: IPost) => {
+export const loadPost = (post: IPost) => {
   return {
     type: LOAD_POST,
     payload: post
@@ -183,12 +184,11 @@ export const editCommentThunk = (commentId: number, postId: number, comment: str
     console.error(data);
     return;
   }
-
+  console.log("DATA: ", data)
   dispatch(editComment(postId, data));
 }
 
 export const likeCommentThunk = (commentId: number, postId: number) => async (dispatch: Dispatch) => {
-  // console.log("TEST")
   const { data, success } = await csrfFetch(`/api/comments/${commentId}/likes`, {
     method: "PUT"
   })
@@ -198,7 +198,7 @@ export const likeCommentThunk = (commentId: number, postId: number) => async (di
     console.error(data);
     return;
   }
-  // console.log("DATA: ", data)
+  console.log("DATA: ", data)
   dispatch(likeComment(commentId, postId, data));
 }
 
@@ -252,7 +252,7 @@ export const postsReducer = (state = {}, action: ThunkAction) => {
           ? action.payload.editedComment 
           : comment
       )
-        
+      console.log("NEW: ", newComments)
       return {...state, [action.payload.postId]: { ...existingPost, comments: newComments }};
     }
     default:

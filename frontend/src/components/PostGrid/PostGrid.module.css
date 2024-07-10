@@ -1,0 +1,11 @@
+.grid {
+  --gap: 2rem;
+  --line-offset: calc(var(--gap) / 2);
+  --line-thickness: 1px;
+  --line-color: var(--primary-9);
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  overflow: hidden;
+  gap: var(--gap);
+}

@@ -2,19 +2,11 @@
 import styles from "./Post.module.css"
 // Components
 import Viewport from "../Viewport/Viewport"
-import UserInfo from "../UserInfo/UserInfo"
-import { GoComment, GoHeart, GoHeartFill, GoGear } from "react-icons/go";
-import OpenModalButton from "../OpenModalButton/OpenModalButton";
 // Util
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { useIntersection } from "../../utils/hooks/useIntersection";
-import { useDispatch, useSelector } from "react-redux";
-import { timeAgo } from "../../utils/utils";
 // Types
 import { IPost } from "../../utils/types";
-import EditPostForm from "../EditPostForm/EditPostForm";
-import { likePostThunk } from "../../store/posts";
-import CommentSection from "../CommentSection/CommentSection";
 import PostInfo from "../PostInfo/PostInfo";
 import LikeButton from "../LikeButton/LikeButton";
 
@@ -23,19 +15,8 @@ interface PostComponent {
 }
 
 export default function Post({ post }: PostComponent){
-    const dispatch = useDispatch();
-    const currentUser = useSelector((state: any) => state.session.user);
     const visibleRef = useRef(null);
     const isVisible = useIntersection(visibleRef, "1000px");
-
-    const handleLike = () => {
-        dispatch(likePostThunk(post.id) as any);
-    }
-
-    const hasUserLiked = useMemo(() => post
-        .likes?.map(like => like.authorId)
-        .includes(currentUser?.id)
-    , [post.likes]);
 
     return (
         <article className={styles.post} ref={visibleRef}>

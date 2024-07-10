@@ -1,16 +1,16 @@
-import styles from "./Landing.module.css"
-// Util
-
-// Components
-import { Feed } from "../../components"
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { IPost } from "../../utils/types";
+import styles from "./Explore.module.css"
+import { useParams } from "react-router-dom";
+import { Channel } from "diagnostics_channel";
 import { useEffect } from "react";
+import PostGrid from "../../components/PostGrid/PostGrid";
 import { loadAllPostsThunk } from "../../store/posts";
-// Types
 
-export default function Landing(){
+
+export default function Explore() {
   const dispatch = useDispatch();
+  const { channelName } = useParams();
+
   // shallowEqual is needed below to avoid infinite rerenders, since visiblePosts is derived from posts, we don't want
   // posts to change if visiblePosts does
   const posts = useSelector((state: any)=> Object.values(state.posts), shallowEqual);
@@ -19,9 +19,14 @@ export default function Landing(){
       dispatch(loadAllPostsThunk() as any)
   }, [])
 
+  const channelPosts = posts.filter(post => {
+    const channels = post.channels.map(channel => channel.name);
+    return channels.includes(channelName);
+  })
+
   return (
     <main className={styles.body}>
-      <Feed posts={posts}/>
+      <PostGrid posts={channelPosts} />
     </main>
   )
 }

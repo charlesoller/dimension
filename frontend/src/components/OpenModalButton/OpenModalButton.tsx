@@ -22,10 +22,15 @@ function OpenModalButton({
 }: OpenModalButtonComponent) {
   const { setModalContent, setOnModalClose } = useModal();
 
-  const onClick = () => {
-    if (onModalClose) setOnModalClose(onModalClose);
+  const onClick = (e) => {
+    e.stopPropagation();
+    // console.log("onClick")
+    if (onModalClose) {
+      // console.log("onModalClose")
+      setOnModalClose(() => onModalClose);
+    }
     setModalContent(modalComponent);
-    if (typeof onButtonClick === "function") onButtonClick();
+    // if (typeof onButtonClick === "function") onButtonClick();
   };
 
   return <button className={className} onClick={onClick}>{buttonText}</button>;

@@ -13,47 +13,12 @@ import { timeAgo } from "../../utils/utils";
 // Types
 import { IPost, IUser } from "../../utils/types"
 import LinkChip from "../LinkChip/LinkChip";
+import { nanoid } from "nanoid";
 
 
 interface PostInfoComponent {
   post: IPost;
 }
-
-// const parseChannels = (description: string) => {
-//   return description.split(' ').map((word, index) => {
-//     if (word.startsWith('#')) {
-//       return (
-//         <a href={`http://localhost:5173/channels/${word.substring(1)}`} key={index}>
-//           {word + ' '}
-//         </a>
-//       );
-//     }
-//     return word + ' ';
-//   });
-// }
-// const parseChannels = (description: string) => {
-//   const words = description.split(' ');
-//   let latestHashtag = '';
-//   let result: string[] = [];
-
-//   for (const word of words) {
-//     const hashIndex = word.lastIndexOf('#');
-//     if (hashIndex !== -1) {
-//       latestHashtag = word.substring(hashIndex);
-//     } else if (latestHashtag) {
-//       result.push(latestHashtag);
-//       latestHashtag = '';
-//     }
-//     result.push(word);
-//   }
-
-//   // If the latestHashtag is still set, add it to the result
-//   if (latestHashtag) {
-//     result.push(latestHashtag);
-//   }
-//   console.log(result.join(' '));
-//   return result.join(' ');
-// }
 
 function parseDescription(input: string): (string | JSX.Element)[] {
   const words = input.split(' ');
@@ -70,6 +35,7 @@ function parseDescription(input: string): (string | JSX.Element)[] {
           <LinkChip
             url={`http://localhost:5173/channels/${latestHashtag.substring(1)}`}
             text={latestHashtag}
+            key={nanoid()}
           />
         );
         latestHashtag = '';
@@ -81,6 +47,7 @@ function parseDescription(input: string): (string | JSX.Element)[] {
           <LinkChip
             url={`http://localhost:5173/channels/${latestHashtag.substring(1)}`}
             text={latestHashtag}
+            key={nanoid()}
           />
         );
         latestHashtag = '';
@@ -95,6 +62,7 @@ function parseDescription(input: string): (string | JSX.Element)[] {
       <LinkChip
         url={`http://localhost:5173/channels/${latestHashtag.substring(1)}`}
         text={latestHashtag}
+        key={nanoid()}
       />
     );
   }
@@ -116,7 +84,7 @@ export default function PostInfo({ post }: PostInfoComponent) {
             <p className={styles.date}>{timeAgo(post.updatedAt)}{post.createdAt !== post.updatedAt && " (edited)"}</p>
             {post.authorId === currentUser?.id &&
               <OpenModalButton
-                buttonText={<GoGear size={"1rem"} />}
+                buttonText={<GoGear size={"1rem"} className={styles.iconButton} />}
                 modalComponent={<EditPostForm post={post} />}
                 className={styles.button}
               />

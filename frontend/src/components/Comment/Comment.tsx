@@ -5,7 +5,7 @@ import styles from "./Comment.module.css"
 import { deleteCommentThunk, editCommentThunk } from "../../store/posts"
 import { timeAgo } from "../../utils/utils"
 import { useState } from "react"
-import { GoGear, GoTrash } from "react-icons/go"
+import { GoGear, GoPencil, GoTrash } from "react-icons/go"
 import LikeButton from "../LikeButton/LikeButton"
 
 // const FAKE_USER: IUser = {
@@ -48,7 +48,7 @@ export default function Comment({ comment }: CommentComponent){
           <p className={styles.date}>{timeAgo(comment.updatedAt)}{comment.createdAt !== comment.updatedAt && " (edited)"}</p>
           <div className={styles.buttons}>
             <button className={styles.iconButton}>
-              <GoGear onClick={handleEdit} />
+              <GoPencil onClick={handleEdit} />
             </button>
             <button className={styles.iconButton}>
               <GoTrash onClick={handleDelete} />
@@ -62,6 +62,7 @@ export default function Comment({ comment }: CommentComponent){
           <input 
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
+            className={styles.input}
           />
           : 
           <p className={styles.body}>

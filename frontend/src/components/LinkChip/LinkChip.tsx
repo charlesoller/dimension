@@ -9,9 +9,9 @@ interface LinkChipComponent {
 
 export default function LinkChip({ url, text }: LinkChipComponent){
   return (
-    <Link to={url} className={styles.chip}>
+    <a href={url} className={styles.chip}>
       <GoHash />
       { text.slice(1) }
-    </Link>
+    </a>
   )
 }

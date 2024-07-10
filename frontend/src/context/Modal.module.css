@@ -21,4 +21,5 @@
 .modalContent {
   position: absolute;
   background: transparent;
+  max-width: 80vw;
 }

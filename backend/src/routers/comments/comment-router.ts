@@ -17,7 +17,8 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
         updatedAt: new Date()
       },
       include: {
-        author: true
+        author: true,
+        likes: true
       }
     });
 
@@ -27,7 +28,7 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
   }
 })
 
-// Handle Post Likes
+// Handle Comment Likes
 router.put('/:id/likes', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id: commentId } = req.params;

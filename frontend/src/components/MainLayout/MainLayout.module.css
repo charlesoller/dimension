@@ -1,11 +1,11 @@
 .main {
-  background: var(--primary-11);
+  background: var(--primary-10);
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  max-width: 75%;
+  /* max-width: 75%; */
   /* margin-left: auto; */
   margin: 0 auto;
 }
