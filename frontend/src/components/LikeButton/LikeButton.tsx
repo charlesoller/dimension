@@ -5,6 +5,8 @@ import { likeCommentThunk, likePostThunk } from "../../store/posts";
 import { GoHeartFill, GoHeart } from "react-icons/go"
 import { useMemo } from "react";
 import { CommentLike, IComment, IPost, PostLike } from "../../utils/types";
+import { useModal } from "../../context/Modal";
+import Post from "../Post/Post";
 
 interface LikeButtonComponent {
   resource: IPost | IComment
@@ -17,7 +19,6 @@ const isPost = (resource: any): resource is IPost => {
 export default function LikeButton({ resource }: LikeButtonComponent){
   const dispatch = useDispatch()
   const currentUser = useSelector((state: any) => state.session.user);
-
   const hasUserLiked = useMemo(() => resource
     .likes?.map((like: PostLike | CommentLike) => like.authorId)
     .includes(currentUser?.id)

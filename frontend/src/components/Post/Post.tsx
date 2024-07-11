@@ -17,7 +17,7 @@ interface PostComponent {
 export default function Post({ post }: PostComponent){
     const visibleRef = useRef(null);
     const isVisible = useIntersection(visibleRef, "1000px");
-
+    
     return (
         <article className={styles.post} ref={visibleRef}>
             <div className={styles.viewportContainer}>

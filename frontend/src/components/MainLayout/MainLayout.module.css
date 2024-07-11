@@ -1,11 +1,24 @@
 .main {
+  --nav-width: 200px;
+
   background: var(--primary-10);
 }
 
 .content {
   display: flex;
-  flex-direction: column;
-  /* max-width: 75%; */
+  position: relative;
+  /* flex-direction: column; */
+  max-width: 100%;
   /* margin-left: auto; */
   margin: 0 auto;
+  /* padding: 0 8em; */
+}
+
+.nav {
+  width: var(--nav-width);
+}
+
+.outlet {
+  width: calc(100% - var(--nav-width));
+  margin-left: auto;
 }

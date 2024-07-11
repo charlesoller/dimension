@@ -1,4 +1,91 @@
 .button {
-  border: 1px solid #1d2021;
-  padding: 0.3em 0.6em;
+  --border-width: 1px;
+  --border-radius: 0.1em;
+  --transition-time: 1s;
+  --animation-time: 12s;
+
+  padding: 0.2em 0.5em;
+  position: relative;
+  transition: all var(--transition-time) ease;
+  border-radius: var(--border-radius);
+  width: fit-content;
+}
+
+.outlined {
+  border: var(--border-width) solid var(--primary-3);
+
+  &:hover {
+    background: linear-gradient(217deg, rgba(255, 0, 0, .8), rgba(255, 0, 0, 0) 70.71%),
+      linear-gradient(127deg, rgba(0, 255, 0, .8), rgba(0, 255, 0, 0) 70.71%),
+      linear-gradient(336deg, rgba(0, 0, 255, .8), rgba(0, 0, 255, 0) 70.71%);
+    color: transparent;
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-size: 300% 300%;
+    animation: gradientAnimation var(--animation-time) infinite linear;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--border-width) * -1);
+    left: calc(var(--border-width) * -1);
+    right: calc(var(--border-width) * -1);
+    bottom: calc(var(--border-width) * -1);
+    border-radius: var(--border-radius);
+    opacity: 0;
+
+    clip-path: polygon(
+      0% 0%, 100% 0%, 100% 100%, 0% 100%, 
+      0% calc(100% - var(--border-width)), calc(100% - var(--border-width)) calc(100% - var(--border-width)), calc(100% - var(--border-width)) var(--border-width), var(--border-width) var(--border-width), var(--border-width) calc(100% - var(--border-width)), 0% calc(100% - var(--border-width))
+    );
+    transition: all var(--transition-time) ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+    background: linear-gradient(217deg, rgba(255, 0, 0, .8), rgba(255, 0, 0, 0) 70.71%),
+      linear-gradient(127deg, rgba(0, 255, 0, .8), rgba(0, 255, 0, 0) 70.71%),
+      linear-gradient(336deg, rgba(0, 0, 255, .8), rgba(0, 0, 255, 0) 70.71%);
+    background-size: 300% 300%;
+    /* background-position: 100% 100%; */
+    animation: gradientAnimation var(--animation-time) infinite linear;
+  }
+}
+
+.filled {
+  background: var(--primary-3);
+  color: var(--primary-10);
+
+  &:hover {
+    background: linear-gradient(217deg, rgba(255, 0, 0, .8), rgba(255, 0, 0, 0) 70.71%),
+      linear-gradient(127deg, rgba(0, 255, 0, .8), rgba(0, 255, 0, 0) 70.71%),
+      linear-gradient(336deg, rgba(0, 0, 255, .8), rgba(0, 0, 255, 0) 70.71%);
+
+    background-size: 300% 300%;
+    animation: gradientAnimation var(--animation-time) infinite linear;
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 0%;
+  } 
+  
+  25% {
+    background-position: 0% 100%;
+  }
+
+  50% {
+    background-position: 100% 100%;
+  }
+
+  75% {
+    background-position: 100% 0%;
+  }
+
+  100% {
+    background-position: 0% 0%;
+  }
 }

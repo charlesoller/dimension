@@ -1,0 +1,52 @@
+.main {
+  color: var(--primary-3);
+  /* padding: 0 3em; */
+}
+
+.picAndNames {
+  display: flex;
+  gap: 3em;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  height: fit-content;
+}
+
+.username {
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.name {
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.bio {
+  font-size: 0.7rem;
+}
+
+.profilePicture {
+  height: 6rem;
+  width: 6rem;
+  border-radius: 9999px;
+}
+
+.postsAndFollow {
+  display: flex;
+  margin: 0.5em 0;
+  gap: 0.5em;
+  color: var(--primary-6);
+}
+
+.userStat {
+  /* padding: 0.2em 0.5em;
+  border-radius: 0.2em;
+
+  &:hover {
+    background: var(--primary-8);
+  } */
+}

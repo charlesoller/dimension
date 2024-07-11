@@ -27,8 +27,12 @@ export default function MainLayout() {
     <main className={styles.main}>
       <Modal />
       <div className={styles.content}>
-        <SideNav />
-        <Outlet />
+        <div className={styles.nav}>
+          <SideNav />
+        </div>
+        <div className={styles.outlet}>
+          <Outlet />
+        </div>
       </div>
     </main>
   )

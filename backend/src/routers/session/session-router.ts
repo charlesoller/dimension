@@ -42,7 +42,7 @@ router.post('/', async (req, res, next) => {
         ]
       }
     })
-
+  
     if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
       const err = new Error('Invalid credentials');
       err.status = 401;
@@ -53,7 +53,8 @@ router.post('/', async (req, res, next) => {
       id: user.id,
       username: user.username,
       name: user.name,
-      email: user.email
+      email: user.email,
+      posts: user.posts
     };
 
     setTokenCookie(res, safeUser);
@@ -72,7 +73,7 @@ router.get('/', (req, res) => {
         id: user.id,
         username: user.username,
         name: user.name,
-        email: user.email
+        email: user.email,
       };
       return res.json({
         user: safeUser

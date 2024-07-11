@@ -1,42 +1,87 @@
 .nav {
-  /* position: sticky;
-  top: 0; */
-  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* width: 100%; */
+  width: var(--nav-width);
   background: var(--primary-10);
-  color: rgba(255, 255,255, 0.9);
-  padding: 1em;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 2em;
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
+  justify-content: center;
   gap: 1em;
+  /* background-color: red; */
+  /* border-right: 1px solid var(--primary-9);
+  border-left: 1px solid var(--primary-9); */
+  /* z-index: 1; */
 }
 
 .dimension {
-  font-weight: 400;
+  --animation-time: 24s;
+  color: var(--primary-3);
   display: flex;
-  gap: 0.2em;
   align-items: center;
-  justify-content: center;
+  gap: 0.2em;
+  height: fit-content;
+  font-size: 1.2rem;
+
+  /* &:hover { */
+    background: linear-gradient(217deg, rgba(255, 0, 0, .8), rgba(255, 0, 0, 0) 70.71%),
+      linear-gradient(127deg, rgba(0, 255, 0, .8), rgba(0, 255, 0, 0) 70.71%),
+      linear-gradient(336deg, rgba(0, 0, 255, .8), rgba(0, 0, 255, 0) 70.71%);
+
+    background-size: 300% 300%;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text; 
+    animation: gradientAnimation var(--animation-time) infinite linear;
+  /* } */
+}
+
+.dimensionIcon {
+  background: linear-gradient(217deg, rgba(255, 0, 0, .8), rgba(255, 0, 0, 0) 70.71%),
+    linear-gradient(127deg, rgba(0, 255, 0, .8), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, .8), rgba(0, 0, 255, 0) 70.71%);
+  color: transparent;
+  background-size: 300% 300%;
+  clip-path: url(#clipPath);
+  animation: gradientAnimation var(--animation-time) infinite linear;
+}
+
+.button {
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  padding: 0.3em 0.5em;
+  width: 100%;
+  text-align: center;
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 250ms;
 
   &:hover {
     color: purple;
-    cursor: pointer;
+    border-color: purple;
   }
 }
 
-.button {
-  border: 1.5px solid rgba(255, 255,255, 0.9);
-  padding: 0.3em 0.5em;
-  width: 100%;
-  text-align: center;
-	transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 250ms;
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 0%;
+  }
 
-  &:hover {
-    color: purple;
-    border-color: purple;
+  25% {
+    background-position: 0% 100%;
+  }
+
+  50% {
+    background-position: 100% 100%;
+  }
+
+  75% {
+    background-position: 100% 0%;
+  }
+
+  100% {
+    background-position: 0% 0%;
   }
 }

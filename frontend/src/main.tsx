@@ -20,6 +20,7 @@ import { restoreCSRF } from './utils/csrf.ts';
 import { csrfFetch } from './utils/csrf.ts';
 import ChannelView from './components/ChannelView/ChannelView.tsx';
 import Explore from './routes/Explore/Explore.tsx';
+import UserProfile from './routes/UserProfile/UserProfile.tsx';
 
 const store = configureStore({});
 
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/channels/:channelName",
         element: <Explore />
+      },
+      {
+        path: "/:user",
+        element: <UserProfile />
       }
     ]
   },

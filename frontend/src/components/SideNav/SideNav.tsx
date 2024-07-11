@@ -22,7 +22,10 @@ export default function SideNav(){
 
   return (
     <aside className={styles.nav}>
-      <Link className={styles.dimension} to={"/"}><GiMoebiusTriangle style={{ fontSize: "1.3rem" }}/>Dimension</Link>
+      <Link className={styles.dimension} to={"/"}>
+        <GiMoebiusTriangle className={styles.dimensionIcon} style={{ fontSize: "1.3rem" }}/>
+        <span className={styles.dimensionText}>Dimension</span>
+      </Link>
       <div className={styles.button}>
         {user ? `@${user.username} Logged In` : "Not Logged In"}
       </div>
@@ -39,9 +42,6 @@ export default function SideNav(){
       <button className={styles.button} onClick={handleLogout}>
         Logout
       </button>
-      {/* <div>
-        <h1>Menu Item</h1>
-      </div> */}
     </aside>
   )
 }

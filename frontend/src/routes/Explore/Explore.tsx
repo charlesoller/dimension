@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Channel } from "diagnostics_channel";
 import { useEffect } from "react";
 import PostGrid from "../../components/PostGrid/PostGrid";
+import { GoHash } from "react-icons/go";
 import { loadAllPostsThunk } from "../../store/posts";
 
 
@@ -26,6 +27,7 @@ export default function Explore() {
 
   return (
     <main className={styles.body}>
+      <h1 className={styles.channelName}><GoHash />{ channelName }</h1>
       <PostGrid posts={channelPosts} />
     </main>
   )
