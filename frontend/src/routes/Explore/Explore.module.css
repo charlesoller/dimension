@@ -3,14 +3,14 @@
 }
 
 .channelName {
-  background-color: var(--primary-8);
+  /* background-color: var(--primary-8); */
   color: var(--primary-2);
   width: fit-content;
-  padding: 0.5em 1em;
+  /* padding: 0.5em 1em; */
   display: flex;
   align-items: center;
   gap: 0.2em;
   border-radius: 1em;
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 2rem;
+  font-weight: 400;
 }

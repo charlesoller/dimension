@@ -33,7 +33,7 @@ function parseDescription(input: string): (string | JSX.Element)[] {
       if (hashIndex === 0) {
         result.push(
           <LinkChip
-            url={`channels/${latestHashtag.substring(1)}`}
+            url={`/channels/${latestHashtag.substring(1)}`}
             text={latestHashtag}
             key={nanoid()}
           />
@@ -60,7 +60,7 @@ function parseDescription(input: string): (string | JSX.Element)[] {
   if (latestHashtag) {
     result.push(
       <LinkChip
-        url={`channels/${latestHashtag.substring(1)}`}
+        url={`/channels/${latestHashtag.substring(1)}`}
         text={latestHashtag}
         key={nanoid()}
       />
