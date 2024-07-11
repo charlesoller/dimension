@@ -1,7 +1,6 @@
 import { Dispatch } from 'redux';
 import { IPost, PostData, PostUrlData, ThunkAction, PostLike, IComment } from '../utils/types';
 import { csrfFetch } from '../utils/csrf';
-import { loadChannel, loadChannelThunk } from './channels';
 
 // ============================== ACTION CONSTANTS ==============================
 const LOAD_POST = "posts/loadPost";
@@ -184,7 +183,6 @@ export const editCommentThunk = (commentId: number, postId: number, comment: str
     console.error(data);
     return;
   }
-  console.log("DATA: ", data)
   dispatch(editComment(postId, data));
 }
 

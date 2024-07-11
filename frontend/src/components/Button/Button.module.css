@@ -9,6 +9,9 @@
   transition: all var(--transition-time) ease;
   border-radius: var(--border-radius);
   width: fit-content;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
 }
 
 .outlined {
@@ -36,10 +39,8 @@
     border-radius: var(--border-radius);
     opacity: 0;
 
-    clip-path: polygon(
-      0% 0%, 100% 0%, 100% 100%, 0% 100%, 
-      0% calc(100% - var(--border-width)), calc(100% - var(--border-width)) calc(100% - var(--border-width)), calc(100% - var(--border-width)) var(--border-width), var(--border-width) var(--border-width), var(--border-width) calc(100% - var(--border-width)), 0% calc(100% - var(--border-width))
-    );
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%,
+        0% calc(100% - var(--border-width)), calc(100% - var(--border-width)) calc(100% - var(--border-width)), calc(100% - var(--border-width)) var(--border-width), var(--border-width) var(--border-width), var(--border-width) calc(100% - var(--border-width)), 0% calc(100% - var(--border-width)));
     transition: all var(--transition-time) ease;
   }
 
@@ -71,8 +72,8 @@
 @keyframes gradientAnimation {
   0% {
     background-position: 0% 0%;
-  } 
-  
+  }
+
   25% {
     background-position: 0% 100%;
   }

@@ -60,13 +60,13 @@ router.post('/', async (req, res, next) => {
     setTokenCookie(res, safeUser);
 
     return res.json({
-      user: safeUser
+      user
     });
   }
 );
 
 // Restore session user
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const { user } = req;
     if (user) {
       const safeUser = {
@@ -75,8 +75,13 @@ router.get('/', (req, res) => {
         name: user.name,
         email: user.email,
       };
+
+      const userData = await prisma.user.findUnique({
+        where: { username: user.username }
+      })
+
       return res.json({
-        user: safeUser
+        user: userData
       });
     } else return res.json({ user: null });
   }

@@ -1,4 +1,3 @@
-// @ts-nocheck
 
 import styles from "./MainLayout.module.css"
 // Components
@@ -8,18 +7,22 @@ import SideNav from "../SideNav/SideNav"
 import { Modal } from "../../context/Modal"
 // Util
 import { useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { restoreUserThunk } from "../../store/session"
+import { loadUserThunk } from "../../store/users"
 // Types
 
 
 
 export default function MainLayout() {
   // fetch('https://dimension-1.onrender.com/api')
-
   const dispatch = useDispatch();
+
+  const currentUser = useSelector((state: any) => state.session.user);
+  dispatch(loadUserThunk(currentUser?.username) as any);
+
   useEffect(() => {
-    dispatch(restoreUserThunk());
+    dispatch(restoreUserThunk() as any);
   }, [dispatch])
 
 

@@ -8,6 +8,8 @@ export interface IUser {
   createdAt: Date | string;
   posts?: IPost[];
   postLikes?: PostLike[];
+  following?: Follow[];
+  followers?: Follow[];
 }
 export interface IPost {
   id: number;
@@ -92,4 +94,12 @@ export interface Channel {
   name: string;
   users?: IUser[];
   posts?: IPost[];
+}
+
+export interface Follow {
+  id: string;
+  follower: IUser;
+  followerId: number;
+  following: IUser;
+  followingId: number;
 }
