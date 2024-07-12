@@ -2,4 +2,31 @@
   background: #1d2021;
   padding: 2em;
   border-radius: 0.2em;
+  position: relative;
+}
+
+.activeDrag {
+  font-size: 2rem;
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+  width: 100%;
+}
+
+.activeDragFilter {
+  filter: brightness(40%);
+  -webkit-filter: brightness(40%);
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.dragIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 999;
+  transform: translate(-50%, -50%);
 }

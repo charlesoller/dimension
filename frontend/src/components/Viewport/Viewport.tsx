@@ -13,16 +13,16 @@ interface ViewportProps {
 export default function Viewport({ src, grid = false }: ViewportProps) {
     function Loader() {
         const { active, progress, errors, item, loaded, total } = useProgress()
-        return <Html center>{progress} % loaded</Html>
+        return <Html center>{progress.toFixed(0)} % loaded</Html>
     }
-    
+
     return (
-        // <Suspense fallback={<RingLoader />}>
-        <Canvas
-            className={styles.canvas}
-            camera={{ fov: 50, zoom: 0.7, position: [0, 5, 5] }}
-        >
-            <Suspense fallback={<Loader />}>
+        <Suspense fallback={<RingLoader color="#E4E4E7"/>}>
+            <Canvas
+                className={styles.canvas}
+                camera={{ fov: 50, zoom: 0.7, position: [0, 5, 5] }}
+            >
+                <Suspense fallback={<Loader />}>
                 <color args={["#18181B"]} attach={"background"} />
                 <Stage intensity={0.3} shadows="contact" preset={"rembrandt"} adjustCamera>
                     {src ? <Model src={src} /> : null}
@@ -36,8 +36,8 @@ export default function Viewport({ src, grid = false }: ViewportProps) {
                     enableZoom={grid}
                     makeDefault
                 />
-            </Suspense>
-        </Canvas >
-        // </Suspense >
+                </Suspense>
+            </Canvas >
+        </Suspense >
     )
 }

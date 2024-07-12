@@ -3,7 +3,6 @@ import styles from "./SideNav.module.css"
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { GiMoebiusTriangle } from "react-icons/gi";
 import CreatePostForm from "../CreatePostForm/CreatePostForm";
-import Login from "../Login/Login";
 import CurrentUserInfo from "../CurrentUserInfo/CurrentUserInfo";
 
 // Util
@@ -19,36 +18,38 @@ export default function SideNav() {
   const user = useSelector((state: any) => state.session.user) as IUser;
 
   const handleLogout = (e) => {
-    dispatch(logoutThunk() as any)
+    dispatch(logoutThunk() as any);
   }
 
   return (
     <aside className={styles.nav}>
-      <Link className={styles.dimension} to={"/"}>
-        <GiMoebiusTriangle className={styles.dimensionIcon} style={{ fontSize: "1.3rem" }} />
-        <span className={styles.dimensionText}>Dimension</span>
-      </Link>
-      <CurrentUserInfo />
-      {
-        user ?
-          <OpenModalButton
-            modalComponent={
-            <ModalContent
-              title="Upload A Model"
-              subtitle="Files must be in .glb or .gltf format"
-              width={500}
+      <div className={styles.upper}>
+        <Link className={styles.dimension} to={"/"}>
+          <GiMoebiusTriangle className={styles.dimensionIcon} style={{ fontSize: "1.3rem" }} />
+          <span className={styles.dimensionText}>Dimension</span>
+        </Link>
+        <CurrentUserInfo />
+        {
+          user ?
+            <OpenModalButton
+              modalComponent={
+                <ModalContent
+                  title="Upload A Model"
+                  subtitle="Files must be in .glb or .gltf format"
+                  width={500}
+                >
+                  <CreatePostForm />
+                </ModalContent>
+              }
+              className={styles.wrapper}
             >
-              <CreatePostForm />
-            </ModalContent>
-          }
-            className={styles.wrapper}
-          >
-            <Button variant="filled" fullWidth>
-              Create
-            </Button>
-          </OpenModalButton>
-          : null
-      }
+              <Button variant="filled" fullWidth>
+                Create
+              </Button>
+            </OpenModalButton>
+            : null
+        }
+      </div>
       {/* <OpenModalButton
         buttonText="Create"
         modalComponent={<CreatePostForm />}
@@ -62,6 +63,14 @@ export default function SideNav() {
       <button className={styles.button} onClick={handleLogout}>
         Logout
       </button> */}
+      <div className={styles.lower}>
+        {user ? <Button
+          onClick={handleLogout}
+          fullWidth
+        >
+          Logout
+        </Button> : null}
+      </div>
     </aside>
   )
 }

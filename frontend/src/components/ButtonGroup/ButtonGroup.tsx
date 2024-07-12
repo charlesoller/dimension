@@ -8,14 +8,14 @@ interface ButtonGroupProps {
   secondaryButtonOnClick?: (arg0?: any) => any;
   tertiaryButtonText?: string;
   tertiaryButtonOnClick?: (arg0?: any) => any;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export default function ButtonGroup({
   primaryButtonText, primaryButtonOnClick,
   secondaryButtonText, secondaryButtonOnClick,
   tertiaryButtonText, tertiaryButtonOnClick,
-  disabled
+  disabled = false
 }: ButtonGroupProps) {
   return (
     <div className={styles.buttons}>

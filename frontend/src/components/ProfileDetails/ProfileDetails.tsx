@@ -4,6 +4,9 @@ import styles from "./ProfileDetails.module.css"
 import { useDispatch, useSelector } from "react-redux"
 import Button from "../Button/Button"
 import { followUserThunk } from "../../store/users"
+import OpenModalButton from "../OpenModalButton/OpenModalButton"
+import ModalContent from "../ModalContent/ModalContent"
+import EditUserForm from "../EditUserForm/EditUserForm"
 
 interface ProfileDetailsProps {
   user: IUser
@@ -31,10 +34,19 @@ export default function ProfileDetails({ user, posts }: ProfileDetailsProps) {
         <div>
           <div className={styles.header}>
             <h6 className={styles.username}>@{user.username}</h6>
-            { currentUser ? isCurrentUser ? (
-              <button>
-                <GoGear />
-              </button>
+            {currentUser ? isCurrentUser ? (
+              <OpenModalButton
+                buttonText={<GoGear className={styles.gear} />}
+                modalComponent={
+                  <ModalContent
+                    title={"User Settings"}
+                    subtitle={"Manage your account"}
+                    width={600}
+                  >
+                    <EditUserForm />
+                  </ModalContent>
+                }
+              />
             ) : (
               <Button onClick={handleFollow} variant={isUserFollowing ? "filled" : "outlined"}>
                 {isUserFollowing ? "Following" : "Follow"}

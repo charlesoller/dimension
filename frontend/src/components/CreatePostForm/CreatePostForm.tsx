@@ -23,8 +23,7 @@ export default function CreatePostForm() {
 
   const handleFileUpload = async (uploadedFile: File) => {
     setLoading(true);
-    console.log("File: ", uploadedFile)
-    const { success, data } = await uploadFile(uploadedFile);
+    const { success, data } = await uploadFile(uploadedFile, 'models');
     if (!success) {
       console.log({ success, data })
       return { success, data };
@@ -59,6 +58,7 @@ export default function CreatePostForm() {
     <form className={styles.form} onSubmit={handleSubmit}>
       <Dropzone
         handleFileUpload={handleFileUpload}
+        variant="3D"
         noClick
       >
         <div className={styles.viewport}>
@@ -69,6 +69,7 @@ export default function CreatePostForm() {
         <div className={styles.uploadButton}>
           <Dropzone
             handleFileUpload={handleFileUpload}
+            variant="3D"
           >
             <Button type="button">
               Upload
