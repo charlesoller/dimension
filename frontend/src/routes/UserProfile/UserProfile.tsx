@@ -13,7 +13,7 @@ export default function UserProfile() {
   const { user: userParam } = useParams();
 
   const user = useSelector((state: any) => Object.values(state.users))
-    .find((user: IUser) => user.username === userParam);
+    .find((user: IUser) => user.username === userParam) as any;
   const posts = useSelector((state: any) => Object.values(state.posts))
     .filter((post: IPost) => post?.author?.username === userParam) as any;
 

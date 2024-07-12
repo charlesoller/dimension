@@ -8,7 +8,7 @@ import Post from "../Post/Post"
 import { IPost } from "../../utils/types"
 
 interface FeedProps {
-    posts: IPost;
+    posts: IPost[];
 }
 
 export default function Feed({ posts }: FeedProps ){

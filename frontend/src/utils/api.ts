@@ -6,7 +6,7 @@ const URL = "http://localhost:8000/api"
 export const createPost = async (postData: PostData) => {
   const { file, description } = postData;
 
-  const { success, data } = await uploadFile(file);
+  const { success, data } = await uploadFile(file, 'models');
   if (!success) {
     return { success, data };
   }

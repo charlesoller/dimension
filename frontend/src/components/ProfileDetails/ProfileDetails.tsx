@@ -10,8 +10,8 @@ import EditUserForm from "../EditUserForm/EditUserForm"
 import { PROFILE_PIC_PLACEHOLDER } from "../../utils/constants"
 
 interface ProfileDetailsProps {
-  user: IUser
-  posts: IPost[]
+  user: IUser;
+  posts: IPost[];
 }
 
 export default function ProfileDetails({ user, posts }: ProfileDetailsProps) {
