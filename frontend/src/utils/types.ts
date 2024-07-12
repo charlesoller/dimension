@@ -10,6 +10,7 @@ export interface IUser {
   postLikes?: PostLike[];
   following?: Follow[];
   followers?: Follow[];
+  profilePicture?: ProfilePicture;
 }
 export interface IPost {
   id: number;
@@ -102,4 +103,13 @@ export interface Follow {
   followerId: number;
   following: IUser;
   followingId: number;
+}
+
+export interface ProfilePicture {
+  id: number;
+  url: string;
+  userId: number;
+  user: IUser;
+  createdAt: Date | string;
+  updatedAt: Date | string;
 }

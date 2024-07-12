@@ -5,7 +5,7 @@ import classNames from "classnames";
 export interface ButtonProps {
   children?: ReactNode;
   onClick?: () => void;
-  variant?: "outlined" | "filled";
+  variant?: "outlined" | "filled" | "link"
 }
 
 export default function Button({ children, onClick, variant = "outlined" }: ButtonProps) {
@@ -14,7 +14,8 @@ export default function Button({ children, onClick, variant = "outlined" }: Butt
       className={classNames({
         [styles.button]: true,
         [styles.outlined]: variant === "outlined",
-        [styles.filled]: variant === "filled"
+        [styles.filled]: variant === "filled",
+        [styles.link]: variant === "link"
       })}
       onClick={onClick}
     >

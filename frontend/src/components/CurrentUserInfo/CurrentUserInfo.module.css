@@ -1,0 +1,49 @@
+.currentUserInfo {
+  border: 1px solid var(--primary-8);
+  padding: 0.5em 0.5em;
+  border-radius: 0.2em;
+  display: flex;
+  gap: 0.4em;
+  align-items: center;
+  overflow: auto;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  color: var(--primary-6);
+
+  &:hover {
+    color: var(--primary-3);
+    border-color: var(--primary-3);
+  }
+}
+
+.image {
+  height: 24px;
+  width: 24px;
+  border-radius: 9999px;
+}
+
+.names {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+}
+
+.username {
+  font-size: 0.8rem;
+  color: var(--primary-4);
+}
+
+.name {
+  font-size: 0.6rem;
+  color: var(--primary-6);
+  font-weight: 500;
+}
+
+.login {
+  display: flex;
+  gap: 0.5em;
+  margin: 0 auto;
+
+}

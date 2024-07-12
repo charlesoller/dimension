@@ -11,6 +11,7 @@ interface OpenModalButtonComponent {
   onButtonClick?: () => void;
   onModalClose?: () => void;
   className?: CSSModule | string;
+  children?: JSX.Element;
 }
 
 function OpenModalButton({
@@ -18,7 +19,8 @@ function OpenModalButton({
   buttonText, // text of the button that opens the modal
   onButtonClick, // optional: callback function that will be called once the button that opens the modal is clicked
   onModalClose, // optional: callback function that will be called once the modal is closed
-  className
+  className,
+  children
 }: OpenModalButtonComponent) {
   const { setModalContent, setOnModalClose } = useModal();
 
@@ -33,7 +35,7 @@ function OpenModalButton({
     // if (typeof onButtonClick === "function") onButtonClick();
   };
 
-  return <button className={className} onClick={onClick}>{buttonText}</button>;
+  return <button className={className} onClick={onClick}>{children ? children : buttonText}</button>;
 }
 
 export default OpenModalButton;

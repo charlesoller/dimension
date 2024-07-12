@@ -17,7 +17,7 @@ model User {
   hashedPassword        String
   name                  String?
   bio                   String?
-  ProfilePicture        ProfilePicture?
+  profilePicture        ProfilePicture?
   posts                 Post[]
   comments              Comment[]
   postLikes             PostLike[]

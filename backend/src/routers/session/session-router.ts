@@ -40,7 +40,8 @@ router.post('/', async (req, res, next) => {
           { username: credential },
           { email: credential }
         ]
-      }
+      },
+      include: { profilePicture: true }
     })
   
     if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
@@ -77,7 +78,8 @@ router.get('/', async (req, res) => {
       };
 
       const userData = await prisma.user.findUnique({
-        where: { username: user.username }
+        where: { username: user.username },
+        include: { profilePicture: true }
       })
 
       return res.json({

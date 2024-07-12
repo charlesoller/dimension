@@ -6,7 +6,7 @@
   width: var(--nav-width);
   background: var(--primary-10);
   color: rgba(255, 255, 255, 0.9);
-  padding: 2em;
+  padding: 1.5em;
   display: flex;
   flex-direction: column;
   justify-content: center;
