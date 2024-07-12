@@ -10,8 +10,13 @@
   border-radius: var(--border-radius);
   width: fit-content;
   transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: ease;
   transition-duration: 500ms;
+
+  &.fullWidth  {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .outlined {

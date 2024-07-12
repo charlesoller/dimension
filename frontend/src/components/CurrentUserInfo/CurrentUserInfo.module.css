@@ -1,4 +1,9 @@
+.fullWidth {
+  width: 100%;
+}
+
 .currentUserInfo {
+  color: var(--primary-6);
   border: 1px solid var(--primary-8);
   padding: 0.5em 0.5em;
   border-radius: 0.2em;
@@ -6,11 +11,11 @@
   gap: 0.4em;
   align-items: center;
   overflow: auto;
+  width: 100% !important;
+
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-
-  color: var(--primary-6);
 
   &:hover {
     color: var(--primary-3);

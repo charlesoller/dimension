@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutThunk } from "../../store/session";
 import { Link } from "react-router-dom";
 import { IUser } from "../../utils/types";
+import Button from "../Button/Button";
 
 export default function SideNav(){
   const dispatch = useDispatch();
@@ -30,8 +31,11 @@ export default function SideNav(){
       {/* <div className={styles.button}>
         {user ? `@${user.username} Logged In` : "Not Logged In"}
       </div> */}
+      <Button variant="filled" fullWidth>
+        Create
+      </Button>
 
-      <OpenModalButton
+      {/* <OpenModalButton
         buttonText="Create"
         modalComponent={<CreatePostForm />}
         className={styles.button}
@@ -43,7 +47,7 @@ export default function SideNav(){
       />
       <button className={styles.button} onClick={handleLogout}>
         Logout
-      </button>
+      </button> */}
     </aside>
   )
 }

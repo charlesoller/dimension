@@ -1,0 +1,10 @@
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonRight {
+  display: flex;
+  gap: 1em;
+  margin-left: auto;
+}
