@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { IUser } from "../../utils/types";
 import ModalContent from "../ModalContent/ModalContent";
 import LoginForm from "../LoginForm/LoginForm";
+import EditUserForm from "../EditUserForm/EditUserForm";
 
 export default function CurrentUserInfo() {
   const user = useSelector((state: any) => state.session.user) as IUser;
@@ -18,10 +19,10 @@ export default function CurrentUserInfo() {
     <OpenModalButton
       modalComponent={
         <ModalContent
-          title="Login"
-          subtitle="Log into your account"
+          title={ user ? "User Settings" : "Login"}
+          subtitle={ user ? "Manage your account" : "Log into your account"}
         >
-          <LoginForm />
+          { user ? <EditUserForm /> : <LoginForm />}
         </ModalContent>
       }
       className={styles.fullWidth}
