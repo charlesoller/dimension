@@ -6,10 +6,12 @@ export const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.m
 
 export const uploadFile = async (file: File) => {
   console.log("FILE SUPABASE: ", file)
+  const time = Math.abs(new Date().getTime());
+  const fileName = `${file.name}_${time}`;
   const { data: uploadData, error: uploadError } = await supabase
     .storage
     .from(BUCKET_NAME)
-    .upload(file.name, file, {
+    .upload(fileName, file, {
       upsert: true
     });
   console.log("UPLOADED: ", uploadData)

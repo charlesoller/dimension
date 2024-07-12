@@ -95,7 +95,7 @@ export default function PostInfo({ post }: PostInfoComponent) {
         <p className={styles.text}>{parseDescription(post.description)}</p>
       </div>
       <div className={styles.comments}>
-        <h6 className={styles.subheader}>{post.comments.length ? "Comments" : "Be the first to comment"}</h6>
+        <h6 className={styles.subheader}>{post.comments?.length ? "Comments" : "Be the first to comment"}</h6>
         <CommentSection
           postId={post.id}
           comments={post.comments}

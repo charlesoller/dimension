@@ -65,6 +65,10 @@
   }
 }
 
+.wrapper {
+  width: 100%;
+}
+
 @keyframes gradientAnimation {
   0% {
     background-position: 0% 0%;

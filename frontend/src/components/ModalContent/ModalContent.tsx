@@ -5,13 +5,18 @@ export interface ModalContentProps {
   title?: string;
   subtitle?: string;
   children?: React.ReactElement;
+  width?: number;
 }
 
 export default function ModalContent({
-  title, subtitle, children
+  title, subtitle, children, width
 }: ModalContentProps) {
   return (
-    <div className={styles.content}>
+    <div className={styles.content}
+      style={{
+        width: width ? width : undefined
+      }}
+    >
       <div className={styles.header}>
         <h2 className={styles.title}>
           {title}

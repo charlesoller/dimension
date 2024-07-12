@@ -12,8 +12,9 @@ import { logoutThunk } from "../../store/session";
 import { Link } from "react-router-dom";
 import { IUser } from "../../utils/types";
 import Button from "../Button/Button";
+import ModalContent from "../ModalContent/ModalContent";
 
-export default function SideNav(){
+export default function SideNav() {
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.session.user) as IUser;
 
@@ -24,17 +25,30 @@ export default function SideNav(){
   return (
     <aside className={styles.nav}>
       <Link className={styles.dimension} to={"/"}>
-        <GiMoebiusTriangle className={styles.dimensionIcon} style={{ fontSize: "1.3rem" }}/>
+        <GiMoebiusTriangle className={styles.dimensionIcon} style={{ fontSize: "1.3rem" }} />
         <span className={styles.dimensionText}>Dimension</span>
       </Link>
       <CurrentUserInfo />
-      {/* <div className={styles.button}>
-        {user ? `@${user.username} Logged In` : "Not Logged In"}
-      </div> */}
-      <Button variant="filled" fullWidth>
-        Create
-      </Button>
-
+      {
+        user ?
+          <OpenModalButton
+            modalComponent={
+            <ModalContent
+              title="Upload A Model"
+              subtitle="Files must be in .glb or .gltf format"
+              width={500}
+            >
+              <CreatePostForm />
+            </ModalContent>
+          }
+            className={styles.wrapper}
+          >
+            <Button variant="filled" fullWidth>
+              Create
+            </Button>
+          </OpenModalButton>
+          : null
+      }
       {/* <OpenModalButton
         buttonText="Create"
         modalComponent={<CreatePostForm />}

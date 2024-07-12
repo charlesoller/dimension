@@ -5,25 +5,29 @@ import { useDropzone } from 'react-dropzone'
 
 interface DropzoneComponent {
   handleFileUpload: (file: File) => void;
+  children: React.ReactElement;
+  noClick?: boolean;
 }
 
-export default function Dropzone({ handleFileUpload }: DropzoneComponent) {
+export default function Dropzone({ handleFileUpload, children, noClick = false }: DropzoneComponent) {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     // Do something with the files
     handleFileUpload(acceptedFiles[0])
   }, [])
+
   const {getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    maxFiles: 1
+    maxFiles: 1,
+    noClick
   })
 
   return (
-    <div {...getRootProps()} className={styles.dropzone}>
+    <div {...getRootProps()}>
       <input {...getInputProps()} />
       {
         isDragActive ?
           <p>Drop the files here ...</p> :
-          <p>Drag 'n' drop some files here, or click to select files</p>
+          children
       }
     </div>
   )

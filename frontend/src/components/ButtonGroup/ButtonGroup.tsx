@@ -8,12 +8,14 @@ interface ButtonGroupProps {
   secondaryButtonOnClick?: (arg0?: any) => any;
   tertiaryButtonText?: string;
   tertiaryButtonOnClick?: (arg0?: any) => any;
+  disabled: boolean;
 }
 
 export default function ButtonGroup({
   primaryButtonText, primaryButtonOnClick,
   secondaryButtonText, secondaryButtonOnClick,
   tertiaryButtonText, tertiaryButtonOnClick,
+  disabled
 }: ButtonGroupProps) {
   return (
     <div className={styles.buttons}>
@@ -23,6 +25,7 @@ export default function ButtonGroup({
           <Button
             onClick={tertiaryButtonOnClick}
             variant="link"
+            disabled={disabled}
           >
             {tertiaryButtonText}
           </Button>
@@ -33,6 +36,7 @@ export default function ButtonGroup({
       <Button
         onClick={secondaryButtonOnClick}
         variant="outlined"
+        disabled={disabled}
       >
         {secondaryButtonText}
       </Button>
@@ -40,6 +44,7 @@ export default function ButtonGroup({
         onClick={primaryButtonOnClick}
         variant="filled"
         type="submit"
+        disabled={disabled}
       >
         {primaryButtonText}
       </Button>

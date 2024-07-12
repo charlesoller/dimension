@@ -250,7 +250,6 @@ export const postsReducer = (state = {}, action: ThunkAction) => {
           ? action.payload.editedComment 
           : comment
       )
-      console.log("NEW: ", newComments)
       return {...state, [action.payload.postId]: { ...existingPost, comments: newComments }};
     }
     default:

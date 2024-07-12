@@ -8,21 +8,24 @@ export interface ButtonProps {
   variant?: "outlined" | "filled" | "link"
   type?: "button" | "submit" | "reset";
   fullWidth?: boolean;
+  disabled?: boolean;
 }
 
 export default function Button({
   children, onClick, variant = "outlined", 
-  type, fullWidth = false
+  type, fullWidth = false, disabled=false
 }: ButtonProps) {
   return (
     <button
       type={type}
+      disabled={disabled}
       className={classNames({
         [styles.button]: true,
         [styles.outlined]: variant === "outlined",
         [styles.filled]: variant === "filled",
         [styles.link]: variant === "link",
-        [styles.fullWidth]: fullWidth
+        [styles.fullWidth]: fullWidth,
+        [styles.disabled]: disabled
       })}
       onClick={onClick}
     >

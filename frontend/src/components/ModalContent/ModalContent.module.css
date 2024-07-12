@@ -5,10 +5,12 @@
   border-radius: 0.4em;
   min-width: 400px;
   max-width: 50vw;
+  max-height: 95vh;
   display: flex;
   flex-direction: column;
   gap: 1.5em;
   filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+  overflow: auto;
 }
 
 .header {

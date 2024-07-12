@@ -15,6 +15,11 @@ export default function EditUserForm() {
     e.preventDefault();
   }
 
+  const handleLogout = () => {
+    dispatch(logoutThunk() as any);
+    closeModal();
+  } 
+
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <label className={styles.inputGroup}>
@@ -23,7 +28,6 @@ export default function EditUserForm() {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          required
           className={styles.input}
         />
       </label>
@@ -33,7 +37,6 @@ export default function EditUserForm() {
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          required
           className={styles.input}
         />
       </label>
@@ -43,7 +46,7 @@ export default function EditUserForm() {
         secondaryButtonText="Close"
         secondaryButtonOnClick={closeModal}
         tertiaryButtonText="Logout"
-        tertiaryButtonOnClick={() => dispatch(logoutThunk() as any)}
+        tertiaryButtonOnClick={handleLogout}
       />
     </form>
   )

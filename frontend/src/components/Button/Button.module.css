@@ -17,6 +17,10 @@
     width: 100%;
     text-align: center;
   }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
 }
 
 .outlined {
@@ -32,6 +36,10 @@
     -webkit-background-clip: text;
     background-size: 300% 300%;
     animation: gradientAnimation var(--animation-time) infinite linear;
+
+    &.disabled {
+      background: none;
+    }
   }
 
   &::before {
@@ -58,6 +66,15 @@
     /* background-position: 100% 100%; */
     animation: gradientAnimation var(--animation-time) infinite linear;
   }
+
+  &.disabled {
+    color: var(--primary-7);
+    border-color: var(--primary-7);
+
+    &::before {
+      display: none;
+    }
+  }
 }
 
 .filled {
@@ -71,6 +88,10 @@
 
     background-size: 300% 300%;
     animation: gradientAnimation var(--animation-time) infinite linear;
+  }
+
+  &.disabled {
+    background: var(--primary-7);
   }
 }
 
@@ -86,6 +107,14 @@
 
     background-size: 300% 300%;
     animation: gradientAnimation var(--animation-time) infinite linear;
+
+    &.disabled {
+      background: none;
+    }
+  }
+
+  &.disabled {
+    color: var(--primary-7);
   }
 }
 

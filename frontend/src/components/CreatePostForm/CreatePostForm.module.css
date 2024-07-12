@@ -1,15 +1,8 @@
-.modal {
-  background: #2C2E32;
-  color: rgba(255, 255, 255, 0.9);
-  padding: 1em;
-  border-radius: 0.2em;
+
+.form {
   display: flex;
   flex-direction: column;
   gap: 1em;
-}
-
-.header {
-  font-weight: 400;
 }
 
 .textInput {
@@ -18,19 +11,68 @@
   color: rgba(255, 255, 255, 0.9);
   width: 100%;
   padding: 0.5em;
+  font-size: 0.8rem;
+
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  &:hover,
+  &:focus {
+    background-color: var(--primary-9);
+  }
 }
 
-.button {
-  border: 1.5px solid rgba(255, 255,255, 0.9);
-  padding: 0.3em 0.5em;
-  width: 100%;
-  text-align: center;
-	transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 250ms;
+.label {
+  text-transform: uppercase;
+  font-size: 0.6rem;
+  margin-left: 0.8em;
+  font-weight: 500;
+  color: var(--primary-7);
+  letter-spacing: 0.05rem;
+}
 
-  &:hover {
-    color: purple;
-    border-color: purple;
+.viewport {
+  height: 300px;
+  width: 100%;
+  border-radius: 0.4em;
+  overflow: hidden;
+  border: 1px solid var(--primary-9);
+}
+
+.uploadButton {
+  /* margin-left: auto; */
+  width: fit-content;
+}
+
+.uploadInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.loader {
+  width: 100%;
+  border-radius: 9999px;
+  overflow: hidden;
+  height: fit-content;
+}
+
+.loadingPlaceholder {
+  background-color: var(--primary-9);
+  height: 6px;
+
+  &.success {
+    background-color: var(--success);
+  }
+}
+
+.uploadText {
+  color: var(--primary-8);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+
+  &.success {
+    color: var(--success);
   }
 }

@@ -31,7 +31,7 @@ export default function ProfileDetails({ user, posts }: ProfileDetailsProps) {
         <div>
           <div className={styles.header}>
             <h6 className={styles.username}>@{user.username}</h6>
-            {isCurrentUser ? (
+            { currentUser ? isCurrentUser ? (
               <button>
                 <GoGear />
               </button>
@@ -39,7 +39,7 @@ export default function ProfileDetails({ user, posts }: ProfileDetailsProps) {
               <Button onClick={handleFollow} variant={isUserFollowing ? "filled" : "outlined"}>
                 {isUserFollowing ? "Following" : "Follow"}
               </Button>
-            )}
+            ) : null}
           </div>
           <div className={styles.postsAndFollow}>
             <p className={styles.userStat}>{posts.length} posts</p>

@@ -39,7 +39,8 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
       },
       include: {
         author: true,
-        likes: true
+        likes: true,
+        comments: true
       }
     });
 
