@@ -29,3 +29,7 @@
     cursor: pointer;
   }
 }
+
+.buttons {
+  margin-top: 1em;
+}

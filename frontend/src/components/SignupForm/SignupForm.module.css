@@ -1,0 +1,109 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
+}
+
+.top {
+  display: flex;
+  /* justify-content: space-between; */
+  justify-content: center;
+  gap: 2em;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  /* overflow: hidden; */
+}
+
+.input {
+  background-color: var(--primary-9);
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0.2em;
+  padding: 0.5em 0.7em;
+  font-size: 0.8rem;
+  width: 95%;
+  max-width: 100%;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  &:hover {
+    background-color: var(--primary-8);
+    cursor: pointer;
+  }
+}
+
+.profilePicture {
+  border-radius: 9999px;
+  height: 128px;
+  max-height: 128px;
+  width: 128px;
+  max-width: 128px;
+  object-fit: cover;
+  /* margin: 0 auto; */
+}
+
+.uploadInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 1em 0;
+  /* background-color: red; */
+}
+
+.loader {
+  width: 100%;
+  border-radius: 9999px;
+  overflow: hidden;
+  height: fit-content;
+}
+
+.loadingPlaceholder {
+  background-color: var(--primary-9);
+  height: 6px;
+
+  &.success {
+    background-color: var(--success);
+  }
+}
+
+.dropzoneContent {
+  display: relative;
+  
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.dragIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.uploadText {
+  color: var(--primary-8);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+
+  &.success {
+    color: var(--success);
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.error {
+  color: red;
+}

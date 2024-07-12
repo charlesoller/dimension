@@ -1,5 +1,7 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { PrismaClient } from '@prisma/client'
+import bcrypt from 'bcryptjs'
+import { setTokenCookie } from "../../utils/auth";
 
 const router = Router();
 const prisma = new PrismaClient();
@@ -18,6 +20,54 @@ router.get('/:username', async (req: Request, res: Response, next: NextFunction)
       }
     });
     return res.json({ success: true, data: posts })
+  } catch (error: any) {
+    next(error)
+  }
+});
+
+// ============================ POST ============================ 
+router.post('/', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { name, username, email, password, profilePicture } = req.body;
+    const hashedPassword = bcrypt.hashSync(password);
+
+    const existingUsername = await prisma.user.findFirst({
+      where: {
+        OR: [
+          { username }, 
+          { email }
+        ]
+      }
+    })
+
+    if (existingUsername) {
+      return res.status(409).json({ success: false, data: "A user with this username or email already exists." })
+    }
+
+    const newUser = await prisma.user.create({
+      data: {
+        name: name.length ? name : undefined,
+        username: username.length ? username : undefined,
+        email: email.length ? email : undefined,
+        hashedPassword,
+        profilePicture: profilePicture ? {
+          create: {
+            url: profilePicture
+          }
+        } : undefined
+      }
+    });
+
+    const safeUser = {
+      id: newUser.id,
+      name: newUser.name,
+      email: newUser.email,
+      username: newUser.username,
+    };
+
+    await setTokenCookie(res, safeUser);
+
+    return res.json({ success: true, data: newUser })
   } catch (error: any) {
     next(error)
   }

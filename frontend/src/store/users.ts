@@ -1,6 +1,14 @@
 import { Dispatch } from "redux";
-import { IUser, ThunkAction } from "../utils/types";
+import { Follow, IUser, ThunkAction } from "../utils/types";
 import { csrfFetch } from "../utils/csrf";
+
+interface UserBody {
+  name?: string;
+  username?: string;
+  email?: string;
+  profilePicture?: string;
+  password?: string;
+}
 
 // ============================== ACTION CONSTANTS ==============================
 const LOAD_USER = "users/loadUser"
@@ -14,7 +22,7 @@ export const loadUser = (user: IUser) => {
   };
 };
 
-export const followUser = (followData) => {
+export const followUser = (followData: Follow) => {
   return {
     type: FOLLOW_USER,
     payload: followData
@@ -35,6 +43,21 @@ export const loadUserThunk = (username: string) => async (dispatch: Dispatch) =>
   return data;
 }
 
+export const createUserThunk = (body: UserBody) => async (dispatch: Dispatch) => {
+  const { data, success } = await csrfFetch('/api/users', {
+    method: "POST",
+    body: JSON.stringify(body)
+  })
+    .then(res => res.json())
+
+  if (!success) {
+    return { data, success };
+  }
+
+  dispatch(loadUser(data) as any);
+  return { data, success };
+}
+
 export const followUserThunk = (id: number) => async (dispatch: Dispatch) => {
   const { data, success } = await csrfFetch(`/api/users/${id}/follows`, { method: "PUT" })
     .then(res => res.json());
@@ -47,13 +70,7 @@ export const followUserThunk = (id: number) => async (dispatch: Dispatch) => {
   return data;
 }
 
-interface editUserBody {
-  name?: string;
-  username?: string;
-  profilePicture?: string;
-}
-
-export const editUserThunk = (id: number, body: editUserBody) => async (dispatch: Dispatch) => {
+export const editUserThunk = (id: number, body: UserBody) => async (dispatch: Dispatch) => {
   const { data, success } = await csrfFetch(`/api/users/${id}`, {
     method: "PUT",
     body: JSON.stringify(body)
