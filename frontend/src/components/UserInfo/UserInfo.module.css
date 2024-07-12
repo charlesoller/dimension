@@ -2,6 +2,7 @@
     height: 32px;
     width: 32px;
     border-radius: 9999px;
+    object-fit: cover;
 }
 
 .user {

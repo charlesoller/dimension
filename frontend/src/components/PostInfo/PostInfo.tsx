@@ -14,6 +14,7 @@ import { timeAgo } from "../../utils/utils";
 import { IPost, IUser } from "../../utils/types"
 import LinkChip from "../LinkChip/LinkChip";
 import { nanoid } from "nanoid";
+import ModalContent from "../ModalContent/ModalContent";
 
 
 interface PostInfoComponent {
@@ -85,7 +86,14 @@ export default function PostInfo({ post }: PostInfoComponent) {
             {post.authorId === currentUser?.id &&
               <OpenModalButton
                 buttonText={<GoGear size={"1rem"} className={styles.iconButton} />}
-                modalComponent={<EditPostForm post={post} />}
+                modalComponent={
+                  <ModalContent
+                    title="Edit Post"
+                    subtitle="Change the post's description"
+                  >
+                    <EditPostForm post={post} />
+                  </ModalContent>
+                }
                 className={styles.button}
               />
             }

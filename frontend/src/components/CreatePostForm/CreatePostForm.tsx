@@ -36,13 +36,6 @@ export default function CreatePostForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-
-    // const { success, data } = await uploadFile(file);
-    // if (!success) {
-    //   console.log({success, data})
-    //   return { success, data };
-    // }
-
     dispatch(createPostThunk({ description, url }) as any);
     closeModal();
     setLoading(false);

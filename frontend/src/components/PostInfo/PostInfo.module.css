@@ -82,6 +82,8 @@
 
 .iconButton {
   color: var(--primary-7);
+  margin-top: 0.2em;
+
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;

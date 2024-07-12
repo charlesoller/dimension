@@ -11,7 +11,11 @@ const prisma = new PrismaClient();
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   const posts = await prisma.post.findMany({
     include: {
-      author: true,
+      author: {
+        include: {
+          profilePicture: true
+        }
+      },
       likes: true,
       channels: true,
       comments: {
@@ -38,7 +42,11 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
         authorId: user.id
       },
       include: {
-        author: true,
+        author: {
+          include: {
+            profilePicture: true
+          }
+        },
         likes: true,
         comments: true
       }
@@ -115,7 +123,11 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
         updatedAt: new Date()
       },
       include: {
-        author: true,
+        author: {
+          include: {
+            profilePicture: true
+          }
+        },
         comments: {
           include: {
             author: true
@@ -162,7 +174,7 @@ router.put('/:id/likes', async (req: Request, res: Response, next: NextFunction)
         }
       });
     } else {
-      const newLike = await prisma.postLike.create({
+      await prisma.postLike.create({
         data: { authorId: Number(authorId), postId: Number(postId) }
       });
     }

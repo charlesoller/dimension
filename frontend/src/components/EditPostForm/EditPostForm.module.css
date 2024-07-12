@@ -18,6 +18,17 @@
   color: rgba(255, 255, 255, 0.9);
   width: 100%;
   padding: 0.5em;
+  font-size: 0.8rem;
+  margin-bottom: 1em;
+
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  &:hover,
+  &:focus {
+    background-color: var(--primary-9);
+  }
 }
 
 .buttonGroup {

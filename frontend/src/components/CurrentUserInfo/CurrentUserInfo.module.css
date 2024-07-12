@@ -27,6 +27,7 @@
   height: 24px;
   width: 24px;
   border-radius: 9999px;
+  object-fit: cover;
 }
 
 .names {

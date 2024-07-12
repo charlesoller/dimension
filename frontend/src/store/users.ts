@@ -38,7 +38,6 @@ export const loadUserThunk = (username: string) => async (dispatch: Dispatch) =>
 export const followUserThunk = (id: number) => async (dispatch: Dispatch) => {
   const { data, success } = await csrfFetch(`/api/users/${id}/follows`, { method: "PUT" })
     .then(res => res.json());
-  console.log("Data: ", data)
   if (!success) {
     console.error(data);
     return;
@@ -46,6 +45,27 @@ export const followUserThunk = (id: number) => async (dispatch: Dispatch) => {
 
   dispatch(followUser(data) as any);
   return data;
+}
+
+interface editUserBody {
+  name?: string;
+  username?: string;
+  profilePicture?: string;
+}
+
+export const editUserThunk = (id: number, body: editUserBody) => async (dispatch: Dispatch) => {
+  const { data, success } = await csrfFetch(`/api/users/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(body)
+  })
+    .then(res => res.json());
+
+  if (!success) {
+    return { data, success };
+  }
+
+  dispatch(loadUser(data) as any);
+  return { data, success };
 }
 // ============================== Reducer ==============================
 export const usersReducer = (state = {}, action: ThunkAction) => {

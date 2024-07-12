@@ -33,6 +33,7 @@
   height: 6rem;
   width: 6rem;
   border-radius: 9999px;
+  object-fit: cover;
 }
 
 .postsAndFollow {

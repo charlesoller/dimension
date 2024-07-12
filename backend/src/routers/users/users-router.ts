@@ -14,6 +14,7 @@ router.get('/:username', async (req: Request, res: Response, next: NextFunction)
       include: {
         followers: true,
         following: true,
+        profilePicture: true
       }
     });
     return res.json({ success: true, data: posts })
@@ -23,13 +24,56 @@ router.get('/:username', async (req: Request, res: Response, next: NextFunction)
 });
 
 // ============================ PUT ============================ 
+router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const { name, username, profilePicture } = req.body;
+    const user = req.user;
+
+    if (user.username !== username) {
+      const existingUsername = await prisma.user.findFirst({
+        where: { username }
+      })
+
+      if (existingUsername) {
+        return res.status(409).json({ success: false, data: "A user with this name already exists." })
+      }
+    }
+
+    const newUser = await prisma.user.update({
+      where: { id: Number(id) },
+      data: {
+        name: name.length ? name : undefined,
+        username: username.length ? username : undefined,
+        updatedAt: new Date(),
+        profilePicture: profilePicture ? {
+          upsert: {
+            create: {
+              url: profilePicture.length ? profilePicture : undefined,
+            },
+            update: {
+              url: profilePicture.length ? profilePicture : undefined,
+              updatedAt: new Date()
+            }
+          }
+        } : undefined
+      }
+    });
+
+    return res.json({ success: true, data: newUser })
+  } catch (error: any) {
+    next(error)
+  }
+});
+
+
 router.put('/:id/follows', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = req.user;
     const { id } = req.params;
 
     if (!user) {
-      return res.json({success: false, data: "Unable to get active user."})
+      return res.json({ success: false, data: "Unable to get active user." })
     }
 
     const data = {
@@ -51,20 +95,22 @@ router.put('/:id/follows', async (req: Request, res: Response, next: NextFunctio
 
     const follower = await prisma.user.findUnique({
       where: { id: user.id },
-      include: { 
+      include: {
         followers: true,
-        following: true
+        following: true,
+        profilePicture: true
       }
     })
     const following = await prisma.user.findUnique({
       where: { id: Number(id) },
-      include: { 
+      include: {
         followers: true,
-        following: true
+        following: true,
+        profilePicture: true
       }
     })
 
-    return res.json({ success: true, data: { follower, following }});
+    return res.json({ success: true, data: { follower, following } });
   } catch (error: any) {
     next(error)
   }

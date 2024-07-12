@@ -10,11 +10,14 @@ import classNames from "classnames";
 import { BarLoader } from "react-spinners";
 import Button from "../Button/Button";
 import { GoUpload } from "react-icons/go";
+import { uploadFile } from "../../utils/clients/supabase";
+import { editUserThunk } from "../../store/users";
+import { loadAllPostsThunk } from "../../store/posts";
 
 export default function EditUserForm() {
   const currentUser = useSelector((state: any) => state.session.user);
-  console.log("User: ", currentUser)
   const dispatch = useDispatch();
+
   const { closeModal } = useModal() as any;
 
   const [name, setName] = useState<string>("");
@@ -22,6 +25,7 @@ export default function EditUserForm() {
   const [profilePicture, setProfilePicture] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [hasUploaded, setHasUploaded] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     if (currentUser) {
@@ -31,17 +35,39 @@ export default function EditUserForm() {
     }
   }, [currentUser])
 
-  const handleSubmit = (e) => {
+  const handleFileUpload = async (uploadedFile: File) => {
+    setLoading(true);
+    const { success, data } = await uploadFile(uploadedFile, 'profile_pictures');
+    if (!success) {
+      console.log({ success, data })
+      return { success, data };
+    }
+
+    setProfilePicture(data);
+    setLoading(false);
+    setHasUploaded(true);
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
+    const data = { name, username, profilePicture };
+    const { data: res, success } = await dispatch(editUserThunk(currentUser.id, data) as any);
+    dispatch(loadAllPostsThunk() as any);
 
-    setHasUploaded(true);
-    setLoading(false);
+    if (!success) {
+      setError(res);
+      setLoading(false);
+    } else {
+      setLoading(false);
+      closeModal();
+      window.location.href = `/${username}`
+    }
   }
 
   const uploadText = () => {
-    if (loading) return "Uploading";
+    if (loading) return "Loading";
     if (hasUploaded) return "Done";
     return "Waiting"
   }
@@ -50,7 +76,7 @@ export default function EditUserForm() {
     <form onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.top}>
         <Dropzone
-          handleFileUpload={() => console.log("Upload")}
+          handleFileUpload={handleFileUpload}
           variant="image"
         >
           <div className={styles.dropzoneContent}>
@@ -84,7 +110,7 @@ export default function EditUserForm() {
       <div className={styles.uploadInfo}>
         <div className={styles.uploadButton}>
           <Dropzone
-            handleFileUpload={() => console.log("Upload")}
+            handleFileUpload={handleFileUpload}
             variant="image"
           >
             <Button type="button">
@@ -112,12 +138,13 @@ export default function EditUserForm() {
           [styles.success]: hasUploaded
         })}>{uploadText()}</p>
       </div>
-
+      <p className={styles.error}>{error}</p>
       <ButtonGroup
         primaryButtonText="Submit"
         primaryButtonOnClick={handleSubmit}
         secondaryButtonText="Close"
         secondaryButtonOnClick={closeModal}
+        disabled={loading}
       />
     </form>
   )

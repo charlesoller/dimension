@@ -43,6 +43,7 @@
   max-height: 128px;
   width: 128px;
   max-width: 128px;
+  object-fit: cover;
 }
 
 .uploadInfo {
@@ -93,4 +94,8 @@
   &.success {
     color: var(--success);
   }
+}
+
+.error {
+  color: red;
 }
