@@ -23,7 +23,6 @@ const validateLogin = [
 
 // Log in
 router.post('/', async (req, res: Response, next) => {
-  console.log("In login")
     const { credential, password } = req.body;
     if(!credential || !password){
       const err = new Error("Bad Request")
@@ -60,7 +59,6 @@ router.post('/', async (req, res: Response, next) => {
     };
 
     await setTokenCookie(res, safeUser);
-    console.log("After")
     
     return res.json({ user });
   }
@@ -69,7 +67,6 @@ router.post('/', async (req, res: Response, next) => {
 // Restore session user
 router.get('/', async (req, res) => {
     const { user } = req;
-    console.log("2: Restore Route")
     if (user) {
       const safeUser = {
         id: user.id,

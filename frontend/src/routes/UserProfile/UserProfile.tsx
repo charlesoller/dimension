@@ -18,9 +18,10 @@ export default function UserProfile() {
     .filter((post: IPost) => post?.author?.username === userParam) as any;
 
   useEffect(() => {
+    console.log("useEffect")
     dispatch(loadAllPostsThunk() as any);
     dispatch(loadUserThunk(userParam) as any);
-  }, [dispatch])
+  }, [dispatch, userParam])
 
   if (!user || !posts) return;
   return (

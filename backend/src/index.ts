@@ -16,7 +16,6 @@ const app = express();
 
 const { environment } = config;
 const isProduction = environment === 'production';
-console.log("is prod?: ", isProduction)
 
 app.use(cookieParser());
 app.use(express.json())
