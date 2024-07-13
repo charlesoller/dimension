@@ -38,13 +38,13 @@ const setTokenCookie = (res, user) => {
 const restoreUser = (req, res, next) => {
   // token parsed from cookies
   const { token } = req.cookies;
-
+  console.log("Token: ", token)
   req.user = null;
   return jwt.verify(token, secret, null, async (err, jwtPayload) => {
     if (err) {
       return next();
     }
-
+    console.log("JWT Payload: ", jwtPayload)
     try {
       const { id } = jwtPayload.data;
       req.user = await prisma.user.findFirstOrThrow({

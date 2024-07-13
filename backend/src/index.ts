@@ -89,7 +89,7 @@ app.use((_req, _res, next) => {
 });
 
 app.use((err, _req, _res, next) => {
-    // check if error is a Sequelize error:
+    // check if error is a Prisma error:
     if (err instanceof PrismaClientValidationError) {
       let errors = {};
       for (let error of err.errors) {
