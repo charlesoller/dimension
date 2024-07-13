@@ -16,14 +16,14 @@ export async function csrfFetch(url, options = {}) {
     options.headers['XSRF-Token'] = Cookies.get('XSRF-TOKEN');
   }
 
-  if (env === "production") {
-    try {
-      const res = await fetch("https://dimension-1.onrender.com" + url, options);
-      return res;
-    } catch (e) {
-      throw new Error(e.message);
-    }
-  }
+  // if (env === "production") {
+  //   try {
+  //     const res = await fetch("https://dimension-1.onrender.com" + url, options);
+  //     return res;
+  //   } catch (e) {
+  //     throw new Error(e.message);
+  //   }
+  // }
   // call the default window's fetch with the url and the options passed in
   try {
     const res = await window.fetch(url, options);
