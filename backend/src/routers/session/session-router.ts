@@ -60,7 +60,7 @@ router.post('/', async (req, res: Response, next) => {
 
     await setTokenCookie(res, safeUser);
     // console.log("RES: ", res)
-    console.log("COOKIE", res)
+    // console.log("COOKIE", res)
     
     return res.json({ user });
   }
@@ -70,6 +70,7 @@ router.post('/', async (req, res: Response, next) => {
 router.get('/', async (req, res) => {
     const { user } = req;
     console.log("In session router, user: ", user)
+    console.log("2: Restore Route")
     if (user) {
       const safeUser = {
         id: user.id,

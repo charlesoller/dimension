@@ -39,16 +39,18 @@ app.use(
   })
 );
 
+app.use('/api', apiRouter)
+
 // // Set the _csrf token and create req.csrfToken method
-// app.use(
-//   csurf({
-//     cookie: {
-//       secure: isProduction,
-//       sameSite: isProduction && "lax",
-//       httpOnly: true
-//     }
-//   })
-// );
+app.use(
+  csurf({
+    cookie: {
+      secure: isProduction,
+      sameSite: isProduction && "lax",
+      httpOnly: true
+    }
+  })
+);
 
 // app.use(
 //   csurf({
@@ -60,7 +62,6 @@ app.use(
 //   })
 // );
 
-app.use('/api', apiRouter)
 
 // Static routes
 // Serve React build files in production
@@ -98,6 +99,8 @@ if (!isProduction) {
     });
   });
 }
+
+// Error Handlers
 
 app.use((_req, _res, next) => {
   const err = new Error("The requested resource couldn't be found.");
