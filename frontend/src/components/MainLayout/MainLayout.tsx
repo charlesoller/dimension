@@ -25,7 +25,7 @@ export default function MainLayout() {
     console.log("In useEffect")
     dispatch(restoreUserThunk() as any);
     dispatch(loadUserThunk(currentUser?.username) as any);
-  }, [dispatch, currentUser])
+  }, [dispatch])
 
 
   return (
