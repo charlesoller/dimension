@@ -4,10 +4,11 @@ import { config } from '../config'
 const { jwtConfig } = config
 const { secret, expiresIn } = jwtConfig;
 import { PrismaClient } from '@prisma/client';
+import { Response } from 'express';
 const prisma = new PrismaClient();
 
 // Sends a JWT Cookie
-const setTokenCookie = async (res: any, user: any) => {
+const setTokenCookie = async (res: Response, user: any) => {
   // Create the token.
   console.log("In set Token")
   const safeUser = {
@@ -20,15 +21,14 @@ const setTokenCookie = async (res: any, user: any) => {
     secret,
     { expiresIn: parseInt(expiresIn) } // 604,800 seconds = 1 week
   );
-  // console.log("TOKEN: ", token)
   const isProduction = process.env.NODE_ENV === "production";
   
   // Set the token cookie
   res.cookie('token', token, {
     maxAge: parseInt(expiresIn) * 1000, // maxAge in milliseconds
-    // httpOnly: true,
-    // secure: isProduction,
-    sameSite: isProduction && "Lax"
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction && "lax"
   });
 
   return token;
@@ -37,7 +37,7 @@ const setTokenCookie = async (res: any, user: any) => {
 const restoreUser = (req: any, res: any, next: any) => {
   // token parsed from cookies
   const { token } = req.cookies;
-  // console.log("restoreUser, Cookies: ", req.cookies)
+  console.log("restoreUser, Cookies: ", req.cookies)
   // console.log("restoreUser, Token: ", token)
   req.user = null;
   return jwt.verify(token, secret, null, async (err: any, jwtPayload: any) => {

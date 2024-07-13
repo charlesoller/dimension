@@ -1,5 +1,6 @@
 // @ts-nocheck
-import { Router } from 'express'
+
+import { Response, Router } from 'express'
 import bcrypt from 'bcryptjs'
 import { check } from 'express-validator'
 import { PrismaClient } from '@prisma/client';
@@ -21,7 +22,7 @@ const validateLogin = [
   ];
 
 // Log in
-router.post('/', async (req, res, next) => {
+router.post('/', async (req, res: Response, next) => {
     const { credential, password } = req.body;
     if(!credential || !password){
       const err = new Error("Bad Request")
@@ -58,7 +59,8 @@ router.post('/', async (req, res, next) => {
     };
 
     await setTokenCookie(res, safeUser);
-    console.log("RES: ", res)
+    // console.log("RES: ", res)
+    console.log("COOKIE", res.cookie)
     
     return res.json({ user });
   }
