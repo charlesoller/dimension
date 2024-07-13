@@ -42,25 +42,25 @@ app.use(
 
 // Add a XSRF-TOKEN cookie in development
 // if (!isProduction) {
-  app.get("/api/csrf/restore", (req, res) => {
-    const csrfToken = req.csrfToken();
-    res.cookie("XSRF-TOKEN", csrfToken);
-    res.status(200).json({
-      'XSRF-Token': csrfToken
-    });
-  });
-// }
+//   app.get("/api/csrf/restore", (req, res) => {
+//     const csrfToken = req.csrfToken();
+//     res.cookie("XSRF-TOKEN", csrfToken);
+//     res.status(200).json({
+//       'XSRF-Token': csrfToken
+//     });
+//   });
+// // }
 
-// Set the _csrf token and create req.csrfToken method
-app.use(
-  csurf({
-    cookie: {
-      secure: isProduction,
-      sameSite: isProduction && "Lax",
-      httpOnly: true
-    }
-  })
-);
+// // Set the _csrf token and create req.csrfToken method
+// app.use(
+//   csurf({
+//     cookie: {
+//       secure: isProduction,
+//       sameSite: isProduction && "Lax",
+//       httpOnly: true
+//     }
+//   })
+// );
 
 app.use('/api', apiRouter)
 
