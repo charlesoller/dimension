@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser'
 import apiRouter from "./routers"
 import { config } from './config';
 import { PrismaClientValidationError } from '@prisma/client/runtime/library';
-import path from 'path';
+// import path from 'path';
 dotenv.config();
 const port = process.env.PORT || 3000;
 const app = express();
@@ -17,7 +17,7 @@ const app = express();
 const { environment } = config;
 const isProduction = environment === 'production';
 
-app.use(cors());
+// app.use(cors());
 app.use(cookieParser());
 app.use(express.json())
 
