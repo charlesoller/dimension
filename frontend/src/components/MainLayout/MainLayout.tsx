@@ -19,11 +19,13 @@ export default function MainLayout() {
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state: any) => state.session.user);
-  dispatch(loadUserThunk(currentUser?.username) as any);
+  console.log("The current user: ", currentUser)
 
   useEffect(() => {
+    console.log("In useEffect")
     dispatch(restoreUserThunk() as any);
-  }, [dispatch])
+    dispatch(loadUserThunk(currentUser?.username) as any);
+  }, [dispatch, currentUser])
 
 
   return (
