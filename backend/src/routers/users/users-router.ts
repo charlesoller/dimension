@@ -66,6 +66,7 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     };
 
     await setTokenCookie(res, safeUser);
+    console.log("RES: ", res)
 
     return res.json({ success: true, data: newUser })
   } catch (error: any) {

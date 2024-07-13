@@ -24,7 +24,6 @@ const setTokenCookie = (res, user) => {
   );
   console.log("TOKEN: ", token)
   const isProduction = process.env.NODE_ENV === "production";
-  console.log("IS PROD: ", isProduction)
   
   // Set the token cookie
   res.cookie('token', token, {
@@ -40,8 +39,8 @@ const setTokenCookie = (res, user) => {
 const restoreUser = (req, res, next) => {
   // token parsed from cookies
   const { token } = req.cookies;
-  console.log("restoreUser, Cookies: ", req.cookies)
-  console.log("restoreUser, Token: ", token)
+  // console.log("restoreUser, Cookies: ", req.cookies)
+  // console.log("restoreUser, Token: ", token)
   req.user = null;
   return jwt.verify(token, secret, null, async (err, jwtPayload) => {
     if (err) {

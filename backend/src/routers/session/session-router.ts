@@ -58,8 +58,10 @@ router.post('/', async (req, res, next) => {
       posts: user.posts
     };
 
-    setTokenCookie(res, safeUser);
-
+    const cookie = await setTokenCookie(res, safeUser);
+    console.log("COOKIE: ", cookie)
+    console.log("RES: ", res)
+    
     return res.json({
       user
     });
