@@ -23,6 +23,7 @@ const validateLogin = [
 
 // Log in
 router.post('/', async (req, res: Response, next) => {
+  console.log("In login")
     const { credential, password } = req.body;
     if(!credential || !password){
       const err = new Error("Bad Request")
@@ -58,11 +59,8 @@ router.post('/', async (req, res: Response, next) => {
       email: user.email,
     };
 
-    console.log("Before set token")
     await setTokenCookie(res, safeUser);
-    console.log("After set toekn")
-    // console.log("RES: ", res)
-    // console.log("COOKIE", res)
+    console.log("After")
     
     return res.json({ user });
   }

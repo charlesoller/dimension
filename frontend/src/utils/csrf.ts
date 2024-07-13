@@ -7,6 +7,8 @@ export async function csrfFetch(url, options = {}) {
   options.method = options.method || 'GET';
   // set options.headers to an empty object if there is no headers
   options.headers = options.headers || {};
+
+  options.credentials = 'include';
   // if the options.method is not 'GET', then set the "Content-Type" header to
   // "application/json", and set the "XSRF-TOKEN" header to the value of the
   // "XSRF-TOKEN" cookie
@@ -17,7 +19,7 @@ export async function csrfFetch(url, options = {}) {
   }
   if (env === "production") {
     try {
-      const res = await window.fetch("https://dimension-1.onrender.com" + url, options);
+      const res = await fetch("https://dimension-1.onrender.com" + url, options);
       return res;
     } catch (e) {
       throw new Error(e.message);

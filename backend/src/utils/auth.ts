@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 
 // Sends a JWT Cookie
 const setTokenCookie = async (res: Response, user: any) => {
-  console.log("0: Set Cookie")
+  console.log("Setting Cookie")
   // Create the token.
   const safeUser = {
     id: user.id,
@@ -35,11 +35,10 @@ const setTokenCookie = async (res: Response, user: any) => {
 };
 
 const restoreUser = (req: Request, res: Response, next: NextFunction) => {
-  console.log("1: Restore Middleware")
+  console.log("Restoring User")
+  console.log("Cookies: ", req.cookies)
   // token parsed from cookies
   const { token } = req.cookies;
-  // console.log("restoreUser, Cookies: ", req.cookies)
-  console.log("restoreUser, Token: ", token)
   req.user = null;
   return jwt.verify(token, secret, undefined, async (err: any, jwtPayload: any) => {
     if (err) {
