@@ -55,15 +55,12 @@ router.post('/', async (req, res, next) => {
       username: user.username,
       name: user.name,
       email: user.email,
-      posts: user.posts
     };
 
     await setTokenCookie(res, safeUser);
-    // console.log("RES COOKIE: ", res.cookie)
+    console.log("RES: ", res)
     
-    return res.json({
-      user
-    });
+    return res.json({ user });
   }
 );
 
