@@ -24,7 +24,7 @@ const setTokenCookie = async (res: any, user: any) => {
   const isProduction = process.env.NODE_ENV === "production";
   
   // Set the token cookie
-  const cookie = await res.cookie('token', token, {
+  const cookie = res.cookie('token', token, {
     maxAge: parseInt(expiresIn) * 1000, // maxAge in milliseconds
     httpOnly: true,
     secure: isProduction,

@@ -71,7 +71,7 @@ app.use(
 // }
 
 // Add a XSRF-TOKEN cookie in development
-// if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
   app.get("/api/csrf/restore", (req, res) => {
     const csrfToken = req.csrfToken();
     res.cookie("XSRF-TOKEN", csrfToken);
@@ -79,7 +79,7 @@ app.use(
       'XSRF-Token': csrfToken
     });
   });
-// }
+}
 
 app.use((_req, _res, next) => {
     const err = new Error("The requested resource couldn't be found.");
