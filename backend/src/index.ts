@@ -40,7 +40,18 @@ app.use(
 );
 
 
-// // Set the _csrf token and create req.csrfToken method
+// Add a XSRF-TOKEN cookie in development
+// if (!isProduction) {
+  app.get("/api/csrf/restore", (req, res) => {
+    const csrfToken = req.csrfToken();
+    res.cookie("XSRF-TOKEN", csrfToken);
+    res.status(200).json({
+      'XSRF-Token': csrfToken
+    });
+  });
+// }
+
+// Set the _csrf token and create req.csrfToken method
 app.use(
   csurf({
     cookie: {
@@ -77,20 +88,6 @@ app.use('/api', apiRouter)
 // });
 // }
 
-app.get("/", (req, res) => {
-  return res.json("Hello, World!")
-})
-
-// Add a XSRF-TOKEN cookie in development
-// if (!isProduction) {
-  app.get("/api/csrf/restore", (req, res) => {
-    const csrfToken = req.csrfToken();
-    res.cookie("XSRF-TOKEN", csrfToken);
-    res.status(200).json({
-      'XSRF-Token': csrfToken
-    });
-  });
-// }
 
 // Error Handlers
 app.use((_req, _res, next) => {
@@ -123,6 +120,7 @@ app.use((err, _req, res, _next) => {
   });
 });
 
+app.get("/", (req, res) => res.json("Hello, World!"));
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
