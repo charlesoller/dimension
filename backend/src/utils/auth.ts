@@ -25,10 +25,10 @@ const setTokenCookie = async (res: Response, user: any) => {
   
   // Set the token cookie
   res.cookie('token', token, {
-    maxAge: parseInt(expiresIn) * 1000, // maxAge in milliseconds
+    // maxAge: parseInt(expiresIn) * 1000, // maxAge in milliseconds
     httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction && "lax"
+    // sameSite: isProduction && "lax"
   });
 
   return token;
@@ -41,7 +41,9 @@ const restoreUser = (req: Request, res: Response, next: NextFunction) => {
   const { token } = req.cookies;
   req.user = null;
   return jwt.verify(token, secret, undefined, async (err: any, jwtPayload: any) => {
+    console.log("In verify")
     if (err) {
+      console.log("In error")
       return next();
     }
     console.log("JWT Payload: ", jwtPayload)
