@@ -1,15 +1,13 @@
-// @ts-nocheck
 // backend/utils/auth.js
 import jwt from 'jsonwebtoken'
 import { config } from '../config'
-// const { User } = require('../db/models');
 const { jwtConfig } = config
 const { secret, expiresIn } = jwtConfig;
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // Sends a JWT Cookie
-const setTokenCookie = (res, user) => {
+const setTokenCookie = async (res: any, user: any) => {
   // Create the token.
   console.log("In set Token")
   const safeUser = {
@@ -26,23 +24,23 @@ const setTokenCookie = (res, user) => {
   const isProduction = process.env.NODE_ENV === "production";
   
   // Set the token cookie
-  res.cookie('token', token, {
-    maxAge: expiresIn * 1000, // maxAge in milliseconds
+  const cookie = await res.cookie('token', token, {
+    maxAge: parseInt(expiresIn) * 1000, // maxAge in milliseconds
     httpOnly: true,
     secure: isProduction,
     sameSite: isProduction && "Lax"
   });
-
+  console.log("Cookie: ", cookie)
   return token;
 };
 
-const restoreUser = (req, res, next) => {
+const restoreUser = (req: any, res: any, next: any) => {
   // token parsed from cookies
   const { token } = req.cookies;
   // console.log("restoreUser, Cookies: ", req.cookies)
   // console.log("restoreUser, Token: ", token)
   req.user = null;
-  return jwt.verify(token, secret, null, async (err, jwtPayload) => {
+  return jwt.verify(token, secret, null, async (err: any, jwtPayload: any) => {
     if (err) {
       return next();
     }
@@ -62,10 +60,10 @@ const restoreUser = (req, res, next) => {
   });
 };
 
-const requireAuth = function (req, _res, next) {
+const requireAuth = function (req: any, _res: any, next: any) {
   if (req.user) return next();
 
-  const err = new Error('Authentication required');
+  const err = new Error('Authentication required') as any;
   err.title = 'Authentication required';
   err.errors = { message: 'Authentication required' };
   err.status = 401;
