@@ -28,7 +28,7 @@ const setTokenCookie = async (res: Response, user: any) => {
     // maxAge: parseInt(expiresIn) * 1000, // maxAge in milliseconds
     httpOnly: true,
     secure: isProduction,
-    // sameSite: isProduction && "lax"
+    sameSite: isProduction && "none"
   });
 
   return token;
