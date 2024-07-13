@@ -4,7 +4,7 @@ import { config } from '../config'
 const { jwtConfig } = config
 const { secret, expiresIn } = jwtConfig;
 import { PrismaClient } from '@prisma/client';
-import { Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 const prisma = new PrismaClient();
 
 // Sends a JWT Cookie
@@ -34,13 +34,13 @@ const setTokenCookie = async (res: Response, user: any) => {
   return token;
 };
 
-const restoreUser = (req: any, res: any, next: any) => {
+const restoreUser = (req: Request, res: Response, next: NextFunction) => {
   // token parsed from cookies
   const { token } = req.cookies;
   console.log("restoreUser, Cookies: ", req.cookies)
-  // console.log("restoreUser, Token: ", token)
+  console.log("restoreUser, Token: ", token)
   req.user = null;
-  return jwt.verify(token, secret, null, async (err: any, jwtPayload: any) => {
+  return jwt.verify(token, secret, undefined, async (err: any, jwtPayload: any) => {
     if (err) {
       return next();
     }
