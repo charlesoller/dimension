@@ -10,6 +10,8 @@ import { setTokenCookie } from '../../utils/auth';
 const prisma = new PrismaClient();
 const router = Router();
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const validateLogin = [
     check('credential')
       .exists({ checkFalsy: true })
@@ -22,7 +24,7 @@ const validateLogin = [
   ];
 
 // Log in
-router.post('/', async (req, res: Response, next) => {
+router.post('/', validateLogin, async (req, res: Response, next) => {
     const { credential, password } = req.body;
     if(!credential || !password){
       const err = new Error("Bad Request")
@@ -89,7 +91,10 @@ router.get('/', async (req, res) => {
 
 // Log out
 router.delete('/', (_req, res) => {
-    res.clearCookie('token', { sameSite: 'none' });
+    res.clearCookie('token', { 
+      secure: isProduction && "true",
+      sameSite: isProduction && "none"
+    });
     return res.json({ message: 'success' });
   }
 );
