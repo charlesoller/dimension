@@ -19,6 +19,7 @@ import { restoreCSRF } from './utils/csrf.ts';
 import { csrfFetch } from './utils/csrf.ts';
 import Explore from './routes/Explore/Explore.tsx';
 import UserProfile from './routes/UserProfile/UserProfile.tsx';
+import NotFound from './routes/NotFound/NotFound.tsx';
 
 const store = configureStore({});
 
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: ":user",
         element: <UserProfile />
+      },
+      {
+        path: "*",
+        element: <NotFound />
       }
     ]
   }
