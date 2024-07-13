@@ -11,6 +11,7 @@ const prisma = new PrismaClient();
 // Sends a JWT Cookie
 const setTokenCookie = (res, user) => {
   // Create the token.
+  console.log("In set Token")
   const safeUser = {
     id: user.id,
     email: user.email,
@@ -21,9 +22,10 @@ const setTokenCookie = (res, user) => {
     secret,
     { expiresIn: parseInt(expiresIn) } // 604,800 seconds = 1 week
   );
-
+  console.log("TOKEN: ", token)
   const isProduction = process.env.NODE_ENV === "production";
-
+  console.log("IS PROD: ", isProduction)
+  
   // Set the token cookie
   res.cookie('token', token, {
     maxAge: expiresIn * 1000, // maxAge in milliseconds
@@ -38,6 +40,7 @@ const setTokenCookie = (res, user) => {
 const restoreUser = (req, res, next) => {
   // token parsed from cookies
   const { token } = req.cookies;
+  console.log("restoreUser, Cookies: ", req.cookies)
   console.log("restoreUser, Token: ", token)
   req.user = null;
   return jwt.verify(token, secret, null, async (err, jwtPayload) => {
@@ -49,7 +52,7 @@ const restoreUser = (req, res, next) => {
       const { id } = jwtPayload.data;
       req.user = await prisma.user.findFirstOrThrow({
         where: { id }
-      });
+      })
     } catch (e) {
       res.clearCookie('token');
       return next();

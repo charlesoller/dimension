@@ -69,7 +69,7 @@ router.post('/', async (req, res, next) => {
 // Restore session user
 router.get('/', async (req, res) => {
     const { user } = req;
-    console.log("In restore, user: ", user)
+    console.log("In session router, user: ", user)
     if (user) {
       const safeUser = {
         id: user.id,
