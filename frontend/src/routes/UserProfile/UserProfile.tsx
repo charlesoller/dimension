@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loadAllPostsThunk } from "../../store/posts";
 import styles from "./UserProfile.module.css"
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,8 @@ import { IPost, IUser } from "../../utils/types";
 import PostGrid from "../../components/PostGrid/PostGrid";
 import ProfileDetails from "../../components/ProfileDetails/ProfileDetails";
 import { loadUserThunk } from "../../store/users";
+import NotFound from "../NotFound/NotFound";
+import { RingLoader } from "react-spinners";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
@@ -22,7 +24,7 @@ export default function UserProfile() {
     dispatch(loadUserThunk(userParam) as any);
   }, [dispatch, userParam])
 
-  if (!user || !posts) return;
+  if (!user || !posts) return <NotFound />;
   return (
     <main className={styles.userProfile}>
       <ProfileDetails user={user} posts={posts} />

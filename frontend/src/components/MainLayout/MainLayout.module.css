@@ -2,6 +2,7 @@
   --nav-width: 200px;
 
   background: var(--primary-10);
+  height: 100vh;
 }
 
 .content {
@@ -12,6 +13,7 @@
   /* margin-left: auto; */
   margin: 0 auto;
   /* padding: 0 8em; */
+  height: 100%;
 }
 
 .nav {
@@ -21,4 +23,5 @@
 .outlet {
   width: calc(100% - var(--nav-width));
   margin-left: auto;
+  height: 100%;
 }
