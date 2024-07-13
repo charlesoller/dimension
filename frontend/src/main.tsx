@@ -22,10 +22,10 @@ import UserProfile from './routes/UserProfile/UserProfile.tsx';
 
 const store = configureStore({});
 
-restoreCSRF();
+// restoreCSRF();
 
 if (import.meta.env.MODE !== 'production') {
-  // restoreCSRF();
+  restoreCSRF();
 
   window.csrfFetch = csrfFetch;
   window.store = store;

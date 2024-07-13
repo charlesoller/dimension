@@ -58,7 +58,9 @@ router.post('/', async (req, res: Response, next) => {
       email: user.email,
     };
 
+    console.log("Before set token")
     await setTokenCookie(res, safeUser);
+    console.log("After set toekn")
     // console.log("RES: ", res)
     // console.log("COOKIE", res)
     
@@ -69,7 +71,6 @@ router.post('/', async (req, res: Response, next) => {
 // Restore session user
 router.get('/', async (req, res) => {
     const { user } = req;
-    console.log("In session router, user: ", user)
     console.log("2: Restore Route")
     if (user) {
       const safeUser = {
