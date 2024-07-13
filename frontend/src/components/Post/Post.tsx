@@ -3,20 +3,27 @@ import styles from "./Post.module.css"
 // Components
 import Viewport from "../Viewport/Viewport"
 // Util
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useIntersection } from "../../utils/hooks/useIntersection";
 // Types
 import { IPost } from "../../utils/types";
 import PostInfo from "../PostInfo/PostInfo";
 import LikeButton from "../LikeButton/LikeButton";
+import { useDispatch } from "react-redux";
+import { loadUserThunk } from "../../store/users";
 
 interface PostComponent {
     post: IPost;
 }
 
 export default function Post({ post }: PostComponent){
+    // const dispatch = useDispatch();
     const visibleRef = useRef(null);
     const isVisible = useIntersection(visibleRef, "500px");
+
+    // useEffect(() => {
+    //     dispatch(loadUserThunk(post?.author?.username) as any);
+    // }, []);
     
     return (
         <article className={styles.post} ref={visibleRef}>

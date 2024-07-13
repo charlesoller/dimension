@@ -9,11 +9,12 @@ import ProfileDetails from "../../components/ProfileDetails/ProfileDetails";
 import { loadUserThunk } from "../../store/users";
 
 export default function UserProfile() {
+  console.log("USEr PROFILE")
   const dispatch = useDispatch();
   const { user: userParam } = useParams();
 
   const user = useSelector((state: any) => Object.values(state.users))
-    .find((user: IUser) => user.username === userParam) as any;
+    .find((user: IUser) => user?.username === userParam) as any;
   const posts = useSelector((state: any) => Object.values(state.posts))
     .filter((post: IPost) => post?.author?.username === userParam) as any;
 
@@ -23,7 +24,7 @@ export default function UserProfile() {
     dispatch(loadUserThunk(userParam) as any);
   }, [dispatch, userParam])
 
-  if (!user || !posts) return;
+  // if (!user || !posts) return;
   return (
     <main className={styles.userProfile}>
       <ProfileDetails user={user} posts={posts} />
