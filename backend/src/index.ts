@@ -17,10 +17,7 @@ const app = express();
 const { environment } = config;
 const isProduction = environment === 'production';
 console.log("is prod?: ", isProduction)
-// app.use(cors({
-//   origin: "https://dimension-qqy6.onrender.com",
-//   credentials: true
-// }));
+
 app.use(cookieParser());
 app.use(express.json())
 
@@ -28,6 +25,11 @@ app.use(express.json())
 if (!isProduction) {
   // enable cors only in development
   app.use(cors());
+} else {
+  app.use(cors({
+    origin: "https://dimension-qqy6.onrender.com",
+    credentials: true
+  }));
 }
 
 // helmet helps set a variety of headers to better secure your app
@@ -72,10 +74,12 @@ app.use('/api', apiRouter)
   //   );
   // });
 // }
-
+app.get("/", (req, res) => {
+  return res.json("Hello, World!")
+})
 
 // Add a XSRF-TOKEN cookie in development
-if (environment !== 'production') {
+if (!isProduction) {
   app.get("/api/csrf/restore", (req, res) => {
     const csrfToken = req.csrfToken();
     res.cookie("XSRF-TOKEN", csrfToken);
