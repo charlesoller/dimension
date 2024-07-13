@@ -15,7 +15,6 @@ export async function csrfFetch(url, options = {}) {
     options.headers['Content-Type'] || 'application/json';
     options.headers['XSRF-Token'] = Cookies.get('XSRF-TOKEN');
   }
-  console.log("XSRF: ", Cookies.get('XSRF-TOKEN'))
   if (env === "production") {
     try {
       const res = await window.fetch("https://dimension-1.onrender.com" + url, options);
