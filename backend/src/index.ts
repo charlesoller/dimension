@@ -76,12 +76,13 @@ app.use('/api', apiRouter)
 //   );
 // });
 // }
+
 app.get("/", (req, res) => {
   return res.json("Hello, World!")
 })
 
 // Add a XSRF-TOKEN cookie in development
-if (!isProduction) {
+// if (!isProduction) {
   app.get("/api/csrf/restore", (req, res) => {
     const csrfToken = req.csrfToken();
     res.cookie("XSRF-TOKEN", csrfToken);
@@ -89,10 +90,9 @@ if (!isProduction) {
       'XSRF-Token': csrfToken
     });
   });
-}
+// }
 
 // Error Handlers
-
 app.use((_req, _res, next) => {
   const err = new Error("The requested resource couldn't be found.");
   err.title = "Resource Not Found";
