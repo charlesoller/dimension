@@ -17,7 +17,10 @@ const app = express();
 const { environment } = config;
 const isProduction = environment === 'production';
 
-// app.use(cors());
+app.use(cors({
+  origin: "https://dimension-qqy6.onrender.com",
+  credentials: true
+}));
 app.use(cookieParser());
 app.use(express.json())
 
