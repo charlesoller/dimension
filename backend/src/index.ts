@@ -16,15 +16,13 @@ const app = express();
 
 const { environment } = config;
 const isProduction = environment === 'production';
-
-app.use(cors({
-  origin: "https://dimension-qqy6.onrender.com",
-  credentials: true
-}));
+console.log("is prod?: ", isProduction)
+// app.use(cors({
+//   origin: "https://dimension-qqy6.onrender.com",
+//   credentials: true
+// }));
 app.use(cookieParser());
 app.use(express.json())
-
-app.use('/api', apiRouter)
 
 // Security Middleware
 if (!isProduction) {
@@ -50,6 +48,8 @@ app.use(
   })
 );
 
+app.use('/api', apiRouter)
+
 // Static routes
 // Serve React build files in production
 // if (process.env.NODE_ENV === 'production') {
@@ -73,8 +73,9 @@ app.use(
   // });
 // }
 
+
 // Add a XSRF-TOKEN cookie in development
-if (process.env.NODE_ENV !== 'production') {
+if (environment !== 'production') {
   app.get("/api/csrf/restore", (req, res) => {
     const csrfToken = req.csrfToken();
     res.cookie("XSRF-TOKEN", csrfToken);
