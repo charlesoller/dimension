@@ -20,17 +20,17 @@ const setTokenCookie = async (res: any, user: any) => {
     secret,
     { expiresIn: parseInt(expiresIn) } // 604,800 seconds = 1 week
   );
-  console.log("TOKEN: ", token)
+  // console.log("TOKEN: ", token)
   const isProduction = process.env.NODE_ENV === "production";
   
   // Set the token cookie
-  const cookie = res.cookie('token', token, {
+  res.cookie('token', token, {
     maxAge: parseInt(expiresIn) * 1000, // maxAge in milliseconds
-    httpOnly: true,
-    secure: isProduction,
+    // httpOnly: true,
+    // secure: isProduction,
     sameSite: isProduction && "Lax"
   });
-  console.log("Cookie: ", cookie)
+
   return token;
 };
 
