@@ -39,28 +39,19 @@ app.use(
   })
 );
 
-app.use('/api', apiRouter)
 
 // // Set the _csrf token and create req.csrfToken method
 app.use(
   csurf({
     cookie: {
       secure: isProduction,
-      sameSite: isProduction && "lax",
+      sameSite: isProduction && "Lax",
       httpOnly: true
     }
   })
 );
 
-// app.use(
-//   csurf({
-//     cookie: {
-//       secure: isProduction,
-//       sameSite: isProduction && "Lax",
-//       httpOnly: true
-//     }
-//   })
-// );
+app.use('/api', apiRouter)
 
 
 // Static routes
