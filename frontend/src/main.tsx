@@ -9,16 +9,14 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './index.css'
-import Login from './routes/Login/Login.tsx';
+// import Login from './routes/Login/Login.tsx';
 import MainLayout from './components/MainLayout/MainLayout.tsx';
-import { Feed } from './components/index.ts';
 import { Modal, ModalProvider } from './context/Modal.tsx';
 import * as sessionActions from './store/session.ts'
 import { Provider } from 'react-redux';
 import { configureStore } from './store/store.ts';
 import { restoreCSRF } from './utils/csrf.ts';
 import { csrfFetch } from './utils/csrf.ts';
-import ChannelView from './components/ChannelView/ChannelView.tsx';
 import Explore from './routes/Explore/Explore.tsx';
 import UserProfile from './routes/UserProfile/UserProfile.tsx';
 
@@ -51,10 +49,10 @@ const router = createBrowserRouter([
       }
     ]
   },
-  {
-    path: "/login",
-    element: <Login />
-  }
+  // {
+  //   path: "/login",
+  //   element: <Login />
+  // }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

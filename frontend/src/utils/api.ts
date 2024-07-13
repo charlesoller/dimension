@@ -1,7 +1,7 @@
 import { uploadFile } from "./clients/supabase";
 import { csrfFetch } from "./csrf";
 import { PostData } from "./types";
-const URL = "http://localhost:8000/api"
+// const URL = "http://localhost:8000/api"
 
 export const createPost = async (postData: PostData) => {
   const { file, description } = postData;
@@ -11,7 +11,7 @@ export const createPost = async (postData: PostData) => {
     return { success, data };
   }
 
-  const res = await csrfFetch(`${URL}/posts`, {
+  const res = await csrfFetch(`/posts`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
