@@ -89,7 +89,7 @@ router.get('/', async (req, res) => {
 
 // Log out
 router.delete('/', (_req, res) => {
-    res.clearCookie('token');
+    res.clearCookie('token', { sameSite: 'none' });
     return res.json({ message: 'success' });
   }
 );
