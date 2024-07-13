@@ -1,7 +1,6 @@
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import styles from "./Explore.module.css"
 import { useParams } from "react-router-dom";
-import { Channel } from "diagnostics_channel";
 import { useEffect } from "react";
 import PostGrid from "../../components/PostGrid/PostGrid";
 import { GoHash } from "react-icons/go";
@@ -17,7 +16,7 @@ export default function Explore() {
   const posts = useSelector((state: any)=> Object.values(state.posts), shallowEqual);
 
   useEffect(() => {
-      dispatch(loadAllPostsThunk() as any)
+    dispatch(loadAllPostsThunk() as any)
   }, [])
 
   const channelPosts = posts.filter(post => {

@@ -42,19 +42,15 @@ const router = createBrowserRouter([
         element: <Landing />
       },
       {
-        path: "/channels/:channelName",
+        path: "channels/:channelName",
         element: <Explore />
       },
       {
-        path: "/:user",
+        path: ":user",
         element: <UserProfile />
       }
     ]
-  },
-  // {
-  //   path: "/login",
-  //   element: <Login />
-  // }
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

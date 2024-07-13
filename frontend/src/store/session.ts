@@ -35,7 +35,6 @@ export const loginThunk = (user: UserLogin) => async (dispatch: Dispatch) => {
 export const restoreUserThunk = () => async (dispatch: Dispatch) => {
   const response = await csrfFetch("/api/session");
   const data = await response.json();
-  console.log("Data: ", data)
   dispatch(setUser(data.user));
   return response;
 };

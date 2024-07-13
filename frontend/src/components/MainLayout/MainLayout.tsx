@@ -19,7 +19,6 @@ export default function MainLayout() {
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state: any) => state.session.user);
-  console.log("The current user: ", currentUser)
 
   useEffect(() => {
     if (!currentUser) {

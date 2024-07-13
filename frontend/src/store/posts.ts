@@ -196,7 +196,7 @@ export const likeCommentThunk = (commentId: number, postId: number) => async (di
     console.error(data);
     return;
   }
-  console.log("DATA: ", data)
+  
   dispatch(likeComment(commentId, postId, data));
 }
 
