@@ -73,6 +73,7 @@ export default function SignupForm() {
 
   const isDisabled = () => (
     loading || !username.length || !email.length || !name.length || password.length < 6
+    || !email.includes("@")
   )
 
   return (

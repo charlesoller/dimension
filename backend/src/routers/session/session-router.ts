@@ -13,20 +13,21 @@ const router = Router();
 const isProduction = process.env.NODE_ENV === "production";
 
 const validateLogin = [
-    check('credential')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage('Please provide a valid email or username.'),
-    check('password')
-      .exists({ checkFalsy: true })
-      .withMessage('Please provide a password.'),
-    handleValidationErrors
-  ];
+  check('credential')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage('Please provide a valid email or username.'),
+  check('password')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a password.'),
+  handleValidationErrors
+];
 
 // Log in
 router.post('/', validateLogin, async (req, res: Response, next) => {
+  try {
     const { credential, password } = req.body;
-    if(!credential || !password){
+    if (!credential || !password) {
       const err = new Error("Bad Request")
       err.status = 400
       err.errors = {
@@ -46,7 +47,7 @@ router.post('/', validateLogin, async (req, res: Response, next) => {
       },
       include: { profilePicture: true }
     })
-  
+
     if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
       const err = new Error('Invalid credentials');
       err.status = 401;
@@ -61,42 +62,46 @@ router.post('/', validateLogin, async (req, res: Response, next) => {
     };
 
     await setTokenCookie(res, safeUser);
-    
+
     return res.json({ user });
+  } catch (e) {
+    next(e)
   }
+}
+
 );
 
 // Restore session user
 router.get('/', async (req, res) => {
-    const { user } = req;
-    if (user) {
-      const safeUser = {
-        id: user.id,
-        username: user.username,
-        name: user.name,
-        email: user.email,
-      };
+  const { user } = req;
+  if (user) {
+    const safeUser = {
+      id: user.id,
+      username: user.username,
+      name: user.name,
+      email: user.email,
+    };
 
-      const userData = await prisma.user.findUnique({
-        where: { username: user.username },
-        include: { profilePicture: true }
-      })
+    const userData = await prisma.user.findUnique({
+      where: { username: user.username },
+      include: { profilePicture: true }
+    })
 
-      return res.json({
-        user: userData
-      });
-    } else return res.json({ user: null });
-  }
+    return res.json({
+      user: userData
+    });
+  } else return res.json({ user: null });
+}
 );
 
 // Log out
 router.delete('/', (_req, res) => {
-    res.clearCookie('token', { 
-      secure: isProduction && "true",
-      sameSite: isProduction && "none"
-    });
-    return res.json({ message: 'success' });
-  }
+  res.clearCookie('token', {
+    secure: isProduction && "true",
+    sameSite: isProduction && "none"
+  });
+  return res.json({ message: 'success' });
+}
 );
 
 export default router;

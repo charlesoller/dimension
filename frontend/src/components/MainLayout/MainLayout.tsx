@@ -24,7 +24,9 @@ export default function MainLayout() {
     if (!currentUser) {
       dispatch(restoreUserThunk() as any);
     }
-    dispatch(loadUserThunk(currentUser?.username) as any);
+    if (currentUser) {
+      dispatch(loadUserThunk(currentUser?.username) as any);
+    }
   }, [dispatch, currentUser])
 
 

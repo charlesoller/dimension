@@ -25,6 +25,7 @@ export default function ButtonGroup({
           <Button
             onClick={tertiaryButtonOnClick}
             variant="link"
+            type="button"
             disabled={disabled}
           >
             {tertiaryButtonText}
@@ -36,6 +37,7 @@ export default function ButtonGroup({
       <Button
         onClick={secondaryButtonOnClick}
         variant="outlined"
+        type="button"
         disabled={disabled}
       >
         {secondaryButtonText}

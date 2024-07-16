@@ -28,8 +28,12 @@ export const loginThunk = (user: UserLogin) => async (dispatch: Dispatch) => {
     })
   });
   const data = await response.json();
+  if (data.success === false) {
+    return { success: false, data: data.message }
+  }
+  console.log("Data: ", data)
   dispatch(setUser(data.user));
-  return response;
+  return data;
 };
 
 export const restoreUserThunk = () => async (dispatch: Dispatch) => {

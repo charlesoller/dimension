@@ -11,20 +11,18 @@ export default function LoginForm() {
   const dispatch = useDispatch()
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [error, setError] = useState("");
   const { closeModal, setModalContent } = useModal() as any;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors({});
-    return dispatch(loginThunk({ credential, password }) as any)
-      .then(res => {
-        if (!res.ok) {
-          setErrors({ credential: "The provided credentials were invalid." });
-        } else {
-          closeModal()
-        }
-      })
+    setError("");
+    const data = await dispatch(loginThunk({ credential, password }) as any)
+    if (data.success === false) {
+      setError("Unable to login. Please provide valid credentials.")
+    } else {
+      closeModal()
+    }
   };
 
   return (
@@ -49,6 +47,7 @@ export default function LoginForm() {
           className={styles.input}
         />
       </label>
+      <p className={styles.error}>{ error }</p>
       <div className={styles.buttons}>
         <ButtonGroup
           primaryButtonText="Submit"
