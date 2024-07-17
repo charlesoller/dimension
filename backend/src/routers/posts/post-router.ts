@@ -94,7 +94,11 @@ router.post('/:id/comments', async (req: Request, res: Response, next: NextFunct
       include: {
         comments: {
           include: {
-            author: true,
+            author: {
+              include: {
+                profilePicture: true
+              }
+            },
             likes: true
           }
         }
