@@ -31,7 +31,7 @@ export const loginThunk = (user: UserLogin) => async (dispatch: Dispatch) => {
   if (data.success === false) {
     return { success: false, data: data.message }
   }
-  console.log("Data: ", data)
+  
   dispatch(setUser(data.user));
   return data;
 };

@@ -113,7 +113,7 @@ export default function CreatePostForm() {
         primaryButtonOnClick={handleSubmit}
         secondaryButtonText="Close"
         secondaryButtonOnClick={closeModal}
-        disabled={loading}
+        disabled={loading || !url}
       />
     </form>
   )

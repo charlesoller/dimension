@@ -1,6 +1,6 @@
 import styles from "./PostThumbnail.module.css"
 
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useModal } from "../../context/Modal"
 import { IPost } from "../../utils/types"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
@@ -22,8 +22,17 @@ interface PostThumbnailProps {
 
 export default function PostThumbnail({ post, showUserInfo = true }: PostThumbnailProps) {
   const [viewportKey, setViewportKey] = useState<string>(nanoid());
+  const [firstRender, setFirstRender] = useState<boolean>(true);
   const visibleRef = useRef(null);
   const isVisible = useIntersection(visibleRef, "0px");
+  const { setModalContent } = useModal() as any;
+
+  useEffect(() => {
+    if (!firstRender) {
+      setModalContent(<Post post={post} />);
+    }
+    setFirstRender(false);
+  }, [post, setModalContent])
 
   return (
     <article className={styles.thumbnail} ref={visibleRef}>
