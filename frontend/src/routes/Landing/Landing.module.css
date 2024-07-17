@@ -1,3 +1,15 @@
 .body {
   background: var(--primary-10);
 }
+
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+  height: 90vh;
+  color: var(--primary-3);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
