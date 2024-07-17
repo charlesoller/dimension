@@ -6,6 +6,7 @@ import styles from "./EditPostForm.module.css"
 import { useDispatch } from "react-redux";
 import { deletePostThunk, updatePostThunk } from "../../store/posts";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
+import { isOnlyWhitespace } from "../../utils/utils";
 
 export default function EditPostForm({ post }) {
   const dispatch = useDispatch();
@@ -40,9 +41,8 @@ export default function EditPostForm({ post }) {
         secondaryButtonOnClick={closeModal}
         tertiaryButtonText="Delete"
         tertiaryButtonOnClick={handleDelete}
-        disabled={loading}
+        disabled={loading || (description.length && isOnlyWhitespace(description))}
       >
-        
       </ButtonGroup>
     </form>
   )

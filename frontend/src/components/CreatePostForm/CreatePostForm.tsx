@@ -12,6 +12,7 @@ import { BarLoader } from "react-spinners";
 import Button from "../Button/Button";
 import classNames from "classnames";
 import { nanoid } from "nanoid"
+import { isOnlyWhitespace } from "../../utils/utils";
 
 export default function CreatePostForm() {
   const { closeModal } = useModal() as any;
@@ -113,7 +114,7 @@ export default function CreatePostForm() {
         primaryButtonOnClick={handleSubmit}
         secondaryButtonText="Close"
         secondaryButtonOnClick={closeModal}
-        disabled={loading || !url}
+        disabled={loading || !url || (description.length && isOnlyWhitespace(description))}
       />
     </form>
   )
