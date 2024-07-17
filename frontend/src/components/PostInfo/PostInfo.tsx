@@ -99,7 +99,7 @@ export default function PostInfo({ post }: PostInfoComponent) {
             }
           </div>
         </div>
-        {post?.description?.length && <h6 className={styles.subheader}>Description</h6>}
+        {post?.description?.length ? <h6 className={styles.subheader}>Description</h6> : null}
         <p className={styles.text}>{parseDescription(post.description)}</p>
       </div>
       <div className={styles.comments}>
