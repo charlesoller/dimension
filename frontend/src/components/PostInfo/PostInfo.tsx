@@ -9,7 +9,7 @@ import CommentInput from "../CommentInput/CommentInput";
 import { GoGear } from "react-icons/go";
 // Util
 import { useSelector } from "react-redux";
-import { timeAgo } from "../../utils/utils";
+import { isOnlyWhitespace, timeAgo } from "../../utils/utils";
 // Types
 import { IPost, IUser } from "../../utils/types"
 import LinkChip from "../LinkChip/LinkChip";
@@ -99,7 +99,7 @@ export default function PostInfo({ post }: PostInfoComponent) {
             }
           </div>
         </div>
-        {post?.description?.length ? <h6 className={styles.subheader}>Description</h6> : null}
+        {post?.description?.length && !isOnlyWhitespace(post?.description) ? <h6 className={styles.subheader}>Description</h6> : null}
         <p className={styles.text}>{parseDescription(post.description)}</p>
       </div>
       <div className={styles.comments}>

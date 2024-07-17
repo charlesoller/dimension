@@ -6,6 +6,7 @@ import { loginThunk } from "../../store/session";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import SignupForm from "../SignupForm/SignupForm";
 import ModalContent from "../ModalContent/ModalContent";
+import Button from "../Button/Button";
 
 export default function LoginForm() {
   const dispatch = useDispatch()
@@ -25,8 +26,17 @@ export default function LoginForm() {
     }
   };
 
+  const handleDemoLogin = (e) => {
+    e.preventDefault();
+    dispatch(loginThunk({ credential: 'charles@dimension.com', password: 'password1' }) as any);
+    closeModal();
+  }
+
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.center}>
+        <Button variant="link" onClick={handleDemoLogin}>Demo Login</Button>
+      </div>
       <label className={styles.inputGroup}>
         Username or Email
         <input

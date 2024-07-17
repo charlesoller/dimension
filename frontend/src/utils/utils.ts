@@ -28,3 +28,7 @@ export const timeAgo = (dateString: string | Date): string => {
     return `${years} year${years > 1 ? 's' : ''} ago`;
   }
 }
+
+export const isOnlyWhitespace = (input: string): boolean => {
+  return /^\s*$/.test(input);
+}

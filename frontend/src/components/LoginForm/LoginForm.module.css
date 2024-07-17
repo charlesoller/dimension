@@ -34,6 +34,10 @@
   margin-top: 1em;
 }
 
+.center {
+  margin: 0 auto;
+}
+
 .error {
   color: red;
 }

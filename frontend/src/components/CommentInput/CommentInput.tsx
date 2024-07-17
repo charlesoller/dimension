@@ -3,13 +3,10 @@ import styles from "./CommentInput.module.css"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { commentPostThunk } from "../../store/posts";
+import { isOnlyWhitespace } from "../../utils/utils";
 
 interface CommentInputComponent {
   postId: number;
-}
-
-const isOnlyWhitespace = (input: string): boolean => {
-  return /^\s*$/.test(input);
 }
 
 export default function CommentInput({ postId }: CommentInputComponent){
