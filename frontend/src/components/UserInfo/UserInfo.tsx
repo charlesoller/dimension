@@ -15,10 +15,10 @@ interface UserInfoComponent {
 
 export default function UserInfo({ user, noImage = false, noName = false }: UserInfoComponent){
     if (!user ) return;
-    
+
     return (
         <a href={`/${user.username}`} className={styles.userInfo}>
-            {!noImage && <img src={user.profilePicture?.url || PROFILE_PIC_PLACEHOLDER} className={styles.profilePicture} />}
+            {!noImage && <img src={user?.profilePicture?.url || PROFILE_PIC_PLACEHOLDER} className={styles.profilePicture} />}
             <div className={styles.user}>
                 {!noName && <h6 className={styles.userName}>{user.name}</h6>}
                 <p className={styles.userAt}>@{user.username}</p>

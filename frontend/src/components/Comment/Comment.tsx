@@ -1,5 +1,5 @@
 import { IComment, IUser } from "../../utils/types"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import UserInfo from "../UserInfo/UserInfo"
 import styles from "./Comment.module.css"
 import { deleteCommentThunk, editCommentThunk } from "../../store/posts"
@@ -22,10 +22,11 @@ interface CommentComponent {
   comment: IComment;
 }
 
-export default function Comment({ comment }: CommentComponent){
+export default function Comment({ comment }: CommentComponent) {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [commentText, setCommentText] = useState<string>(comment.content)
+  const [commentText, setCommentText] = useState<string>(comment.content);
+  const currentUser = useSelector((state: any) => state.session.user);
 
   const handleDelete = () => {
     dispatch(deleteCommentThunk(comment.id, comment.postId) as any);
@@ -46,32 +47,39 @@ export default function Comment({ comment }: CommentComponent){
         <UserInfo user={comment.author} />
         <div className={styles.dateAndButtons}>
           <p className={styles.date}>{timeAgo(comment.updatedAt)}{comment.createdAt !== comment.updatedAt && " (edited)"}</p>
-          <div className={styles.buttons}>
-            <button className={styles.iconButton}>
-              <GoPencil onClick={handleEdit} />
-            </button>
-            <button className={styles.iconButton}>
-              <GoTrash onClick={handleDelete} />
-            </button>
-          </div>
+          {
+            currentUser && currentUser.id === comment.authorId ?
+              <div className={styles.buttons}>
+                <button className={styles.iconButton}>
+                  <GoPencil onClick={handleEdit} />
+                </button>
+                <button className={styles.iconButton}>
+                  <GoTrash onClick={handleDelete} />
+                </button>
+              </div>
+              :
+              null
+          }
         </div>
       </div>
       <div className={styles.middle}>
         {
           isEditing ?
-          <input 
-            value={commentText}
-            onChange={(e) => setCommentText(e.target.value)}
-            className={styles.input}
-          />
-          : 
-          <p className={styles.body}>
-            {comment.content}
-          </p>
+            <form onSubmit={handleEdit} className={styles.form}>
+              <input
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
+                className={styles.input}
+              />
+            </form>
+            :
+            <p className={styles.body}>
+              {comment.content}
+            </p>
         }
       </div>
       <div className={styles.buttons}>
-        <LikeButton resource={comment}/>
+        <LikeButton resource={comment} />
       </div>
     </article>
   )

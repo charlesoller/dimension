@@ -54,9 +54,9 @@ export default function ProfileDetails({ user, posts }: ProfileDetailsProps) {
             ) : null}
           </div>
           <div className={styles.postsAndFollow}>
-            <p className={styles.userStat}>{posts.length} posts</p>
-            <p className={styles.userStat}>{user.followers.length} followers</p>
-            <p className={styles.userStat}>{user.following.length} following</p>
+            <p className={styles.userStat}>{posts?.length} posts</p>
+            <p className={styles.userStat}>{user?.followers?.length} followers</p>
+            <p className={styles.userStat}>{user?.following?.length} following</p>
           </div>
           <div className={styles.userDescription}>
             <h3 className={styles.name}>{user.name}</h3>

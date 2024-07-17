@@ -17,17 +17,6 @@ export default function CurrentUserInfo() {
   const user = useSelector((state: any) => state.session.user) as IUser;
 
   return (
-    // <OpenModalButton
-    //   modalComponent={
-    //     <ModalContent
-    //       title={ user ? "User Settings" : "Login"}
-    //       subtitle={ user ? "Manage your account" : "Log into your account"}
-    //     >
-    //       { user ? <EditUserForm /> : <LoginForm />}
-    //     </ModalContent>
-    //   }
-    //   className={styles.fullWidth}
-    // >
     <>
       {user ? (
         <Link to={`/${user?.username}`} className={styles.fullWidth}>

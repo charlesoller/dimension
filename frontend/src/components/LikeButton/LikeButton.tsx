@@ -19,6 +19,7 @@ const isPost = (resource: any): resource is IPost => {
 export default function LikeButton({ resource }: LikeButtonComponent){
   const dispatch = useDispatch()
   const currentUser = useSelector((state: any) => state.session.user);
+
   const hasUserLiked = useMemo(() => resource
     .likes?.map((like: PostLike | CommentLike) => like.authorId)
     .includes(currentUser?.id)
@@ -32,6 +33,7 @@ export default function LikeButton({ resource }: LikeButtonComponent){
     }
   }
 
+  if (!currentUser) return null;
   return (
     <button className={styles.likeButton} onClick={handleLike}>
     { hasUserLiked ?

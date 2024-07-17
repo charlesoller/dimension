@@ -20,7 +20,11 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
       channels: true,
       comments: {
         include: {
-          author: true,
+          author: {
+            include: {
+              profilePicture: true
+            }
+          },
           likes: true,
           post: true
         }

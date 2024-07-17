@@ -13,7 +13,10 @@ import { loginThunk } from "../../store/session";
 import { UserLogin } from "../../utils/types";
 import { createUserThunk } from "../../store/users";
 
-
+const isValidEmail = (input: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(input);
+}
 
 export default function SignupForm() {
   const dispatch = useDispatch();
@@ -31,9 +34,11 @@ export default function SignupForm() {
 
   const handleFileUpload = async (uploadedFile: File) => {
     setLoading(true);
+    setError("");
+    console.log("error: ", error)
     const { success, data } = await uploadFile(uploadedFile, 'profile_pictures');
     if (!success) {
-      console.log({ success, data })
+      setError("Error with uploading this image. Please try a different photo.")
       return { success, data };
     }
 
@@ -44,7 +49,7 @@ export default function SignupForm() {
 
   const handleDemoLogin = (e) => {
     e.preventDefault();
-    dispatch(loginThunk({ credential: 'charles', password: 'password1' }) as any);
+    dispatch(loginThunk({ credential: 'charles@dimension.com', password: 'password1' }) as any);
     closeModal();
   }
 
@@ -73,7 +78,7 @@ export default function SignupForm() {
 
   const isDisabled = () => (
     loading || !username.length || !email.length || !name.length || password.length < 6
-    || !email.includes("@")
+    || !isValidEmail(email)
   )
 
   return (
