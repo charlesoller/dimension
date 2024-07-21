@@ -17,7 +17,11 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
         updatedAt: new Date()
       },
       include: {
-        author: true,
+        author: {
+          include: {
+            profilePicture: true
+          }
+        }
         likes: true
       }
     });
