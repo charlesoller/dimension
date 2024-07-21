@@ -32,7 +32,8 @@ export default function Comment({ comment }: CommentComponent) {
     dispatch(deleteCommentThunk(comment.id, comment.postId) as any);
   }
 
-  const handleEdit = () => {
+  const handleEdit = (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<SVGElement, MouseEvent>) => {
+    e.preventDefault();
     if (!commentText.length || isOnlyWhitespace(commentText)) return;
     if (isEditing) {
       dispatch(editCommentThunk(comment.id, comment.postId, commentText) as any);
@@ -52,7 +53,7 @@ export default function Comment({ comment }: CommentComponent) {
             currentUser && currentUser.id === comment.authorId ?
               <div className={styles.buttons}>
                 <button className={styles.iconButton}>
-                  <GoPencil onClick={handleEdit} />
+                  <GoPencil onClick={(e) => handleEdit(e)} />
                 </button>
                 <button className={styles.iconButton}>
                   <GoTrash onClick={handleDelete} />
@@ -66,7 +67,7 @@ export default function Comment({ comment }: CommentComponent) {
       <div className={styles.middle}>
         {
           isEditing ?
-            <form onSubmit={handleEdit} className={styles.form}>
+            <form onSubmit={(e) => handleEdit(e)} className={styles.form}>
               <input
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
