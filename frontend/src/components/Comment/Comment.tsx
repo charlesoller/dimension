@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import UserInfo from "../UserInfo/UserInfo"
 import styles from "./Comment.module.css"
 import { deleteCommentThunk, editCommentThunk } from "../../store/posts"
-import { timeAgo } from "../../utils/utils"
+import { isOnlyWhitespace, timeAgo } from "../../utils/utils"
 import { useState } from "react"
 import { GoGear, GoPencil, GoTrash } from "react-icons/go"
 import LikeButton from "../LikeButton/LikeButton"
@@ -33,6 +33,7 @@ export default function Comment({ comment }: CommentComponent) {
   }
 
   const handleEdit = () => {
+    if (!commentText.length || isOnlyWhitespace(commentText)) return;
     if (isEditing) {
       dispatch(editCommentThunk(comment.id, comment.postId, commentText) as any);
       setIsEditing(false);
