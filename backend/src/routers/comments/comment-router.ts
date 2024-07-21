@@ -21,7 +21,7 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
           include: {
             profilePicture: true
           }
-        }
+        },
         likes: true
       }
     });
