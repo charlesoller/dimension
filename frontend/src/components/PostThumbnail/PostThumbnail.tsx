@@ -26,7 +26,7 @@ export default function PostThumbnail({ post, showUserInfo = true }: PostThumbna
   const visibleRef = useRef(null);
   const isVisible = useIntersection(visibleRef, "0px");
   const { setModalContent } = useModal() as any;
-
+  
   useEffect(() => {
     if (!firstRender) {
       setModalContent(<Post post={post} />);

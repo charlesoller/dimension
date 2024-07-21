@@ -9,7 +9,7 @@ interface PostGridProps {
 
 export default function PostGrid({ posts }: PostGridProps){
   const [visiblePosts, setVisiblePosts] = useState([]);
-
+  
   useEffect(() => {
       startTransition(() => {
           setVisiblePosts(_ => {

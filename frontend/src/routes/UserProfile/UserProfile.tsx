@@ -20,7 +20,9 @@ export default function UserProfile() {
     .filter((post: IPost) => post?.author?.username === userParam) as any;
 
   useEffect(() => {
-    dispatch(loadAllPostsThunk() as any);
+    if (!posts.length) {
+      dispatch(loadAllPostsThunk() as any);
+    }
     dispatch(loadUserThunk(userParam) as any);
   }, [dispatch, userParam])
 
