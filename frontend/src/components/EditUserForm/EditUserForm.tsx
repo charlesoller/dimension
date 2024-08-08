@@ -144,7 +144,7 @@ export default function EditUserForm() {
         primaryButtonOnClick={handleSubmit}
         secondaryButtonText="Close"
         secondaryButtonOnClick={closeModal}
-        disabled={loading}
+        disabled={loading || name.length < 5 || username.length < 5}
       />
     </form>
   )

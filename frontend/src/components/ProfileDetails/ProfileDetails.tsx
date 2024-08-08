@@ -35,19 +35,19 @@ export default function ProfileDetails({ user, posts }: ProfileDetailsProps) {
           <div className={styles.header}>
             <h6 className={styles.username}>@{user.username}</h6>
             {currentUser ? isCurrentUser ? (
-              null
-              // <OpenModalButton
-              //   buttonText={<GoGear className={styles.gear} />}
-              //   modalComponent={
-              //     <ModalContent
-              //       title={"User Settings"}
-              //       subtitle={"Manage your account"}
-              //       width={600}
-              //     >
-              //       <EditUserForm />
-              //     </ModalContent>
-              //   }
-              // />
+              // null
+              <OpenModalButton
+                buttonText={<GoGear className={styles.gear} />}
+                modalComponent={
+                  <ModalContent
+                    title={"User Settings"}
+                    subtitle={"Manage your account"}
+                    width={600}
+                  >
+                    <EditUserForm />
+                  </ModalContent>
+                }
+              />
             ) : (
               <Button onClick={handleFollow} variant={isUserFollowing ? "filled" : "outlined"}>
                 {isUserFollowing ? "Following" : "Follow"}
